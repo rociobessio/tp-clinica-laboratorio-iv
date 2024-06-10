@@ -1,0 +1,34 @@
+<main>
+    <div class="container" *ngIf="especialistas">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <!-- INICIO DE RECORRER EL ARRAY DE ESPECIALISTAS -->
+            <div class="col" *ngFor="let especialista of especialistas">
+                <div class="card">
+                    <img src="{{especialista.img}}" alt="img-esp">
+                    <!-- INICIO DE LA CARD CON LA INFO -->
+                    <div class="card-body">
+                        <h3>{{especialista.nombre}} {{especialista.apellido}}</h3>
+                        <h4>DNI: {{especialista.dni}}</h4>
+                        <h4>Edad: {{especialista.edad}}</h4>
+                        <h4>E-Mail: {{especialista.email}}</h4>
+
+                        <h5>Especialidades: </h5>
+                        <h6 *ngFor="let especialidad of especialista.especialidad"><strong>{{especialidad}}</strong></h6>
+                    </div>
+                    <!-- FIN DE LA CARD CON LA INFO -->
+
+                    <!-- INICIO DEL BOTON -->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button class="btn-habilitado"
+                        ngClass="{{especialista.active? 'btn-habilitado-no' : 'btn-habilitado-si'}}"
+                        (click)="onActivarEspecialista(especialista)">
+                            {{especialista.active?"Deshabilitar":"Hablitar"}}
+                        </button>
+                    </div>
+                    <!-- FIN DEL BOTON -->
+                </div>
+            </div>
+            <!-- FIN DE RECORRER EL ARRAY DE ESPECIALISTAS -->
+        </div>
+    </div>
+</main>

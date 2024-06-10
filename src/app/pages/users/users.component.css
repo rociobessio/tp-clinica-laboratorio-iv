@@ -4,3 +4,27 @@ main {
   margin: 0;
   padding: 0;
 }
+
+.container {
+  margin: 0;
+  z-index: -2;
+}
+
+app-sidebar{
+  z-index: 1;
+}
+
+
+@media (max-width: 767px) { 
+  h1{
+    margin-left: 20%;
+  }
+}
+/* Estilo del sidebar */
+
+.imgRedonda {
+  width:150px;
+  height:150px;
+  border-radius:150px;
+  border:10px solid #666;
+}

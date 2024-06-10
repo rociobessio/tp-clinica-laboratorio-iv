@@ -1,1 +1,61 @@
-<p>sidebar works!</p>
+<div class="sidebar">
+    <!-- INICIO DE LA SIDEBAR -->
+    <nav class="menu">
+        <ul>
+            <li>
+                <!-- INICIO DEL VOLVER -->
+                <a (click)="opcion('usuarios')">
+                    <img src="assets/icons/logo-pagina.png" alt="logo-pagina">
+                    <span class="nav-text">Volver</span>
+                </a>
+                <!-- FIN DEL VOLVER -->
+            </li>
+
+            <!-- INICIO DE ESPECIALISTAS -->
+            <li>
+                <a (click)="opcion('especialista')">
+                    <i class="fa fa-user-md fa-2x"></i>
+                    <span class="nav-text">
+                        Especialistas
+                    </span>
+                </a>
+            </li>
+            <!-- FIN DE ESPECIALISTAS -->
+
+            <!-- INICIO DE PACIENTES -->
+            <li>
+                <a (click)="opcion('paciente')">
+                    <i class="fa fa-user fa-2x"></i>
+                    <span class="nav-text">
+                        Pacientes
+                    </span>
+                </a>
+            </li>
+            <!-- FIN DE PACIENTES -->
+
+            <!-- INICIO DE ADMINS -->
+            <li>
+                <a (click)="opcion('admin')">
+                    <i class="fa fa-user fa-2x"></i>
+                    <span class="nav-text">
+                        Administradores
+                    </span>
+                </a>
+            </li>
+            <!-- FIN DE ADMINS -->
+        </ul>
+        <!-- INICIO DEL LOGOUT -->
+        <ul class="logout">
+            <li>
+                <a (click)="logOut()">
+                    <i class="fa fa-power-off fa-2x"></i>
+                    <span class="nav-text">
+                        LogOut
+                    </span>
+                </a>
+            </li>
+        </ul>
+        <!-- FIN DEL LOGOUT -->
+    </nav>
+    <!-- FIN DE LA SIDEBAR -->
+</div>
