@@ -1,0 +1,44 @@
+/* Importo bootstrap */
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+@font-face {
+  font-family: 'Galivanted';
+  src: url('./assets/fonts/galivanted.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Quenda';
+  src: url('./assets/fonts/Quenda-Medium.otf') format('truetype');
+}
+
+*{ 
+  margin: 0;
+  padding: 0; 
+  box-sizing: border-box;
+  color: black;
+  font-family: monospace;
+}
+/* Modifico el body */
+body{
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    
+  background: #ffffff;
+}
+
+/* INICIO DE MODIFICACION DEL SCROLLBAR */
+::-webkit-scrollbar{
+    width: 15px;
+}
+::-webkit-scrollbar-track{
+  background: transparent;
+}
+  
+::-webkit-scrollbar-thumb{
+  background: linear-gradient(#1ea150,#3f28ed);
+  border-radius: 10px;
+}
+/* FIN DE MODIFICACION DEL SCROLLBAR */

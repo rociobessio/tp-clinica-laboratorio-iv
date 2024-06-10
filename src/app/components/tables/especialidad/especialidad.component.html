@@ -1,0 +1,32 @@
+<!-- INICIO DEL CONTAINER DE LA TABLA -->
+<div class="container">
+    <!-- INICIO DE LA TABLA -->
+    <table>
+        <!-- INICIO DE LA CABECERA -->
+        <thead>
+            <tr>Especialidades</tr>
+        </thead>
+        <!-- FIN DE LA CABECERA -->
+
+        <!-- INICIO DEL CUERPO -->
+        <tbody>
+            <tr *ngFor="let esp of especialidades; let idx=index"
+            [ngClass]="{'table-active': rowsClicked.includes(idx)}"
+            (click)="onClickRow(esp.nombre, idx)">
+          <td [ngClass]="{'highlight': rowsClicked.includes(idx)}">{{esp.nombre}}</td>
+        </tr>
+        </tbody>
+        <!-- FIN DEL CUERPO -->
+    </table>
+    <!-- FIN DE LA TABLA -->
+</div>
+<!-- FIN DEL CONTAINER DE LA TABLA -->
+
+<!-- INICIO PARA AGREGAR ESPECIALIDAD -->
+<hr>
+<button class="btn" (click)="addEspecialidad()">Agregar Especialidad</button>
+<input type="text" class="form-control" id="especialidad" autocomplete=off placeholder="Nombre de especialidad" #especialidadInput>
+<span *ngIf="error" class="form-text text-danger">
+    Ya existe la especialidad ingresada.
+</span>
+<!-- FIN PARA AGREGAR ESPECIALIDAD -->
