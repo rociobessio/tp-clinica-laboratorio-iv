@@ -13,7 +13,9 @@ import { databaseInstance$ } from '@angular/fire/database';
 export class EspecialistasComponent implements OnInit{
   public especialistas!: Especialista[];//-->Para traer especialistas
   public especialidades!: Especialidad[];//-->Para traer pacientes
-
+  showFormComponent = false;
+  isRegistrationSuccessful = false;
+  
   constructor(private especialistaService : EspecialistaService, private especialidadService : EspecialidadService){}
   
   /**
@@ -66,4 +68,14 @@ export class EspecialistasComponent implements OnInit{
     return false;
   }
 
+  onRegistrationSuccess(success: boolean) {
+    if (success) {
+      this.isRegistrationSuccessful = true;
+      window.location.reload();//-->Recargo la pagina
+    }
+  }
+
+  onAddEspecialistaAdmin(){
+    this.showFormComponent = !this.showFormComponent;
+  }
 }

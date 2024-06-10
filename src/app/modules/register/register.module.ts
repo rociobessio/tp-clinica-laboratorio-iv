@@ -5,18 +5,22 @@ import { RegisterRoutingModule } from './register-routing.module';
 import { FormPacienteComponent } from '../../components/forms/form-paciente/form-paciente.component';
 import { TablaObraSocialComponent } from '../../components/tables/tabla-obra-social/tabla-obra-social.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormEspecialistaComponent } from '../../components/forms/form-especialista/form-especialista.component';
+import { EspecialidadComponent } from '../../components/tables/especialidad/especialidad.component';
 
 
 @NgModule({
   declarations: [
     FormPacienteComponent,
-    TablaObraSocialComponent
+    TablaObraSocialComponent,
+    FormEspecialistaComponent,
+    EspecialidadComponent
   ],
   imports: [
     CommonModule,
     RegisterRoutingModule,
     ReactiveFormsModule
   ],
-  exports: [FormPacienteComponent] 
+  exports: [FormPacienteComponent,FormEspecialistaComponent] 
 })
 export class RegisterModule { }

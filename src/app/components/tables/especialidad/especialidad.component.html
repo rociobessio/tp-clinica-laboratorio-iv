@@ -23,10 +23,12 @@
 <!-- FIN DEL CONTAINER DE LA TABLA -->
 
 <!-- INICIO PARA AGREGAR ESPECIALIDAD -->
-<hr>
-<button class="btn" (click)="addEspecialidad()">Agregar Especialidad</button>
-<input type="text" class="form-control" id="especialidad" autocomplete=off placeholder="Nombre de especialidad" #especialidadInput>
-<span *ngIf="error" class="form-text text-danger">
-    Ya existe la especialidad ingresada.
-</span>
+<hr *ngIf="isAdmin"> <!-- Mostrar la línea horizontal solo si isAdmin es true -->
+<div *ngIf="isAdmin"> <!-- Mostrar el siguiente bloque solo si isAdmin es true -->
+  <button class="btn" (click)="addEspecialidad()">Agregar Especialidad</button>
+  <input type="text" class="form-control" id="especialidad" autocomplete="off" placeholder="Nombre de especialidad" #especialidadInput>
+  <span *ngIf="error" class="form-text text-danger">
+      Ya existe la especialidad ingresada.
+  </span>
+</div>
 <!-- FIN PARA AGREGAR ESPECIALIDAD -->

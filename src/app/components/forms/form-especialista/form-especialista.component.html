@@ -1,0 +1,98 @@
+<main>
+    <!-- INICIO DEL CONTAINER DE ALTA -->
+    <div class="row g-5 justify-content-between">
+        <div class="col-md-6 col-lg-7 h-100 p-5 text-white bg-dark rounded-3">
+            <!-- INICIO DEL FORMULARIO DE ALTA -->
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <label for="nombre" class="label-form">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" placeholder="Ingrese nombre"
+                        formControlName="nombre">
+                        <span *ngIf="isValidField('nombre')" class="form-text text-danger">
+                            {{getFieldError('nombre')}}
+                        </span>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="apellido" class="label-form">Apellido</label>
+                        <input type="text" class="form-control" id="apellido" placeholder="Ingrese apellido"
+                        formControlName="apellido">
+                        <span *ngIf="isValidField('apellido')" class="form-text text-danger">
+                            {{getFieldError('apellido')}}
+                        </span>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="dni" class="label-form">DNI</label>
+                        <input type="text" class="form-control" id="dni" placeholder="Ingrese dni"
+                        formControlName="dni">
+                        <span *ngIf="isValidField('dni')" class="form-text text-danger">
+                            {{getFieldError('dni')}}
+                        </span>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="edad" class="label-form">Edad</label>
+                        <input type="text" class="form-control" id="edad" placeholder="Ingrese edad"
+                        formControlName="edad">
+                        <span *ngIf="isValidField('edad')" class="form-text text-danger">
+                            {{getFieldError('edad')}}
+                        </span>
+                    </div>
+
+                
+                    <div class="col-12">
+                        <hr class="my-4">
+                        <label for="email" class="label-form">E-Mail</label>
+                        <input type="email" class="form-control" id="email" placeholder="Ingrese email"
+                        formControlName="email">
+                        <span *ngIf="isValidField('email')" class="form-text text-danger">
+                            {{getFieldError('email')}}
+                        </span>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="password" class="label-form">Contraseña</label>
+                        <input type="password" class="form-control" id="password" placeholder="Ingrese contraseña"
+                        formControlName="password">
+                        <span *ngIf="isValidField('password')" class="form-text text-danger">
+                            {{getFieldError('password')}}
+                        </span>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="img" class="label-form">Foto de Perfil</label>
+                        <input type="file" class="form-control" id="img" formControlName="img"
+                        (change)="uploadImage($event)">
+                        <span *ngIf="isValidField('img')" class="form-text text-danger">
+                            {{getFieldError('img')}}
+                        </span>
+                    </div>
+
+                    <!-- HACER BOTON Y CAPTCHA (2do sprint captcha) -->
+                    <hr class="my-4">
+                    <button class="btn-registrarse">Registrarse</button>
+                    <!-- HACER BOTON Y CAPTCHA (2do sprint captcha) -->
+                </div>
+            </form>
+            <!-- FIN DEL FORMULARIO DE ALTA -->
+
+            <!-- Spinner fuera del formulario -->
+            <!-- <ngx-spinner *ngIf="isLoading" type="ball-scale-multiple"></ngx-spinner> -->
+
+        </div>
+        <!-- INICIO DE LA TABLA ESPECIALIDADES -->
+        <div class="col-md-3 col-lg-4 h-100 p-5 text-center text-white bg-dark rounded-3">
+            <h4 class="mb-3">Seleccione Especialidades</h4>
+            <span *ngIf="isValidField('especialidad')" class="form-text text-danger">
+                Por lo menos seleccione una especialidad.
+            </span>
+            <!-- <app-tabla-especialidad (especial)="getEspecialidad($event)"></app-tabla-especialidad> -->
+            <!-- <app-table-especialidad (especialidad)="getEspecialidad($event)"></app-table-especialidad> -->
+            <app-especialidad [isAdmin]="isAdmin" (especialidad)="getEspecialidad($event)"></app-especialidad>
+        </div>
+        <!-- FIN DE LA TABLA ESPECIALIDADES -->
+    </div>
+    <!-- FIN DEL CONTAINER DE ALTA -->
+</main>

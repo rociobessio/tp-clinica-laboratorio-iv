@@ -6,17 +6,17 @@ import { RegisterEspecialistaComponent } from './register-especialista.component
 import { EspecialidadComponent } from '../../../../components/tables/especialidad/especialidad.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { RegisterModule } from '../../../../modules/register/register.module';
 
 @NgModule({
   declarations: [
     RegisterEspecialistaComponent,
-    EspecialidadComponent
   ],
   imports: [
     CommonModule,
     RegisterEspecialistaRoutingModule,
     ReactiveFormsModule,
-    NgxSpinnerModule
+    RegisterModule
   ]
 })
 export class RegisterEspecialistaModule { }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Especialidad } from '../../../interfaces/especialida.interface';
 import { EspecialidadService } from '../../../services/especialidad.service';
 
@@ -13,6 +13,8 @@ export class EspecialidadComponent implements OnInit{
   public rowsClicked: number[] = [];
   public especialidades: Especialidad[] = [];
   public error: boolean = false;
+
+  @Input() isAdmin: boolean = false;//--> Para controlar mostrar el btn
 
   constructor(private especialidadService: EspecialidadService) { }
 

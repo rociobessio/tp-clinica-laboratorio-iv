@@ -11,7 +11,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { FormPacienteComponent } from './components/forms/form-paciente/form-paciente.component';
+
 
 @NgModule({
   declarations: [
