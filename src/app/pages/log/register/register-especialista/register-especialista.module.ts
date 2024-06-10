@@ -7,7 +7,6 @@ import { EspecialidadComponent } from '../../../../components/tables/especialida
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
-
 @NgModule({
   declarations: [
     RegisterEspecialistaComponent,

@@ -6,17 +6,19 @@ import { TablaObraSocialComponent } from '../../../../components/tables/tabla-ob
 import { RegisterPacienteComponent } from './register-paciente.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { FormPacienteComponent } from '../../../../components/forms/form-paciente/form-paciente.component';
+import { RegisterModule } from '../../../../modules/register/register.module';
 
 
 @NgModule({
   declarations: [
-    TablaObraSocialComponent,
     RegisterPacienteComponent
   ],
   imports: [
     CommonModule,
     RegisterPacienteRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RegisterModule
   ]
 })
 export class RegisterPacienteModule { }

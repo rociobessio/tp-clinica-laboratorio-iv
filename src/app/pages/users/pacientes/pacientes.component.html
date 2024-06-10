@@ -1,1 +1,29 @@
-<p>pacientes works!</p>
+<main>
+    <!-- INICIO DEL CONTENEDOR DE PACIENTES -->
+    <div class="container" *ngIf="pacientes">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="col-6" *ngFor="let paciente of pacientes">
+                <div class="card">
+                    <img src="{{paciente.img1}}" alt="img-pac">
+                    <div class="card-body">
+                        <h3>{{paciente.apellido}}, {{paciente.nombre}}</h3>
+                        <h4>DNI: {{paciente.dni}}</h4>
+                        <h4>Email: {{paciente.email}}</h4>
+                        <h4>Edad: {{paciente.edad}}</h4>
+                        <h4>Obra Social: {{paciente.obraSocial}}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!-- INICIO DEL BOTON PARA DAR EL ALTA DEL PACIENTE -->
+    <div class="div-btn">
+        <app-form-paciente *ngIf="showFormComponent" (registrationSuccess)="onRegistrationSuccess($event)"></app-form-paciente>
+        <button class="btn" (click)="onAddPacienteAdmin()">
+            {{ showFormComponent ? 'Cerrar' : 'Dar de Alta Paciente' }}
+        </button>
+    </div><br>
+    <!-- FIN DEL BOTON PARA DAR EL ALTA DEL PACIENTE -->
+    <!-- FIN DEL CONTENEDOR DE PACIENTES -->
+</main>

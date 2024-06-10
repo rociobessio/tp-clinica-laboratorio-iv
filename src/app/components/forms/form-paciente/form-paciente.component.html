@@ -1,7 +1,8 @@
+<!-- INICIO DEL MAIN -->
 <main>
     <!-- INICIO DEL CONTAINER PARA LOS FORMULARIOS -->
-    <div class="row mb-3">
-        <div class="card mb-4 rounded-3 shadow-sm bg-dark text-white">
+    <div class="row g-5 justify-content-between">
+        <div class="col-md-6 col-lg-7 h-100 p-5 text-white bg-dark rounded-3">
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
                 <div class="row g-3">
                     <div class="col-sm-6">
@@ -62,18 +63,37 @@
                     <div class="col-6">
                         <label for="imagen1" class="label-form">Foto de perfil</label>
                         <input type="file" class="form-control" id="imagen1" formControlName="imagen1"
-                            (change)="uploadImage($event)">
+                            (change)="uploadImageUno($event)">
                         <span *ngIf="isValidField('imagen1')" class="form-text text-danger">
                             Debe cargar la foto de perfil
                         </span>
                     </div>
+                    <div class="col-6">
+                        <label for="imagen2" class="label-form">Imagen de la Credencial</label>
+                        <input type="file" class="form-control" id="imagen2" formControlName="imagen2"
+                            (change)="uploadImageDos($event)">
+                        <span *ngIf="isValidField('imagen2')" class="form-text text-danger">
+                            Debe cargar la credencial
+                        </span>
+                    </div>
                     <!-- INICIO DEL BOTON PARA REGISTRARSE -->
                     <hr class="my-4">
-                    <button class="btn-registrarse" type="submit">Registrar Administrador</button>
+                    <button class="btn-registrarse" type="submit">Registrarse</button>
                     <!-- FIN DEL BOTON PARA REGISTRARSE -->
-                </div><br>
+                </div>
             </form>
         </div>
+        <!-- INICIO PARA MOSTRAR LA TABLA CON LAS OBRAS SOCIALES -->
+        <div class="col-md-3 col-lg-4 h-100 p-5 text-center text-white bg-dark rounded-3">
+            <h4 class="mb-3">Seleccione una Obra Social</h4>
+            <span *ngIf="isValidField('obra')" class="form-text text-danger">
+                {{getFieldError('obra')}}
+            </span>
+            <!-- <app-tabla-obras (obras)="getObra($event)"></app-tabla-obras> -->
+            <app-tabla-obra-social (obras)="getObra($event)"></app-tabla-obra-social>
+        </div>
+        <!-- FIN PARA MOSTRAR LA TABLA CON LAS OBRAS SOCIALES -->
     </div>
     <!-- FIN DEL CONTAINER PARA LOS FORMULARIOS -->
-</main>
+</main><br><br>
+<!-- FIN DEL MAIN -->

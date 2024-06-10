@@ -5,6 +5,10 @@ main {
   padding: 0;
 }
 
+h1{
+  font-family: 'Galivanted';
+}
+
 .container {
   margin: 0;
   z-index: -2;

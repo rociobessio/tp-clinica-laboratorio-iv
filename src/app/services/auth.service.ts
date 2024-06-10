@@ -67,6 +67,30 @@ export class AuthService {
       return null;
     }
   }
+
+  async registerAdmin(user: Usuario){
+    try{
+      const credential = await createUserWithEmailAndPassword(this.authAngFire, user.email, user.clave);
+      if(credential){
+        const currentUser = this.authAngFire.currentUser;
+        if(currentUser){
+          console.log("Administrador registrado.");
+          return credential.user;
+        }
+        else return null;
+
+      }else return null;
+    }
+    catch(error){
+      this.getError(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: this.msjError,
+      });
+      return null;
+    }
+  }
   
 
   private getError(error: any){
@@ -96,7 +120,7 @@ export class AuthService {
     return signOut(this.authAngFire)
     .then(() => {
         console.log(this.authAngFire.currentUser?.email);
-        this.router.navigate(['']);
+        // this.router.navigate(['']);
       })
     .catch(error =>{
         Swal.fire({

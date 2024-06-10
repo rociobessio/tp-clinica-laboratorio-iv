@@ -7,6 +7,8 @@ import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { EspecialistasComponent } from './especialistas/especialistas.component';
 import { PacientesComponent } from './pacientes/pacientes.component';
 import { AdministradoresComponent } from './administradores/administradores.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RegisterModule } from '../../modules/register/register.module';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { AdministradoresComponent } from './administradores/administradores.comp
   ],
   imports: [
     CommonModule,
-    UsersRoutingModule
+    UsersRoutingModule,
+    ReactiveFormsModule,
+    RegisterModule
   ]
 })
 export class UsersModule { }
