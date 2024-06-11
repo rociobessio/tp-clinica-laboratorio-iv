@@ -55,4 +55,23 @@ export class EspecialistaService {
     const docs = doc(this.dataRef,especialista.idDoc);
     updateDoc(docs, {active: especialista.active});
   }
+
+  /**
+   * Me permitira traerme un especialista
+   * por su mail.
+   * @param email el mail del
+   * especialista
+   * @returns 
+   */
+  obtenerEspPorMail(
+    email: string
+  ): Observable<Especialista | undefined> {
+    return new Observable<Especialista | undefined>(obs => {
+      this.traer()
+        .subscribe(lista => {
+          obs.next(lista.find(e => e.email === email));
+          obs.complete();
+        });
+    });
+  }
 }

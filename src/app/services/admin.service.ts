@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Admin } from '../interfaces/admin.interface';
-import { Firestore, collection, doc, setDoc } from '@angular/fire/firestore';
+import { Firestore, collection, doc, onSnapshot, query, setDoc } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,20 @@ export class AdminService {
     const docs = doc(this.dataRef);
     nuevoAdmin.idDoc = docs.id;
     return setDoc(docs, nuevoAdmin);
+  }
+
+  traer()
+  : Observable<Admin[]> {
+    const q = query(collection(this.firestore,'admins'));
+    return new Observable<Admin[]>((observer) => {
+      onSnapshot(q, (snapshot) => {
+        const admins: Admin[] = [];
+        snapshot.docChanges().forEach((change) =>{
+          const one = change.doc.data() as Admin;
+          admins.push(one);
+        });
+        observer.next(admins);
+      });
+    });
   }
 }

@@ -1,17 +1,30 @@
 main {
-  font-family: 'Quenda';
   text-align: center;
   margin: 0;
   padding: 0;
+
 }
 
 h1{
   font-family: 'Galivanted';
 }
 
+h5{
+  color: white;
+  font-family: 'Quenda';
+}
+
 .container {
   margin: 0;
   z-index: -2;
+}
+
+.card{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #3c58b9;
 }
 
 app-sidebar{
@@ -30,5 +43,5 @@ app-sidebar{
   width:150px;
   height:150px;
   border-radius:150px;
-  border:10px solid #666;
+  border:10px solid #166b03;
 }

@@ -5,6 +5,12 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import Swal from "sweetalert2";
 import { Usuario } from '../interfaces/user.interface';
+import { Admin } from '../interfaces/admin.interface';
+import { AdminService } from './admin.service';
+import { Paciente } from '../interfaces/paciente.interface';
+import { PacienteService } from './paciente.service';
+import { Especialista } from '../interfaces/especialista.interface';
+import { EspecialistaService } from './especialista.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,26 +19,15 @@ export class AuthService {
   msjError: string = "";
   
   constructor(private authAngFire : Auth,private firestore: Firestore,
-    private router: Router) { }
+    private router: Router,private adminService : AdminService,
+    private pacienteService : PacienteService, private especialista: EspecialistaService) { }
 
   async loginWithAuth(
     email: string, 
     password: string
   ) {
     try {
-        const response = await signInWithEmailAndPassword(this.authAngFire, email, password);
-        if (response) {
-            //-->Obtengo cuando se logueo en la app
-            const loginTime = Timestamp.now();
-            //-->Guardo el log del  inicio de sesion a Firebase
-            await addDoc(collection(this.firestore, 'logs'), {
-                email: email,
-                loginTime: loginTime
-            });
-            return response;
-        } else {
-            return null;
-        }
+      return await signInWithEmailAndPassword(this.authAngFire,email, password);
     } catch (error) {
         console.error("Error al iniciar sesión:", error);
         return null;
@@ -135,7 +130,58 @@ export class AuthService {
   getUserLogged(): Observable<User | null> {
     return Observable.create((observer: { next: (arg0: User | null) => void; complete: () => void; }) => {
       observer.next(this.authAngFire.currentUser);
-      observer.complete(); // Complete the observable
+      observer.complete();
     });
   }
+
+  esAdmin(email: string): Observable<Admin | null> {
+    return new Observable<Admin | null>((observer) => {
+      this.adminService.traer().subscribe(admins => {
+        for (const admin of admins) {
+          if (admin.email === email) {
+            observer.next(admin);
+            observer.complete();
+            return; // Exit the loop after finding a match
+          }
+        }
+        observer.next(null); // No matching admin found
+        observer.complete();
+      });
+    });
+  }
+
+  esPaciente(
+    email: string
+  ): Observable<Paciente | null> {
+    return new Observable<Paciente | null>((observer) => {
+      this.pacienteService.traer().subscribe(pacientes => {
+        pacientes.forEach(paciente => {
+          if (paciente.email === email) {
+            observer.next(paciente);
+            observer.complete();
+          }
+        });
+        observer.next(null);
+        observer.complete();
+      })
+    });
+  }
+
+  esEspecialista(
+    email: string
+  ): Observable<Especialista | null> {
+    return new Observable<Especialista | null>((observer) => {
+      this.especialista.traer().subscribe(especialista => {
+        especialista.forEach(especialista => {
+          if (especialista.email === email) {
+            observer.next(especialista);
+            observer.complete();
+          }
+        });
+        observer.next(null);
+        observer.complete();
+      })
+    });
+  }
+
 }
