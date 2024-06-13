@@ -7,6 +7,7 @@ import { TablaObraSocialComponent } from '../../components/tables/tabla-obra-soc
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormEspecialistaComponent } from '../../components/forms/form-especialista/form-especialista.component';
 import { EspecialidadComponent } from '../../components/tables/especialidad/especialidad.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { EspecialidadComponent } from '../../components/tables/especialidad/espe
   imports: [
     CommonModule,
     RegisterRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule
   ],
   exports: [FormPacienteComponent,FormEspecialistaComponent] 
 })

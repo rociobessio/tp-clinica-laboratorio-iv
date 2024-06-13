@@ -124,7 +124,7 @@ export class FormPacienteComponent implements OnInit {
   }
 
   async registerPaciente() {
-    this.spinner.show();
+    this.spinner.show();//-->Muestro el spinner
     try {
       const pathFile1 = await this.imagenService.subirImg(this.archivo1);
       this.paciente!.img1 = pathFile1;
@@ -147,7 +147,7 @@ export class FormPacienteComponent implements OnInit {
     } catch (error) {
       console.error("Error during patient registration:", error);
     } finally {
-      this.spinner.hide();
+      this.spinner.hide();//-->Oculto el spinner
     }
   }
 }
