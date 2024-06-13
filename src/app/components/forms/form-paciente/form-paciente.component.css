@@ -23,6 +23,11 @@ main {
     align-items: flex-start;
     padding-left: 20px;
 }
+
+.card-form,
+.card-obra-social{
+    background-color: darkslategrey;
+}
     
 /* INICIO DE MOD DEL BOTON PARA VOLVER Y REGISTRARSE*/
 .btn-volver {

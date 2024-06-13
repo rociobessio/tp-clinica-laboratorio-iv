@@ -1,7 +1,7 @@
 <main>
     <!-- INICIO DEL CONTAINER DE ALTA -->
     <div class="row g-5 justify-content-between">
-        <div class="col-md-6 col-lg-7 h-100 p-5 text-white bg-dark rounded-3">
+        <div class="card-form col-md-6 col-lg-7 h-100 p-5 text-white rounded-3">
             <!-- INICIO DEL FORMULARIO DE ALTA -->
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
                 <div class="row g-3">
@@ -83,7 +83,7 @@
 
         </div>
         <!-- INICIO DE LA TABLA ESPECIALIDADES -->
-        <div class="col-md-3 col-lg-4 h-100 p-5 text-center text-white bg-dark rounded-3">
+        <div class="card-especialidad col-md-3 col-lg-4 h-100 p-5 text-center text-white rounded-3">
             <h4 class="mb-3">Seleccione Especialidades</h4>
             <span *ngIf="isValidField('especialidad')" class="form-text text-danger">
                 Por lo menos seleccione una especialidad.

@@ -28,14 +28,14 @@ overflow:visible;
 }
 
 .menu {
-background:#3c58b9;
+background:#0b1d60;
 border-right:1px solid #e5e5e5;
 position:absolute;
 top:10;
 bottom:0;
 height:100%;
 left:0;
-width:45px;
+width:25px;
 overflow:hidden;
 -webkit-transition:width .05s linear;
 transition:width .05s linear;

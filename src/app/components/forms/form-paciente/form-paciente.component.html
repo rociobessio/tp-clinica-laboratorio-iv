@@ -2,7 +2,7 @@
 <main>
     <!-- INICIO DEL CONTAINER PARA LOS FORMULARIOS -->
     <div class="row g-5 justify-content-between">
-        <div class="col-md-6 col-lg-7 h-100 p-5 text-white bg-dark rounded-3">
+        <div class="card-form col-md-6 col-lg-7 h-100 p-5 text-white rounded-3">
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
                 <div class="row g-3">
                     <div class="col-sm-6">
@@ -84,7 +84,7 @@
             </form>
         </div>
         <!-- INICIO PARA MOSTRAR LA TABLA CON LAS OBRAS SOCIALES -->
-        <div class="col-md-3 col-lg-4 h-100 p-5 text-center text-white bg-dark rounded-3">
+        <div class="card-obra-social col-md-3 col-lg-4 h-100 p-5 text-center text-white rounded-3">
             <h4 class="mb-3">Seleccione una Obra Social</h4>
             <span *ngIf="isValidField('obra')" class="form-text text-danger">
                 {{getFieldError('obra')}}

@@ -9,7 +9,7 @@
         </div>
         <main class="col-md-9 ms-sm-auto col-lg-10">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2 text-capitalize">Administracion de {{select}}</h1>
+                <h1 class="h2 text-capitalize">  Administracion de {{select}}</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-group me-2">
                     </div>
@@ -23,18 +23,18 @@
                     <div class="container py-4">
                         <div class="row align-items-md-stretch justify-content-evenly" *ngIf="admin">
                             <div class="col-md-6 col-xl-6">
-                                <div class="card h-100 p-5 text-white rounded-3">
+                                <div class="card p-5 text-white rounded-3">
                                     <div class="row justify-content-evenly text-center align-items-center">
                                         <!-- INFO DEL USUARIO ADMINISTRADOR -->
                                         <div class="col-6">
-                                            <h5>{{admin.nombre}} {{admin.apellido}}</h5>
+                                            <h5 class="nombre-admin">{{admin.nombre}} {{admin.apellido}}</h5>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-6 admin-img-container">
                                             <img src={{admin.img}} alt="img perfil" class="imgRedonda">
                                         </div>
                                     </div>
                                     <hr>
-                                    <div style="margin-left: 20%;">
+                                    <div style="margin-left: 20%;" class="admin-info">
 
                                         <h5>DNI: {{admin.dni}}</h5>
                                         <h5>Email: {{admin.email}}</h5>
