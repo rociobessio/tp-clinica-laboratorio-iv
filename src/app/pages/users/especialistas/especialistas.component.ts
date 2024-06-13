@@ -71,7 +71,7 @@ export class EspecialistasComponent implements OnInit{
   onRegistrationSuccess(success: boolean) {
     if (success) {
       this.isRegistrationSuccessful = true;
-      window.location.reload();//-->Recargo la pagina
+      // window.location.reload();//-->Recargo la pagina
     }
   }
 
