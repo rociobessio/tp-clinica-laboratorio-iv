@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Especialista } from '../interfaces/especialista.interface';
 import { Firestore, collection, doc, onSnapshot, query, setDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { updateDoc } from 'firebase/firestore';
+import { getDocs, updateDoc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -73,5 +73,19 @@ export class EspecialistaService {
           obs.complete();
         });
     });
+  }
+
+  async obtener(ruta:string)
+  {
+    let array :any[]=[];
+    const querySnapshot = await getDocs(collection(this.firestore,ruta));
+    querySnapshot.forEach((doc) => {
+      let data = {
+        id : doc.id,
+        data : doc.data()
+      }
+      array.push(data);
+    });
+    return array;
   }
 }

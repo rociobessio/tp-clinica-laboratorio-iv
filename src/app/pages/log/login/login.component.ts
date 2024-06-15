@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../../interfaces/user.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
@@ -8,20 +8,31 @@ import {  NgxSpinnerService } from 'ngx-spinner';
 import Swal from 'sweetalert2';
 import { CurrentUserService } from '../../../services/current-user.service';
 import { EspecialistaService } from '../../../services/especialista.service';
+import { AdminService } from '../../../services/admin.service';
+import { PacienteService } from '../../../services/paciente.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   formLogin!: FormGroup;
   usuario! : Usuario;
+  isLoading : boolean = false;
+
+  admin : any;
+  especialista1 : any;
+  especialista2 : any;
+  paciente1 : any;
+  paciente2 : any;
+  paciente3 : any;
 
   constructor(private formBuilder: FormBuilder, private router: Router,
      private auth: AuthService, private usuarioService : UsuarioService,
      private spinner : NgxSpinnerService, private cUser : CurrentUserService,
-     private especialistaService : EspecialistaService
+     private especialistaService : EspecialistaService,
+     private adminService : AdminService, private pacienteService : PacienteService
     ) { 
       this.formLogin = this.formBuilder.group({
        usuario: ['', [Validators.required]],
@@ -29,8 +40,41 @@ export class LoginComponent {
      });
    }
 
+  /**
+   * En el OnInit me traigo los usuarios
+   * y uso el spinner para esperar 
+   * mientras cargan.
+   */
+  async ngOnInit(): Promise<void> {
+    this.isLoading = true;
+
+    //--> Obtengo los usuarios para el fast login.
+    let admins = await this.adminService.obtener('admins');
+    this.admin = admins.find((admin: any) => admin.data.email === "gabessio@gmail.com");
+    console.log('Administrador: ', this.admin);
+
+    let especialistas = await this.especialistaService.obtener('especialistas');
+    this.especialista1 = especialistas.find((esp1 : any) => esp1.data.email === 'rocibessio@gmail.com');
+    console.log('Especialista #1: ', this.especialista1);
+    this.especialista2 = especialistas.find((esp1 : any) => esp1.data.email === 'kotekib178@kernuo.com');
+    console.log('Especialista #2: ', this.especialista2);
+    
+    let pacientes = await this.pacienteService.obtener('pacientes');
+    this.paciente1 = pacientes.find((pac : any) => pac.data.email === 'testdecodigo003@gmail.com');
+    console.log('Paciente #1: ', this.paciente1);
+
+    this.paciente2 = pacientes.find((pac : any) => pac.data.email === 'sicoxe5539@cnurbano.com');
+    console.log('Paciente #2: ', this.paciente2);
+
+    this.paciente3 = pacientes.find((pac : any) => pac.data.email === 'mdv50y0olb@tidissajiiu.com');
+    console.log('Paciente #3: ', this.paciente3);
+
+    this.isLoading = false;
+  }
+
   onLogin() {
-    this.spinner.show();
+    this.isLoading = true;
+
     this.usuario = {
       email: this.formLogin.controls['usuario'].value,
       clave: this.formLogin.controls['clave'].value
@@ -46,7 +90,7 @@ export class LoginComponent {
             .subscribe(admin => {
               if (admin) {
                 setTimeout(() => {
-                  this.spinner.hide();
+                  this.isLoading = false;
                   console.log("Como Administrador");
                   this.cUser.admin = admin;
                   this.router.navigateByUrl('/usuarios');
@@ -60,7 +104,7 @@ export class LoginComponent {
                         this.auth.esPaciente(res.user!.email!).subscribe(paciente => {
                           if (paciente) {
                             setTimeout(() => {
-                              this.spinner.hide();
+                              this.isLoading = false;
                               this.cUser.paciente = paciente;
                               console.log("Como paciente");
                               this.router.navigateByUrl('/paciente');
@@ -70,7 +114,7 @@ export class LoginComponent {
                         this.auth.esEspecialista(res.user!.email!).subscribe(especialista => {
                           if (especialista) {
                             setTimeout(() => {
-                              this.spinner.hide();
+                              this.isLoading = false;
                               this.cUser.especialista = especialista;
                               console.log("Como especialista!");
                               this.router.navigateByUrl('/especialista');
@@ -80,7 +124,7 @@ export class LoginComponent {
                       }
                       else {
                         setTimeout(() => {
-                          this.spinner.hide();
+                          this.isLoading = false;
                           Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
@@ -93,7 +137,7 @@ export class LoginComponent {
                 }
                 else {
                   setTimeout(() => {
-                    this.spinner.hide();
+                    this.isLoading = false;
                     Swal.fire({
                       icon: 'error',
                       title: 'Oops...',
@@ -107,7 +151,7 @@ export class LoginComponent {
 
         } else {
           setTimeout(() => {
-            this.spinner.hide();
+            this.isLoading = false;
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
@@ -121,20 +165,54 @@ export class LoginComponent {
   }
 
 
-  onFastLoginPaciente() {
-    this.formLogin.controls['usuario'].setValue('testdecodigo003@gmail.com');
-    this.formLogin.controls['clave'].setValue('123456');
-    // this.onLogin();
+  onFastLoginPaciente1() {
+    if (this.paciente1) {
+      this.formLogin.controls['usuario'].setValue(this.paciente1.data.email);
+      this.formLogin.controls['clave'].setValue('123456');
+      this.onLogin();
+    } else {
+      console.error('Paciente no encontrado');
+    }
+  }
+
+  onFastLoginPaciente2() {
+    if (this.paciente2) {
+      this.formLogin.controls['usuario'].setValue(this.paciente2.data.email);
+      this.formLogin.controls['clave'].setValue('123456');
+      this.onLogin();
+    } else {
+      console.error('Paciente no encontrado');
+    }
+  }
+
+  onFastLoginPaciente3() {
+    if (this.paciente3) {
+      this.formLogin.controls['usuario'].setValue(this.paciente3.data.email);
+      this.formLogin.controls['clave'].setValue('123456');
+      this.onLogin();
+    } else {
+      console.error('Paciente no encontrado');
+    }
   }
 
   onFastLoginAdmin() {
-    this.formLogin.controls['usuario'].setValue('gabessio@gmail.com');
+    if (this.admin) {
+      this.formLogin.controls['usuario'].setValue(this.admin.data.email);
+      this.formLogin.controls['clave'].setValue('123456');
+      this.onLogin();
+    } else {
+      console.error('Administrador no encontrado');
+    }
+  }
+
+  onFastLoginEspecialista1() {
+    this.formLogin.controls['usuario'].setValue(this.especialista1.email);
     this.formLogin.controls['clave'].setValue('123456');
     // this.onLogin();
   }
 
-  onFastLoginEspecialista() {
-    this.formLogin.controls['usuario'].setValue('rocibessio@gmail.com');
+  onFastLoginEspecialista2() {
+    this.formLogin.controls['usuario'].setValue(this.especialista2.email);
     this.formLogin.controls['clave'].setValue('123456');
     // this.onLogin();
   }

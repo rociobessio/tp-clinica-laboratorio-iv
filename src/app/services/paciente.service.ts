@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, doc, onSnapshot, query, setDoc } from '@angular/fire/firestore';
+import { Firestore, collection, doc, getDocs, onSnapshot, query, setDoc } from '@angular/fire/firestore';
 import { ImagenService } from './imagen.service';
 import { Paciente } from '../interfaces/paciente.interface';
 import { Observable } from 'rxjs';
@@ -40,5 +40,19 @@ export class PacienteService {
         observer.next(pacientes);
       });
     });
+  }
+
+  async obtener(ruta:string)
+  {
+    let array :any[]=[];
+    const querySnapshot = await getDocs(collection(this.firestore,ruta));
+    querySnapshot.forEach((doc) => {
+      let data = {
+        id : doc.id,
+        data : doc.data()
+      }
+      array.push(data);
+    });
+    return array;
   }
 }

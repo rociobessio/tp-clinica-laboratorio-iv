@@ -34,20 +34,10 @@
                 <!-- FIN DE LA PASSWORD -->
 
                 <!-- INICIO DE LOS BOTONES -->
-                <div class="input-box"
-                style="--i:3;">
+                <div class="input-box">
                     <!-- EL BOTON DE LOGIN SOLO ESTARA ACTIVO CUANDO SE LLENEN LOS CAMPOS -->
                      <button type="submit" class="btn" [disabled]="formLogin.invalid" (click)="onLogin()">
                         Log-In
-                    </button> 
-                    <button type="submit" class="btn" (click)="onFastLoginAdmin()">
-                        Fast Login Admin
-                    </button>
-                    <button type="submit" class="btn" (click)="onFastLoginPaciente()">
-                        Fast Login Paciente
-                    </button> 
-                    <button type="submit" class="btn" (click)="onFastLoginEspecialista()">
-                        Fast Login Especialista
                     </button> 
                 </div>
                 <!-- FIN DE LOS BOTONES -->
@@ -57,13 +47,56 @@
         </div>
         <!-- FIN DEL LOGIN -->
 
-        <!-- COMIENZO DEL DIV DE INTOMACION -->
+        <!-- COMIENZO DEL DIV DE FAST LOGIN -->
         <div class="div-informacion login">
-            <!-- Puede ser algo medio pixel art -->
-            <!-- <h2 style="--i:0; --j:20;">Inicia Sesión</h2>
-            <p style="--i:1; --j:21;">Para poder controlar tu cuenta! </p> -->
+            <h2>Acceso Rápido</h2>
+            <!-- INICIO DE LOS FAST LOGIN -->
+            <div class="fast-login">
+                <!-- INICIO DEL BOTON DE ADMINISTRADOR -->
+                <button type="submit" class="btn-fast-login" (click)="onFastLoginAdmin()">
+                    <img [src]="admin?.data?.img" alt="img-admin" *ngIf="admin?.data?.img">
+                    <span class="btn-label">Admin</span>
+                </button>
+                <!-- FIN DEL BOTON DE ADMINISTRADOR -->
+                
+                <!-- INICIO DE LOS BOTONES DE PACIENTES -->
+                <button type="submit" class="btn-fast-login" (click)="onFastLoginPaciente1()">
+                    <img [src]="paciente1?.data?.img1" alt="img-pac-1" *ngIf="paciente1?.data?.img1">
+                    <span class="btn-label">Paciente #1</span>
+                </button> 
+
+                <button type="submit" class="btn-fast-login" (click)="onFastLoginPaciente2()">
+                    <img [src]="paciente2?.data?.img1" alt="img-pac-2" *ngIf="paciente2?.data?.img1">
+                    <span class="btn-label">Paciente #2</span>
+                </button> 
+
+                <button type="submit" class="btn-fast-login" (click)="onFastLoginPaciente3()">
+                    <img [src]="paciente3?.data?.img1" alt="img-pac-3" *ngIf="paciente3?.data?.img1">
+                    <span class="btn-label">Paciente #3</span>
+                </button> 
+                <!-- FIN DE LOS BOTONES DE PACIENTES -->
+
+                <!-- INICIO BOTONES ESPECIALISTAS -->
+                <button type="submit" class="btn-fast-login" (click)="onFastLoginEspecialista1()">
+                    <img [src]="especialista1?.data?.img" alt="img-esp-1" *ngIf="especialista1?.data?.img">
+                    <span class="btn-label">Especialista #1</span>
+                </button> 
+                <button type="submit" class="btn-fast-login" (click)="onFastLoginEspecialista2()">
+                    <img [src]="especialista2?.data?.img" alt="img-esp-2" *ngIf="especialista2?.data?.img">
+                    <span class="btn-label">Especialista #2</span>
+                </button> 
+                <!-- FIN BOTONES ESPECIALISTAS -->
+            </div>
+            <!-- FIN DE LOS FAST LOGIN -->
         </div>
-        <!-- FIN DEL DIV DE INFORMACION -->
+        <!-- FIN DEL DIV DE FAST LOGIN -->
     </div>
+
+    <!-- INICIO DEL SPINNER -->
+    <div *ngIf="isLoading" class="spinner-overlay">
+        <mat-progress-spinner mode="indeterminate" diameter="80" color="primary"></mat-progress-spinner>
+    </div>
+    <!-- FIN DEL SPINNER -->
+
     <br><br><br>
 </main>

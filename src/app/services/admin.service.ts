@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Admin } from '../interfaces/admin.interface';
-import { Firestore, collection, doc, onSnapshot, query, setDoc } from '@angular/fire/firestore';
+import { Firestore, collection, doc, getDocs, onSnapshot, query, setDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -43,5 +43,19 @@ export class AdminService {
         observer.next(admins);
       });
     });
+  }
+
+  async obtener(ruta:string)
+  {
+    let array :any[]=[];
+    const querySnapshot = await getDocs(collection(this.firestore,ruta));
+    querySnapshot.forEach((doc) => {
+      let data = {
+        id : doc.id,
+        data : doc.data()
+      }
+      array.push(data);
+    });
+    return array;
   }
 }
