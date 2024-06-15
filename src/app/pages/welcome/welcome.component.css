@@ -113,15 +113,16 @@ main {
   padding-bottom: 500px;
   } */
   .circular-div {
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease-in-out;
+    width: 300px;
+    height: 300px;
+    border-radius: 15px; /* Bordes redondeados */
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer; /* Añadir cursor de mano para indicar que es un botón */
   }
   
   .circular-image {
