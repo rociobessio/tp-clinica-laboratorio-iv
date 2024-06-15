@@ -17,6 +17,7 @@ export class AdministradoresComponent implements OnInit{
   private file: any;
   private user!: Usuario;
   private admin!: Admin;
+  public isLoading: boolean = false;//-->Para mostrar el spinner
 
   constructor(private fb: FormBuilder, private imagenService : ImagenService,
     private router: Router, private authService : AuthService, private adminService : AdminService) {}  
@@ -114,10 +115,17 @@ export class AdministradoresComponent implements OnInit{
       clave: password
     } as Usuario;
 
+    //-->Mostrar el spinner
+    this.isLoading = true;
+
     //--> Voy a registrarlo:
     this.authService.registerAdmin(this.user)
     .then(async res =>{
       if(!res){
+        
+        //-->Ocultar el spinner
+        this.isLoading = false;
+        
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -135,7 +143,10 @@ export class AdministradoresComponent implements OnInit{
             this.adminService.addAdmin(this.admin!)
               .then(() =>{
                 this.form.reset();//-->Reseteo el formulario.
-
+                
+                //-->Ocultar el spinner
+                this.isLoading = false;
+                
                 Swal.fire({
                   icon: 'success',
                   title: 'Admin registrado'

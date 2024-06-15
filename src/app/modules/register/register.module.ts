@@ -7,7 +7,7 @@ import { TablaObraSocialComponent } from '../../components/tables/tabla-obra-soc
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormEspecialistaComponent } from '../../components/forms/form-especialista/form-especialista.component';
 import { EspecialidadComponent } from '../../components/tables/especialidad/especialidad.component';
-import { NgxSpinnerModule } from 'ngx-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -21,7 +21,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     CommonModule,
     RegisterRoutingModule,
     ReactiveFormsModule,
-    NgxSpinnerModule
+    MatProgressSpinnerModule
   ],
   exports: [FormPacienteComponent,FormEspecialistaComponent] 
 })

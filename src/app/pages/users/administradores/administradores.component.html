@@ -76,4 +76,11 @@
         </div>
     </div>
     <!-- FIN DEL CONTAINER PARA LOS FORMULARIOS -->
+
+
+    <!-- INICIO DEL SPINNER -->
+    <div *ngIf="isLoading" class="spinner-overlay">
+        <mat-progress-spinner mode="indeterminate" diameter="80" color="primary"></mat-progress-spinner>
+    </div>
+    <!-- FIN DEL SPINNER -->
 </main>

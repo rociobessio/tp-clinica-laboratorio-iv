@@ -95,5 +95,12 @@
         <!-- FIN PARA MOSTRAR LA TABLA CON LAS OBRAS SOCIALES -->
     </div>
     <!-- FIN DEL CONTAINER PARA LOS FORMULARIOS -->
+
+    <!-- INICIO DEL SPINNER -->
+    <div *ngIf="isLoading" class="spinner-overlay">
+        <mat-progress-spinner mode="indeterminate" diameter="80" color="primary"></mat-progress-spinner>
+    </div>
+    <!-- FIN DEL SPINNER -->
+    
 </main><br><br>
 <!-- FIN DEL MAIN -->

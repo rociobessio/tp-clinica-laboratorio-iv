@@ -9,6 +9,7 @@ import { PacientesComponent } from './pacientes/pacientes.component';
 import { AdministradoresComponent } from './administradores/administradores.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterModule } from '../../modules/register/register.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { RegisterModule } from '../../modules/register/register.module';
     CommonModule,
     UsersRoutingModule,
     ReactiveFormsModule,
-    RegisterModule
+    RegisterModule,
+    MatProgressSpinnerModule
   ]
 })
 export class UsersModule { }

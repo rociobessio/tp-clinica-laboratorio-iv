@@ -78,9 +78,6 @@
             </form>
             <!-- FIN DEL FORMULARIO DE ALTA -->
 
-            <!-- Spinner fuera del formulario -->
-            <!-- <ngx-spinner *ngIf="isLoading" type="ball-scale-multiple"></ngx-spinner> -->
-
         </div>
         <!-- INICIO DE LA TABLA ESPECIALIDADES -->
         <div class="card-especialidad col-md-3 col-lg-4 h-100 p-5 text-center text-white rounded-3">
@@ -94,8 +91,14 @@
         </div>
         <!-- FIN DE LA TABLA ESPECIALIDADES -->
 
-        <!-- INICIO DEL SPINNER -->
         
     </div>
     <!-- FIN DEL CONTAINER DE ALTA -->
+
+    <!-- INICIO DEL SPINNER -->
+    <div *ngIf="isLoading" class="spinner-overlay">
+        <mat-progress-spinner mode="indeterminate" diameter="80" color="primary"></mat-progress-spinner>
+    </div>
+    <!-- FIN DEL SPINNER -->
+
 </main>

@@ -21,6 +21,7 @@ export class FormPacienteComponent implements OnInit {
   private user!: Usuario;
   private archivo1: any;
   private archivo2: any;
+  public isLoading: boolean = false;//-->Para mostrar el spinner
 
   constructor(
     private fb: FormBuilder,
@@ -110,6 +111,9 @@ export class FormPacienteComponent implements OnInit {
       clave: password
     } as Usuario;
 
+    //-->Mostrar el spinner
+    this.isLoading = true;
+
     this.authService.register(this.user)
       .then(res => {
         if (res == null) {
@@ -134,6 +138,9 @@ export class FormPacienteComponent implements OnInit {
       await this.pacienteService.addPaciente(this.paciente!);
       this.form.reset();
 
+      //-->Ocultar el spinner
+      this.isLoading = false;
+
       Swal.fire({
         icon: 'success',
         title: 'Usuario registrado',
@@ -147,7 +154,8 @@ export class FormPacienteComponent implements OnInit {
     } catch (error) {
       console.error("Error during patient registration:", error);
     } finally {
-      this.spinner.hide();//-->Oculto el spinner
+      //-->Ocultar el spinner en caso de error
+      this.isLoading = false;
     }
   }
 }

@@ -11,6 +11,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideHttpClient(),
-    provideStorage(() => getStorage())
+    provideStorage(() => getStorage()),
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })
