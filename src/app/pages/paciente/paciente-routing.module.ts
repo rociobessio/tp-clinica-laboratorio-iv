@@ -1,11 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import { PacienteComponent } from './paciente.component';
 
 const routes: Routes = [
   {
     path: '',
-    component : HomeComponent
+    component: PacienteComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import ('./home/home.module')
+        .then(m => m.HomeModule)
+      },
+      {
+        path: 'mi-perfil',
+        loadChildren : () => import ('./mi-perfil/mi-perfil.module')
+        .then(p => p.MiPerfilModule)
+      }
+    ]
   }
 ];
 

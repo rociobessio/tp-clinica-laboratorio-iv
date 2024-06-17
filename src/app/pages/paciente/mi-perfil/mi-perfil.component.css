@@ -1,0 +1,34 @@
+main {
+    font-family: 'Quenda';
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    height: 110vh;
+    margin: 0;
+    padding: 0;
+}
+
+h2{
+    font-family: 'Galivanted';
+}
+
+h5{
+    font-family: 'Quenda';
+}
+
+/* INICIO MODIFICACION DE ELEMENTOS DE LA CARD */
+.img-perfil-usuario{
+    width:150px;
+    height:150px;
+    border-radius:150px;
+    border:10px solid #0b1d60;
+}
+
+.card{
+    background-color: darkslategrey;
+    color: white;
+}
+/* INICIO MODIFICACION DE ELEMENTOS DE LA CARD */

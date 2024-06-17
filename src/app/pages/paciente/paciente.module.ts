@@ -2,16 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PacienteRoutingModule } from './paciente-routing.module';
-import { HomeComponent } from './home/home.component';
+import { PacienteComponent } from './paciente.component';
+import { NavbarModule } from '../../modules/navbar/navbar.module';
 
 
 @NgModule({
   declarations: [
-    HomeComponent
+    PacienteComponent
   ],
   imports: [
     CommonModule,
-    PacienteRoutingModule
+    PacienteRoutingModule,
+    NavbarModule
   ]
 })
 export class PacienteModule { }

@@ -220,9 +220,14 @@ main{
     justify-items: center; */
 }
 
+.fast-login p{
+    color: white;
+    font-size: 12px;
+}
+
 .btn-fast-login {
-    width: 220px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
     border-radius: 15px;
     overflow: hidden;
     position: relative;
@@ -232,17 +237,18 @@ main{
     transition: all 0.3s ease-in-out;
     background-color: #080929;
     margin-bottom: 10px;
+
 }
 
 .btn-fast-login img {
-    width: 50%;
-    height: 70%;
+    width: 60px;
+    height: 60px;
     object-fit: cover;
 }
 
 .btn-fast-login:hover {
     transform: scale(1.1); 
-    border: 3px solid #1ea150;
+    border: 6px solid #1ea150;
 }
 
 .btn-label {

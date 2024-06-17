@@ -46,46 +46,46 @@
             </form>
         </div>
         <!-- FIN DEL LOGIN -->
-
         <!-- COMIENZO DEL DIV DE FAST LOGIN -->
         <div class="div-informacion login">
             <h2>Acceso Rápido</h2>
             <!-- INICIO DE LOS FAST LOGIN -->
             <div class="fast-login">
                 <!-- INICIO DEL BOTON DE ADMINISTRADOR -->
-                <button type="submit" class="btn-fast-login" (click)="onFastLoginAdmin()">
+                <button type="submit" class="btn-fast-login admin" (click)="onFastLoginAdmin()">
                     <img [src]="admin?.data?.img" alt="img-admin" *ngIf="admin?.data?.img">
-                    <span class="btn-label">Admin</span>
+                    <!-- <span class="btn-label">Admin</span> -->
                 </button>
                 <!-- FIN DEL BOTON DE ADMINISTRADOR -->
+                <!-- INICIO BOTONES ESPECIALISTAS -->
+                <p>Especialistas</p>
+                <button type="submit" class="btn-fast-login" (click)="onFastLoginEspecialista1()">
+                    <img [src]="especialista1?.data?.img" alt="img-esp-1" *ngIf="especialista1?.data?.img">
+                    <!-- <span class="btn-label">Especialista #1</span> -->
+                </button> 
+                <button type="submit" class="btn-fast-login" (click)="onFastLoginEspecialista2()">
+                    <img [src]="especialista2?.data?.img" alt="img-esp-2" *ngIf="especialista2?.data?.img">
+                    <!-- <span class="btn-label">Especialista #2</span> -->
+                </button> 
+                <!-- FIN BOTONES ESPECIALISTAS -->
                 
                 <!-- INICIO DE LOS BOTONES DE PACIENTES -->
+                <p>Pacientes</p>
                 <button type="submit" class="btn-fast-login" (click)="onFastLoginPaciente1()">
                     <img [src]="paciente1?.data?.img1" alt="img-pac-1" *ngIf="paciente1?.data?.img1">
-                    <span class="btn-label">Paciente #1</span>
+                    <!-- <span class="btn-label">Paciente #1</span> -->
                 </button> 
 
                 <button type="submit" class="btn-fast-login" (click)="onFastLoginPaciente2()">
                     <img [src]="paciente2?.data?.img1" alt="img-pac-2" *ngIf="paciente2?.data?.img1">
-                    <span class="btn-label">Paciente #2</span>
+                    <!-- <span class="btn-label">Paciente #2</span> -->
                 </button> 
 
                 <button type="submit" class="btn-fast-login" (click)="onFastLoginPaciente3()">
                     <img [src]="paciente3?.data?.img1" alt="img-pac-3" *ngIf="paciente3?.data?.img1">
-                    <span class="btn-label">Paciente #3</span>
+                    <!-- <span class="btn-label">Paciente #3</span> -->
                 </button> 
                 <!-- FIN DE LOS BOTONES DE PACIENTES -->
-
-                <!-- INICIO BOTONES ESPECIALISTAS -->
-                <button type="submit" class="btn-fast-login" (click)="onFastLoginEspecialista1()">
-                    <img [src]="especialista1?.data?.img" alt="img-esp-1" *ngIf="especialista1?.data?.img">
-                    <span class="btn-label">Especialista #1</span>
-                </button> 
-                <button type="submit" class="btn-fast-login" (click)="onFastLoginEspecialista2()">
-                    <img [src]="especialista2?.data?.img" alt="img-esp-2" *ngIf="especialista2?.data?.img">
-                    <span class="btn-label">Especialista #2</span>
-                </button> 
-                <!-- FIN BOTONES ESPECIALISTAS -->
             </div>
             <!-- FIN DE LOS FAST LOGIN -->
         </div>

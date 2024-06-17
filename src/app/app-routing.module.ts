@@ -49,12 +49,13 @@ const routes: Routes = [
         canActivate: [checkEspecialistaGuard]
     },
     {
-        path:'paciente',
-        loadChildren:() => 
+        path: 'paciente',
+        loadChildren: () =>
             import('./pages/paciente/paciente.module')
-        .then((mod) => mod.PacienteModule),
-        canActivate: [checkPacienteGuard]
+        .then((pac) => pac.PacienteModule),
+        // canActivate: [checkPacienteGuard]
     }
+
 ];
 
 @NgModule({

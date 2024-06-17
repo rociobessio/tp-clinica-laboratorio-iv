@@ -206,15 +206,15 @@ export class LoginComponent implements OnInit{
   }
 
   onFastLoginEspecialista1() {
-    this.formLogin.controls['usuario'].setValue(this.especialista1.email);
+    this.formLogin.controls['usuario'].setValue(this.especialista1.data.email);
     this.formLogin.controls['clave'].setValue('123456');
-    // this.onLogin();
+    this.onLogin();
   }
 
   onFastLoginEspecialista2() {
-    this.formLogin.controls['usuario'].setValue(this.especialista2.email);
+    this.formLogin.controls['usuario'].setValue(this.especialista2.data.email);
     this.formLogin.controls['clave'].setValue('123456');
-    // this.onLogin();
+    this.onLogin();
   }
 
 }
