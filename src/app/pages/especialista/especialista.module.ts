@@ -2,16 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { EspecialistaRoutingModule } from './especialista-routing.module';
-import { HomeComponent } from './home/home.component';
+import { EspecialistaComponent } from './especialista.component';
+import { NavbarModule } from '../../modules/navbar/navbar.module';
 
 
 @NgModule({
   declarations: [
-    HomeComponent
+    EspecialistaComponent
   ],
   imports: [
     CommonModule,
-    EspecialistaRoutingModule
+    EspecialistaRoutingModule,
+    NavbarModule
   ]
 })
 export class EspecialistaModule { }

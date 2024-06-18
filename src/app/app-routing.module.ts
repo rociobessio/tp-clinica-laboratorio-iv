@@ -42,18 +42,18 @@ const routes: Routes = [
         canActivate: [checkAdminGuard]
     },
     {
-        path:'especialista',
-        loadChildren:() => 
-            import('./pages/especialista/especialista.module')
-        .then((mod) => mod.EspecialistaModule),
-        canActivate: [checkEspecialistaGuard]
-    },
-    {
         path: 'paciente',
         loadChildren: () =>
             import('./pages/paciente/paciente.module')
         .then((pac) => pac.PacienteModule),
-        // canActivate: [checkPacienteGuard]
+        canActivate: [checkPacienteGuard]
+    },
+    {
+        path: 'especialista',
+        loadChildren: () =>
+            import('./pages/especialista/especialista.module')
+        .then((esp) => esp.EspecialistaModule),
+        // canActivate: [checkEspecialistaGuard]
     }
 
 ];
