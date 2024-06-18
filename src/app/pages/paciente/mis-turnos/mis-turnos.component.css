@@ -1,0 +1,23 @@
+main {
+  font-family: 'Quenda';
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+
+h1{ 
+    font-family: 'Galivanted';
+}
+
+h3,h4,h5,h6{
+  font-family: 'Quenda';
+}
+
+/* INICIO DE MODIFICACION DEL INPUT DE BUSQUEDA */
+.input{
+  background-color: darkolivegreen;
+  color: white;
+}
+/* FIN DE MODIFICACION DEL INPUT DE BUSQUEDA */

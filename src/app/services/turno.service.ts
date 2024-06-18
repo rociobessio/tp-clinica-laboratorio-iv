@@ -63,4 +63,28 @@ export class TurnoService {
       });
     });
   }
+
+  /**
+   * Me permitira obtener turnos
+   * del paciente que recibo por 
+   * email.
+   * @param email El email del 
+   * paciente.
+   * @returns los turnos de ese
+   * paciente.
+   */
+  getTurnosByEmailPaciente(
+    email : string
+  ) : Observable<Turno[]>{
+    return new Observable<Turno[]>((observer) => {
+      onSnapshot(this.turnosRef, (snap) =>{
+        const turnos: Turno[] = [];
+        snap.docChanges().forEach(x => {
+          const data = x.doc.data() as Turno;
+          if(data.emailPaciente === email) turnos.push(data);
+        });
+        observer.next(turnos);
+      });
+    });
+  }
 }

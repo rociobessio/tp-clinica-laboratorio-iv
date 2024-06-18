@@ -22,6 +22,12 @@ const routes: Routes = [
         loadChildren: () =>
           import('./solicitar-turno-paciente/solicitar-turno-paciente.module')
         .then(s => s.SolicitarTurnoPacienteModule)
+      },
+      {
+        path: 'mis-turnos',
+        loadChildren : () =>
+          import('./mis-turnos/mis-turnos.module')
+        .then(t => t.MisTurnosModule)
       }
     ]
   }
