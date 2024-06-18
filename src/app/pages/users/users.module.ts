@@ -10,6 +10,8 @@ import { AdministradoresComponent } from './administradores/administradores.comp
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterModule } from '../../modules/register/register.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SolicitarTurnoAdminComponent } from './solicitar-turno-admin/solicitar-turno-admin.component';
+import { SolicitarTurnoModule } from '../../modules/solicitar-turno/solicitar-turno.module';
 
 
 @NgModule({
@@ -18,14 +20,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     SidebarComponent,
     EspecialistasComponent,
     PacientesComponent,
-    AdministradoresComponent
+    AdministradoresComponent,
+    SolicitarTurnoAdminComponent,
   ],
   imports: [
     CommonModule,
     UsersRoutingModule,
     ReactiveFormsModule,
     RegisterModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    SolicitarTurnoModule
   ]
 })
 export class UsersModule { }

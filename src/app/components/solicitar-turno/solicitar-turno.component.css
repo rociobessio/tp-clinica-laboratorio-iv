@@ -1,0 +1,133 @@
+main {
+  font-family: 'Quenda';
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+
+h1{ 
+    font-family: 'Galivanted';
+}
+
+h3,h4,h5,h6{
+  font-family: 'Quenda';
+}
+
+
+/* INICIO DE MODIFICAION DEL SPINNER */
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.mat-progress-spinner {
+    width: 80px;
+    height: 80px;
+}
+/* FIN DE MODIFICAION DEL SPINNER */
+
+/* INICIO DE LA MODIFICACION DE LAS ESPECIALIDADES */
+.circular-div {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  background-color: darkslategrey;
+}
+
+
+.centered-text {
+  position: absolute;
+  text-align: center;
+  color: white;
+  text-shadow: 2px 2px 2px black;
+}
+
+.circular-div:hover,
+.paciente-div:hover{
+  transform: scale(1.1); 
+  border:10px solid #0b1d60;
+}
+
+.paciente-div:hover{
+  background-color: darkslategrey !important;
+  cursor: pointer;
+}
+/* FIN DE LA MODIFICACION DE LAS ESPECIALIDADES */
+
+/* INICIO DE MODIFICACION DIV HORARIOS */
+.div-horarios{
+  background-color: #0b1d60;
+  color: white;
+}
+
+/* FIN DE MODIFICACION DIV HORARIOS */
+
+
+
+/* INICIO DE MODIFICACION DE LA IMAGEN DE ESPECIALISTA */
+.imgRedonda{
+  height:100%;
+  width: auto !important;
+  object-fit: cover;
+}
+/* FIN DE MODIFICACION DE LA IMAGEN DE ESPECIALISTA */
+
+/* INICIO DE LA MODIFICACION DEL BOTON PARA VOLVER */
+.div-volver{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 20px;
+}
+  
+.btn-volver {
+  position: relative;
+  width: auto; /* Cambiar a auto para ajustar automáticamente el ancho */
+  padding: 0 20px; /* Ajustar el padding para darle espacio interno */
+  height: 45px;
+  background: linear-gradient(#3c58b9,#5a84d7,#3c58b9);
+  border: 2px solid #c9daf4;
+  outline: none;
+  border-radius: 40px;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+  z-index: 1;
+  overflow: hidden;
+  margin-bottom: 15px;
+  margin-left: 0; /* Asegura que no haya margen a la izquierda */
+}
+
+.btn-volver::before{
+content: '';
+position: absolute;
+top: -100%;
+left: 0;
+width: 100%;
+height: 100%;
+background: linear-gradient(#3c58b9,#5a84d7,#3c58b9);
+z-index: -1;
+transition: .5s;
+}
+
+.btn-volver:hover::before{
+top: 0;
+}
+/* FIN DE LA MODIFICACION DEL BOTON PARA VOLVER */
