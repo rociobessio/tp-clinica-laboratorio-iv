@@ -16,6 +16,12 @@ const routes: Routes = [
         path: 'mi-perfil',
         loadChildren : () => import ('./mi-perfil/mi-perfil.module')
         .then(p => p.MiPerfilModule)
+      },
+      {
+        path: 'solicitar-turno',
+        loadChildren: () =>
+          import('./solicitar-turno-paciente/solicitar-turno-paciente.module')
+        .then(s => s.SolicitarTurnoPacienteModule)
       }
     ]
   }

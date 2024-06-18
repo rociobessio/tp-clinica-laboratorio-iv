@@ -46,12 +46,12 @@ p{
     width: 100%;
     height: 70vh;
     background-image: url('/assets/img-pacientes.jpg');
-    background-size: cover; /* Asegura que la imagen cubra todo el contenedor */
-    background-position: center; /* Centra la imagen */
+    background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center;;
 }
 /* FIN DE MODIFICACION DE CONTAINER & IMAGEN */
 
