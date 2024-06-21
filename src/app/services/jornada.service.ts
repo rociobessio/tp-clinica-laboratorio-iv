@@ -28,6 +28,8 @@ export class JornadaService {
     if(nuevaJornada === null) return;
     const docs = doc(this.especialisJorRef);
     nuevaJornada.id = docs.id;
+    console.log('Jornada en addJornada: ', nuevaJornada);
+    
     setDoc(docs, nuevaJornada);
   }
 

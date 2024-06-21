@@ -1,0 +1,22 @@
+
+h2{
+    font-family: 'Galivanted';
+}
+
+h5{
+    font-family: 'Quenda';
+}
+
+/* INICIO MODIFICACION DE ELEMENTOS DE LA CARD */
+.img-perfil-usuario{
+    width:130px;
+    height:130px;
+    border-radius:150px;
+    border:10px solid #0b1d60;
+}
+
+.card{
+    background-color: darkslategrey;
+    color: white;
+}
+/* INICIO MODIFICACION DE ELEMENTOS DE LA CARD */

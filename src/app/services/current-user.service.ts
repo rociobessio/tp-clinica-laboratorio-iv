@@ -10,6 +10,7 @@ import { Admin } from '../interfaces/admin.interface';
 export class CurrentUserService {
   public especialista!: Especialista;
   public paciente!: Paciente;
+  public accionHorarios!: string;
   public admin!: Admin;
 
   public currentUser: Usuario = {

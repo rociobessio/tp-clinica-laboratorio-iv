@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { EspecialistaRoutingModule } from './especialista-routing.module';
 import { EspecialistaComponent } from './especialista.component';
 import { NavbarModule } from '../../modules/navbar/navbar.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { NavbarModule } from '../../modules/navbar/navbar.module';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     EspecialistaRoutingModule,
     NavbarModule
   ]

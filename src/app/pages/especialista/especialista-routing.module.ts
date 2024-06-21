@@ -12,6 +12,18 @@ const routes: Routes = [
         loadChildren : () =>
           import('./home/home.module')
         .then(h => h.HomeModule)
+      },
+      {
+        path: 'mi-perfil',
+        loadChildren: () =>
+          import('./mi-perfil/mi-perfil.module')
+        .then(p => p.MiPerfilModule)
+      },
+      {
+        path: 'mis-horarios',
+        loadChildren: () =>
+          import('./mis-horarios/mis-horarios.module')
+        .then(mh => mh.MisHorariosModule)
       }
     ]
   }

@@ -119,17 +119,18 @@
             <!-- FIN PARA MOSTRAR LOS DIAS -->
     
             <!-- INICIO SI HA SELECCIONADO UN DIA GENERO EL TURNO -->
-            <div class="container py-2" *ngIf="diaSelect !== null">
+            <div class="container py-2" *ngIf="diaSelect != null">
                 <div class="col-12 rounded-3 text-center py-2">
                     <h3 class="pt-3 pb-3">{{diaNombreSelect}} - {{getFecha(turnosDisponibles,indexSelect)}}</h3>
                 </div>
-                <div class="row justify-content-evenly mt-2 mb-2" *ngFor="let horario of getElementFromArray(turnosDisponibles,indexSelect)">
-                    <button (click)="onGenerarTurno(getKeyByIndex(turnosDisponibles,indexSelect),horario)"
-                        class="col-8 mb-1 btn btn-secondary m-2" ngClass="{{horario.disponible? 'btn-outline-primary'
-                        :'btn-outline-secondary disabled'}}">
-                        {{horario.horario.hora}}
-                    </button>
-                </div>
+                <div class="row justify-content-evenly mt-2 mb-2"
+                *ngFor="let horario of getElementFromArray(turnosDisponibles, indexSelect)">
+                <button (click)="onGenerarTurno(getKeyByIndex(turnosDisponibles, indexSelect),horario)"
+                    class="btn col-8 mb-1 fw-bold" ngClass="{{horario.disponible? 'btn-outline-primary'
+                                :'btn-outline-secondary disabled'}}">
+                    {{horario.horario.hora}}
+                </button>
+            </div>
             </div>
             <!-- FIN SI HA SELECCIONADO UN DIA GENERO EL TURNO -->
         </div>

@@ -31,7 +31,7 @@ public turno!: Turno;
 public horarios: Horario[] = [];
 public turnosActuales!: Turno[];
 
-public emailPaciente!: string;
+public emailPaciente!: string; 
 public pacientes: Paciente[] = [];
 public pacienteSelect: Paciente | null = null;
 public especialistas: Especialista[] = [];
@@ -67,11 +67,22 @@ public diaNombreSelect!: string;
       this.turnoService.traerTurnos().subscribe(data => {this.turnosActuales = data});
     });
 
-    console.log('pacientes:', this.pacientes);
-    console.log('especialistas: ', this.especialistas);
-    console.log('especialidades: ', this.especialidades);
-    console.log('jornadas: ', this.jornadas);
-    console.log('turnos: ', this.turnosActuales);
+    // console.log('pacientes:', this.pacientes);
+    // console.log('especialistas: ', this.especialistas);
+    // console.log('especialidades: ', this.especialidades);
+    // console.log('jornadas: ', this.jornadas);
+    // console.log('turnos: ', this.turnosActuales);
+
+    //-->Si no es administrador asigo el email: del paciente
+    if(!this.isAdministrador){
+      this.authService.getUserLogged()
+        .subscribe((user) =>{
+          if(user)
+            this.emailPaciente = user.email!;
+
+          console.log('Ingresado como paciente: ', this.emailPaciente);
+        });
+    }
   }
 
 ///////////////////// METODOS /////////////////////
@@ -118,10 +129,11 @@ public diaNombreSelect!: string;
     paciente : Paciente
   ) : void{
     this.isLoading = true;
-    setTimeout(() =>{ 
-      this.pacienteSelect = paciente;
-      console.log('paciente seleccionado: ',this.pacienteSelect);
-      this.isLoading = false;
+    setTimeout(() => { 
+        this.pacienteSelect = paciente;
+        this.emailPaciente = paciente.email;
+        console.log('paciente seleccionado: ', this.pacienteSelect);
+        this.isLoading = false;
     }, 1000);
   }
 
@@ -228,7 +240,7 @@ public diaNombreSelect!: string;
       resenia: '',
       calificacion: '',
       encuesta: []
-    } as Turno;
+    };
 
     //-->Guardo el turno.
     this.turnoService.addTurno(this.turno);
@@ -287,10 +299,11 @@ public diaNombreSelect!: string;
 
 ///////////////////// ARRAYS/INDEX /////////////////////
 
-  getElementFromArray(array: any[] | null, index: number): any[] {
-    if (!array) {
-      return [];
-    }
+  getElementFromArray(array: any[], index: number): any[] {
+    // if (!array) {
+    //   return [];
+    // }
+    // return array[index][this.getKeyByIndex(array, index)];
     return array[index][this.getKeyByIndex(array, index)];
   }
   

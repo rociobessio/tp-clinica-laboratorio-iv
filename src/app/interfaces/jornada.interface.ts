@@ -25,8 +25,8 @@ export interface Dias{
  * del consultorio
  */
 export interface Horario{
-    hora : Hora;
     nroConsultorio : number;
+    hora : Hora;
 }
 
 /**
@@ -75,12 +75,12 @@ export function esJornadaValida(
 
     //--> Dias validos de atencion d la clinica
     const diasValidos = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'];
-
-    for(const dia of diasValidos){
-        if(!jornada.dias[dia] || !Array.isArray(jornada.dias[dia])){
+    for (const dia of diasValidos) {
+        if (!jornada.dias[dia] || !Array.isArray(jornada.dias[dia])) {
             console.log(`El día ${dia} debe tener una lista de horarios válida.`);
             return false;
         }
+
 
         if (!sonHorariosDistintosEnDia(jornada.dias[dia], dia)) {
             console.log(`Existen horarios iguales en ${dia} en distintos consultorios.`);
@@ -96,18 +96,19 @@ export function sonHorariosDistintosEnDia(
     horarios : Horario[],
     dia : string
 ) : boolean{
-    const horariosUnicos = new Set<string>();
+    const horariosSet = new Set<string>();
 
     //--> Recorro los horarios para verificar que no haya 
     //coincidencia de dia y horario, con una clave unica
     //que se le asigna.
     for (const horario of horarios) {
-        const key = `${horario.hora}-${dia}`;
-        if(horariosUnicos.has(key))
+        const claveUnica = `${horario.hora}-${dia}`;
+        if (horariosSet.has(claveUnica)) {
             return false;
-
-        horariosUnicos.add(key);
+        }
+        horariosSet.add(claveUnica);
     }
+
     return true;
 }
 
@@ -116,13 +117,14 @@ export function armarCronograma(
 ) : Cronograma{
     const cronograma : Cronograma = {};
     //-->Me fijo si el dia esta en la jornada
-    for(const dia in jornada.dias){
+    for (const dia in jornada.dias) {
         const horarios = jornada.dias[dia];
 
         //--> Recorro los horario
         for (const horario of horarios) {
             //-->Hora y consultorio hacen un horario.
             const { hora, nroConsultorio } = horario;
+            
             //-->Si aun no existe en cronograma lo inicializo
             if (!cronograma[`consultorio${nroConsultorio}`]) {
                 cronograma[`consultorio${nroConsultorio}`] = {};

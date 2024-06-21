@@ -298,29 +298,29 @@ export class CronogramaService {
   ) : Cronograma{
     const cronogramaNuevo: Cronograma = { ...cronograma };
 
-    for(const consultorio in datosNuevos){
+    for (const consultorio in datosNuevos) {
+      if (datosNuevos.hasOwnProperty(consultorio)) {
+        if (!cronogramaNuevo[consultorio]) {
+          cronogramaNuevo[consultorio] = {};
+        }
 
-      if(datosNuevos.hasOwnProperty(consultorio)){
-        if(!cronogramaNuevo[consultorio]) cronogramaNuevo[consultorio] = {};
-      }
-
-      const diasEnCronograma = datosNuevos[consultorio];
-      for(const dia in diasEnCronograma){
-        if(diasEnCronograma.hasOwnProperty(dia)){
-          const horariosEnCronograma = diasEnCronograma[dia];
-
-          if(!cronogramaNuevo[consultorio][dia]) cronogramaNuevo[consultorio][dia] = [];
-
-          for(const horarioNuevo of horariosEnCronograma){
-            const existe = cronogramaNuevo[consultorio][dia].findIndex((horarioExistente)  => horarioExistente.hora === horarioNuevo.hora);
-
-
-            //-->Si el horario existe:
-            if(existe !== -1){
-              cronogramaNuevo[consultorio][dia][existe].disponible = horarioNuevo.disponible;
+        const diasCronograma = datosNuevos[consultorio];
+        for (const dia in diasCronograma) {
+          if (diasCronograma.hasOwnProperty(dia)) {
+            const horariosCronograma = diasCronograma[dia];
+            if (!cronogramaNuevo[consultorio][dia]) {
+              cronogramaNuevo[consultorio][dia] = [];
             }
-            else cronogramaNuevo[consultorio][dia].push({ hora: horarioNuevo.hora, disponible: horarioNuevo.disponible });
-            
+
+            for (const horarioNuevo of horariosCronograma) {
+              const indice = cronogramaNuevo[consultorio][dia].findIndex((horarioExistente) => horarioExistente.hora === horarioNuevo.hora);
+
+              if (indice !== -1) {
+                cronogramaNuevo[consultorio][dia][indice].disponible = horarioNuevo.disponible;
+              } else {
+                cronogramaNuevo[consultorio][dia].push({ hora: horarioNuevo.hora, disponible: horarioNuevo.disponible });
+              }
+            }
           }
         }
       }
