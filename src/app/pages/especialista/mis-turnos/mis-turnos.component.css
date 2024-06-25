@@ -3,29 +3,29 @@ main {
   text-align: center;
   margin: 0;
   padding: 0;
-  height: 100vh;
+  overflow: auto; /* Asegurarte de que solo el main maneje el overflow */
 }
 
-h1{ 
-    font-family: 'Galivanted';
+h1 {
+  font-family: 'Galivanted';
 }
 
-h3,h4,h5,h6{
+h3, h4, h5, h6 {
   font-family: 'Quenda';
 }
 
 /* INICIO DE MODIFICACION DEL INPUT DE BUSQUEDA */
-.input{
+.input {
   background-color: darkolivegreen;
   color: white;
 }
 /* FIN DE MODIFICACION DEL INPUT DE BUSQUEDA */
 
 /* INICIO DE MODIFICACION DE LA CARD */
-.card-paciente{
-  background-color: dimgray;
+.card-paciente {
+  background-color: burlywood;
   color: white;
-  margin-right: 10px;
   border-color: darkslategray;
 }
 /* FIN DE MODIFICACION DE LA CARD */
+

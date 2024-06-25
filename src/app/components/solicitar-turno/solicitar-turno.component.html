@@ -13,7 +13,7 @@
            <div *ngIf="pacientes && !pacienteSelect">
                 <h1>Pacientes</h1>
                 <div class="row">
-                    <div class="col-12 col-xl-3 border border-3 border-secondary div-paciente"
+                    <div class="card-paciente col-12 col-xl-3 border border-3 border-secondary div-paciente"
                     (click)="setPaciente(paciente)" *ngFor="let paciente of pacientes">
                         <div class="row justify-content-evenly mt-2">
                             <div class="col-6">

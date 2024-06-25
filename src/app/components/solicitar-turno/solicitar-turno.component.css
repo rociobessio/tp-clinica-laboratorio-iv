@@ -3,9 +3,8 @@ main {
   text-align: center;
   margin: 0;
   padding: 0;
-  height: 100vh;
+  overflow: auto; /* Asegurarte de que solo el main maneje el overflow */
 }
-
 
 h1{ 
     font-family: 'Galivanted';
@@ -14,7 +13,6 @@ h1{
 h3,h4,h5,h6{
   font-family: 'Quenda';
 }
-
 
 /* INICIO DE MODIFICAION DEL SPINNER */
 .spinner-overlay {
@@ -88,14 +86,14 @@ h3,h4,h5,h6{
 }
 /* FIN DE MODIFICACION DE LA IMAGEN DE ESPECIALISTA */
 
-/* INICIO DE LA MODIFICACION DEL BOTON PARA VOLVER */
 .div-volver{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding-left: 20px;
+  text-align: left;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  overflow: auto; /* Asegurarte de que solo el main maneje el overflow */
 }
+
   
 .btn-volver {
   position: relative;
@@ -131,3 +129,24 @@ transition: .5s;
 top: 0;
 }
 /* FIN DE LA MODIFICACION DEL BOTON PARA VOLVER */
+
+.div-turno{
+  height: 350px;
+}
+
+.card-paciente{
+  cursor: pointer;
+  margin: 10px;
+  height: auto;
+  min-height: 250px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  background-color: bisque;
+  transition: all 0.2s ease-in-out;
+  overflow-wrap: break-word;
+}
+
+.card-paciente:hover{
+  transform: scale(1.05);
+}

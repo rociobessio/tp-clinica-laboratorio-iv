@@ -3,7 +3,7 @@ main {
   text-align: center;
   margin: 0;
   padding: 0;
-  height: 100vh;
+  overflow: auto; /* Asegurarte de que solo el main maneje el overflow */
 }
 
 h1{ 
@@ -23,7 +23,7 @@ h3,h4,h5,h6{
 
 /* INICIO DE MODIFICACION DE LA CARD */
 .card-paciente{
-  background-color: dimgray;
+  background-color: burlywood;
   color: white;
   margin-right: 10px;
   border-color: darkslategray;

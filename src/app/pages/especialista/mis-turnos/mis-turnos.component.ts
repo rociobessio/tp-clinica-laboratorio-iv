@@ -116,6 +116,33 @@ export class MisTurnosComponent implements OnInit{
       }));
   }
 
+  /**
+   * Me permitira ver la calificacion
+   * del turno. (la da el paciente.)
+   * @param turno el turno
+   * que se desea ver su
+   * calificacion
+   */
+  onVerCalificacion(
+    turno : Turno
+  ) : void{
+    Swal.fire({
+      title: 'Calificacion del turno',
+      text: turno.calificacion,
+      icon: 'info',
+      confirmButtonText: 'Cerrar',
+      confirmButtonColor: 'darkslategray', //-->Color del boton de confirmar
+      background: 'antiquewhite' //-->Color de fondo
+    });
+  }
+
+  /**
+   * Podra finalizar un turno, 
+   * es decir, ya fue atendido y
+   * se hizo una reseña etc.
+   * @param turno el turno que 
+   * se pretende finalizar
+   */
   async onFinalizar(
     turno : Turno
   ){
