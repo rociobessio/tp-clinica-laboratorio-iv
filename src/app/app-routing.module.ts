@@ -53,7 +53,7 @@ const routes: Routes = [
         loadChildren: () =>
             import('./pages/especialista/especialista.module')
         .then((esp) => esp.EspecialistaModule),
-        // canActivate: [checkEspecialistaGuard]
+        canActivate: [checkEspecialistaGuard]
     }
 
 ];

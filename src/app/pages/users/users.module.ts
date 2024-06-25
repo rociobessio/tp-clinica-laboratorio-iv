@@ -12,6 +12,7 @@ import { RegisterModule } from '../../modules/register/register.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SolicitarTurnoAdminComponent } from './solicitar-turno-admin/solicitar-turno-admin.component';
 import { SolicitarTurnoModule } from '../../modules/solicitar-turno/solicitar-turno.module';
+import { TurnosComponent } from './turnos/turnos.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { SolicitarTurnoModule } from '../../modules/solicitar-turno/solicitar-tu
     PacientesComponent,
     AdministradoresComponent,
     SolicitarTurnoAdminComponent,
+    TurnosComponent,
   ],
   imports: [
     CommonModule,
