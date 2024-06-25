@@ -1,0 +1,45 @@
+<main>
+    <div class="container py-4">
+        <!-- INICIO DE BUSCAR PARA FILTRAR TURNOS -->
+        <div class="row justify-content-start">
+            <div class="col-6 mt-2">
+                Buscar:
+            </div>
+            <div class="col-6">
+                <input type="text" class="input form-control" (input)="onFiltrarTurnos($event)">
+            </div>
+        </div>
+        <!-- FIN DE BUSCAR PARA FILTRAR TURNOS -->
+
+        <!-- INICIO DE MOSTRAR LOS TURNOS ASIGNADOS AL ESPECIALISTA -->
+        <div class="row mt-5" *ngIf="turnosMostrar.length > 0">
+            <div class="card-paciente col-md-4 col-xl-4 rounded-3 border border-3 border-secondary text-left pt-3"
+            *ngFor="let turno of turnosMostrar">
+            <h3>Paciente: {{getPaciente(turno.emailPaciente)}}</h3>
+            <h4>Especialidad: {{turno.especialidad}}</h4>
+            <h4>Fecha: {{turno.fecha}}</h4>
+            <h4>Hora: {{turno.horario.hora}}</h4>
+            <h4>Nro. Consultorio: {{turno.horario.nroConsultorio}}</h4>
+            <h4 class="text-capitalize">Estado: {{turno.estado}}</h4><hr>
+
+            <!-- INICIO DEL MANEJO DE LOS TURNOS -->
+            <div class="row">
+                <div class="col-3 mb-3 mx-2" *ngIf="turno.estado == 'pendiente'">
+                    <button class="btn btn-outline-success" (click)="onAceptar(turno)">Aceptar</button>
+                </div>
+                <div class="col-3 mb-3 mx-2" *ngIf="turno.estado == 'aceptado'" (click)="onCancelar(turno)">
+                    <button class="btn btn-outline-danger">Cancelar</button>
+                </div>
+                <div class="col-3 mb-3 mx-2" *ngIf="turno.estado == 'pendiente'" (click)="onRechazar(turno)">
+                    <button class="btn btn-outline-danger">Rechazar</button>
+                </div>
+                <div class="col-3 mb-3 mx-2" *ngIf="turno.estado == 'aceptado'" (click)="onFinalizar(turno)">
+                    <button class="btn btn-outline-warning">Finalizar</button>
+                </div>
+            </div>
+            <!-- FIN DEL MANEJO DE LOS TURNOS -->
+            </div>
+        </div>
+        <!-- FIN DE MOSTRAR LOS TURNOS ASIGNADOS AL ESPECIALISTA -->
+    </div>
+</main>

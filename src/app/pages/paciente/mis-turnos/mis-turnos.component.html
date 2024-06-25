@@ -16,7 +16,7 @@
         <!-- INICIO DE MOSTRAR TURNOS -->
         <div  class="row mt-5" *ngIf="turnosMostrar.length > 0">
             <!-- INICIO DE MOSTRAR INFORMACION SOBRE LOS TURNOS -->
-            <div class="col-md-4 col-xl-4 rounded-3 border border-3 border-secondary text-left pt-3"
+            <div class="card-paciente col-md-4 col-xl-4 rounded-3 border border-3 border-secondary text-left pt-3"
             *ngFor="let turno of turnosMostrar">
                 <h3>Especialista: {{getEspecialista(turno.emailEspecialista)}}</h3>
                 <h4>Especialidad: {{turno.especialidad}}</h4>
@@ -27,11 +27,13 @@
 
                 <!-- INICIO DE LOS BOTONES -->
                 <div class="row justify-content-start">
+                    <!-- SI LE ACEPTARON EL TURNO, PUEDE CANCELARLO -->
                     <div class="col-xl-3 mb-3" *ngIf="turno.estado === 'aceptado'"
                     (click)="onCancelarTurno(turno)">
                         <button class="btn btn-outline-danger">Cancelar</button>
                     </div>
 
+                    <!-- PUEDE ESCRIBIR UNA RESEÑA -->
                     <div class="col-xl-3 mb-3" *ngIf="onGetResenia(turno) !== ''">
                         <button class="btn btn-outline-secondary" (click)="onVerResenia(turno)">Ver Reseña</button>
                     </div>
@@ -42,6 +44,7 @@
                         <button class="btn btn-outline-info">Finalizar Encuesta</button>
                     </div>
 
+                    <!-- PUEDE CALIFICAR LA ATENCION DEL ESPECIALISTA -->
                     <div class="col-xl-3 mb-3" *ngIf="turno.estado == 'finalizado' && turno.calificacion == ''">
                         <button class="btn btn-outline-warning" (click)="onCalificarTurno(turno)">Calificar Atención</button>
                     </div>

@@ -42,7 +42,18 @@ export class TurnoService {
   ):void{
     if(turno === null) return;
     const docs = doc(this.turnosRef, turno.id);
-    setDoc(docs, { estado: turno.estado, reseña: turno.resenia, calificacion: turno.calificacion, encuesta: turno.encuesta});
+    setDoc(docs, { 
+      estado: turno.estado, 
+      resenia: turno.resenia, 
+      calificacion: turno.calificacion, 
+      encuesta: turno.encuesta,
+      emailEspecialista: turno.emailEspecialista,
+      emailPaciente: turno.emailPaciente,
+      especialidad: turno.especialidad,
+      horario: turno.horario,
+      id: turno.id,
+      fecha: turno.fecha
+    });
   }
 
   /**
@@ -87,4 +98,30 @@ export class TurnoService {
       });
     });
   }
+
+  /**
+   * Me permitira obtener los
+   * turnos asignados a un especialista
+   * en especifico.
+   * @param email el email 
+   * del especialista
+   * @returns retorna un obteservable
+   * con los turnos
+   */
+  getTurnosByEmailEspecialista(
+    email : string
+  ) : Observable<Turno[]>{
+    return new Observable<Turno[]>((observer) => {
+      onSnapshot(this.turnosRef, (snap) =>{
+        const turnos: Turno[] = [];
+        snap.docChanges().forEach(x => {
+          const data = x.doc.data() as Turno;
+          if(data.emailEspecialista === email) turnos.push(data);
+        });
+        observer.next(turnos);
+      });
+    });
+  }
+
+
 }

@@ -146,12 +146,10 @@ public diaNombreSelect!: string;
   setEspecialista(
     esp : Especialista
   ) : void{
-    this.isLoading = true;
     setTimeout(() =>{
       this.especialistaSelect = esp;
       console.log('Especialista seleccionado: ', this.especialistaSelect);
       this.loadTurnos();
-      this.isLoading = false;
     },1000);
   }
 

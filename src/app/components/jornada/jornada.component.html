@@ -1,4 +1,4 @@
-<div class="container" *ngIf="jornada; else elseBlock2">
+<div class="container" *ngIf="jornada; else elseBlock2" >
     <div>
         <nav aria-label="Jornada Semanal">
             <ul class="nav nav-tabs">
@@ -42,3 +42,9 @@
 <ng-template #elseBlock2>
     <span>No tiene ningún horario cargado!</span>
 </ng-template>
+
+<!-- INICIO DEL SPINNER -->
+<div *ngIf="isLoading" class="spinner-overlay">
+    <mat-progress-spinner mode="indeterminate" diameter="80" color="primary"></mat-progress-spinner>
+</div>
+<!-- FIN DEL SPINNER -->

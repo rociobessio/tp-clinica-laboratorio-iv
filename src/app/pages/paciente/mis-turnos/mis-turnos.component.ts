@@ -127,9 +127,10 @@ export class MisTurnosComponent implements OnInit{
       title: '¿Desea cancelar su turno?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#339933",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Cancelar Turno"
+      confirmButtonText: "Cancelar Turno",
+      confirmButtonColor: 'darkslategray', //-->Color del boton de confirmar
+      background: 'antiquewhite' //-->Color de fondo
     })
     .then( async (resultado) =>{
 
@@ -144,7 +145,8 @@ export class MisTurnosComponent implements OnInit{
           inputAttributes: {
             "aria-label": "Type your message here"
           },
-          showCancelButton: true
+          showCancelButton: true,
+          background: 'antiquewhite' //-->Color de fondo
         });
 
         //-->Si ingreso el porque:
@@ -152,7 +154,10 @@ export class MisTurnosComponent implements OnInit{
           Swal.fire({
             title: "Cancelado!",
             text: `El turno fue cancelado con exito`,
-            icon: "success"
+            icon: "success",
+            confirmButtonText: 'Ok.',
+            confirmButtonColor: 'darkslategray', //-->Color del boton de confirmar
+            background: 'antiquewhite' //-->Color de fondo
           })
             .then(() => {
               turno.resenia = text;
@@ -190,8 +195,27 @@ export class MisTurnosComponent implements OnInit{
   onVerResenia(
     turno : Turno
   ):void{
-    if(turno.resenia) Swal.fire(turno.resenia);
-    else Swal.fire('No haz escrito una reseña aún.');
+    console.log(turno.resenia);
+    
+    if(turno.resenia){
+      Swal.fire({
+        title: 'Información de la reseña.',
+        text: turno.resenia,
+        icon: 'info',
+        confirmButtonText: 'Cerrar',
+        confirmButtonColor: 'darkslategray', //-->Color del boton de confirmar
+        background: 'antiquewhite' //-->Color de fondo
+      });
+    } 
+    else{
+      Swal.fire({
+        title: "No se ha escrito una reseña todavía.",
+        icon: "info",
+        confirmButtonText: 'Cerrar',
+        confirmButtonColor: 'darkslategray', //-->Color del boton de confirmar
+        background: 'antiquewhite' //-->Color de fondo
+      });
+    } 
   }
 
   /**
@@ -209,7 +233,6 @@ export class MisTurnosComponent implements OnInit{
       focusConfirm: false,
       preConfirm: () => {
         return [
-          (document.getElementById("swal-input1") as HTMLInputElement).value,
           (document.getElementById("swal-input2") as HTMLInputElement).value,
           (document.getElementById("swal-input3") as HTMLInputElement).value,
         ];
@@ -220,7 +243,8 @@ export class MisTurnosComponent implements OnInit{
 
       <label for="swal-input3">3. ¿Consideras que el tiempo de demora aguardando tu turno fue excesivo?</label>
       <input id="swal-input3" class="swal2-input" type="text">
-      `
+      `,
+      background: 'antiquewhite' //-->Color de fondo
     });
 
     if(respuesta){
@@ -228,6 +252,9 @@ export class MisTurnosComponent implements OnInit{
         title: "Encuesta Finalizada!",
         text: `Gracias por completar la encuesta del servicio!`,
         icon: "success",
+        confirmButtonText: 'Cerrar',
+        confirmButtonColor: 'darkslategray', //-->Color del boton de confirmar
+        background: 'antiquewhite' //-->Color de fondo
       }).then(() => {
         console.log(respuesta);
         turno.encuesta = respuesta;//-->GUardo la encuesta sobre el turno mdico
@@ -247,7 +274,10 @@ export class MisTurnosComponent implements OnInit{
       inputAttributes: {
         "aria-label": "Type your message here"
       },
-      showCancelButton: true
+      showCancelButton: true,
+      confirmButtonText: 'Calificar Turno.',
+      confirmButtonColor: 'darkslategray', //-->Color del boton de confirmar
+      background: 'antiquewhite' //-->Color de fondo
     });
     //-->Si completo;
     if(text){
@@ -255,6 +285,7 @@ export class MisTurnosComponent implements OnInit{
         title: "Calificado!",
         text: `Gracias por calificar nuestro personal`,
         icon: "success",
+        background: 'antiquewhite' //-->Color de fondo
       }).then(() => {
         turno.calificacion = text;
         this.turnoService.updateTurno(turno);

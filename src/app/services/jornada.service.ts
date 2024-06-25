@@ -43,9 +43,13 @@ export class JornadaService {
   updateJornada(
     jornada : Jornada
   ):void{
-    if(jornada === null) return;
+    if(jornada === null) {
+      console.error('No se puede actualizar la jornada: ID no válido');
+      return;
+    }
+
     const docs = doc(this.especialisJorRef, jornada.id);
-    setDoc(docs, {dias: jornada.dias});
+    setDoc(docs, {dias: jornada.dias, email: jornada.email,id:jornada.id});
   }
 
   /**
@@ -58,18 +62,18 @@ export class JornadaService {
   traerJornada(
     email:string 
   ):Observable<Jornada>{
-    return new Observable<Jornada>((obs) =>{
-      onSnapshot(this.especialisJorRef, (snap) =>{
+    return new Observable<Jornada>((observer) => {
+      onSnapshot(this.especialisJorRef, (snap) => {
         let jornada!: Jornada;
-        snap.docChanges().forEach(x =>{
+        snap.docChanges().forEach(x => {
           const data = x.doc.data() as Jornada;
-          if(data.email === email)//-->Si coincide la jornada del especialista
-          {
+          if (data.email === email) {
+            console.log('DATA DE FIRESTORE: ',data);
             jornada = data;
             return;
           }
         });
-        obs.next(jornada);//-->Voy a la que sigue.
+        observer.next(jornada);
       });
     });
   }

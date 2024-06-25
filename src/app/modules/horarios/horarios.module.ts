@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HorariosRoutingModule } from './horarios-routing.module';
 import { FormsModule } from '@angular/forms';
 import { JornadaComponent } from '../../components/jornada/jornada.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { JornadaComponent } from '../../components/jornada/jornada.component';
   imports: [
     CommonModule,
     HorariosRoutingModule,
-    FormsModule
+    FormsModule,
+    MatProgressSpinner
   ],
   exports: [JornadaComponent]
 })

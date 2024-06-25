@@ -12,10 +12,12 @@ export class JornadaComponent implements OnInit{
   public email!: string;
   public jornada!: Jornada;
   public selected: string = 'lunes';
+  public isLoading: boolean = false;//-->Para mostrar el spinner
 
   constructor(private authService : AuthService,private jornadaService : JornadaService) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.authService.getUserLogged()
       .subscribe((res) => {
         if (res) {
@@ -24,6 +26,7 @@ export class JornadaComponent implements OnInit{
             this.jornada = jornada
           });
         }
+        this.isLoading=false;
       });
   }
   

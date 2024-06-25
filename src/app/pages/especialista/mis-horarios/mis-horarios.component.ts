@@ -57,6 +57,8 @@ export class MisHorariosComponent {
           this.email = res!.email as string;
           this.jor.traerJornada(this.email).subscribe(data => {
             this.jornadaVieja = data;
+            console.log('JORNADA TRAIDA EN EL ONINIT: ', this.jornadaVieja);
+            
             if (this.accion == "agregar") {
               this.crono.traerCronograma().subscribe((res) => {
                 this.lunes = this.crono.getHorario(res, 'lunes');
@@ -159,17 +161,22 @@ export class MisHorariosComponent {
 
       //-->Si la jornada vieja es correcta: actaulizo los valores
       if (this.jornadaVieja) {
+        console.log('Jornada vieja ID: ',this.jornadaVieja.id);
+        
         this.jornadaEsp.id = this.jornadaVieja.id;
+        this.jornadaEsp.email = this.jornadaVieja.email;
+
         for (const dia in this.jornadaVieja.dias) {
           for (const horarios of this.jornadaVieja.dias[dia]) {
             this.jornadaEsp.dias[dia] = this.jornadaEsp.dias[dia].concat(horarios);
             this.ordenarPorHora(this.jornadaEsp.dias[dia]);
           }
         }
+        console.log('Jornada ACTUALIZADA: ',this.jornadaEsp);
         this.jor.updateJornada(this.jornadaEsp);
-        console.log(this.jornadaEsp.dias);
 
       } else {//-->Sino, le asigno nueva jornada.
+        console.log('JORNADA TOTALMENTE NUEVA; ', this.jornadaEsp);
         this.jor.addJornada(this.jornadaEsp);
       }
 
