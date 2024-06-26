@@ -130,4 +130,10 @@ top: 0;
 /* FIN DE MODIFICAICON DEL FORMULARIO */
   
   
+.re-captcha {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 78px; /* Altura mínima sugerida para reCAPTCHA */
+}
   

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import { Paciente } from '../../../interfaces/paciente.interface';
 import Swal from 'sweetalert2';
 import { Usuario } from '../../../interfaces/user.interface';
@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { ImagenService } from '../../../services/imagen.service';
 import { PacienteService } from '../../../services/paciente.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ReCaptchaV3Service, RecaptchaErrorParameters } from 'ng-recaptcha-2';
 
 @Component({
   selector: 'app-form-paciente',
@@ -22,6 +23,9 @@ export class FormPacienteComponent implements OnInit {
   private archivo1: any;
   private archivo2: any;
   public isLoading: boolean = false;//-->Para mostrar el spinner
+  
+  public captcha: string ='';//-->Para el captcha de google
+  // recaptchaService = inject(ReCaptchaV3Service);
 
   constructor(
     private fb: FormBuilder,
@@ -46,6 +50,7 @@ export class FormPacienteComponent implements OnInit {
     password: ['', [Validators.required, Validators.minLength(6)]],
     imagen1: ['', [Validators.required]],
     imagen2: ['', [Validators.required]],
+    terminos: [false, [Validators.requiredTrue]],
   });
 
   isValidField(field: string): boolean | null {
@@ -68,6 +73,8 @@ export class FormPacienteComponent implements OnInit {
           return `Como minimo debe ser ${errors!['min'].min}.`;
         case 'max':
           return `Como maximo debe ser ${errors!['max'].max}.`;
+        case 'requiredTrue':
+        return "Debe aceptar los terminos y condiciones"
       }
     }
     return null;
@@ -89,6 +96,7 @@ export class FormPacienteComponent implements OnInit {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       console.log("invalid form");
+      this.captcha = '';
       return;
     }
 
@@ -158,4 +166,15 @@ export class FormPacienteComponent implements OnInit {
       this.isLoading = false;
     }
   }
+
+///////////////////////////////// CAPTCHA /////////////////////////////////
+  resolved(captchaResponse: string) {
+    console.log(`Resolved captcha with response: ${captchaResponse}`);
+  }
+
+
+  public onError(errorDetails: RecaptchaErrorParameters): void {
+    console.log(`reCAPTCHA error encountered; details:`, errorDetails);
+  }
+
 }

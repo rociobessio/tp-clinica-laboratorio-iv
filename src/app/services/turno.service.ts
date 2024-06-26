@@ -26,7 +26,7 @@ export class TurnoService {
   :void{
     if(nuevoTurno === null) return;
     const docs = doc(this.turnosRef);
-    nuevoTurno.id = docs.id;
+    nuevoTurno.id = docs.id;//-->le paso el id de la collec
     setDoc(docs, nuevoTurno);
   }
 

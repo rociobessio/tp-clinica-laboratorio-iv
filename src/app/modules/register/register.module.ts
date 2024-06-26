@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormEspecialistaComponent } from '../../components/forms/form-especialista/form-especialista.component';
 import { EspecialidadComponent } from '../../components/tables/especialidad/especialidad.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { RECAPTCHA_V3_SITE_KEY, RecaptchaFormsModule, RecaptchaModule, RecaptchaV3Module } from "ng-recaptcha-2";
 
 
 @NgModule({
@@ -21,8 +22,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     CommonModule,
     RegisterRoutingModule,
     ReactiveFormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
+    RecaptchaModule
   ],
+  providers: [{ provide: RECAPTCHA_V3_SITE_KEY, useValue: "6LcNGQIqAAAAAMPgoAeH7PKi6PLnAkWegpmhAcKq" }],
   exports: [FormPacienteComponent,FormEspecialistaComponent] 
 })
 export class RegisterModule { }

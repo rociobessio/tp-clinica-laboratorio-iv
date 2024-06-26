@@ -76,8 +76,34 @@
                             Debe cargar la credencial
                         </span>
                     </div>
-                    <!-- INICIO DEL BOTON PARA REGISTRARSE -->
                     <hr class="my-4">
+                    
+                    <!-- INICIO DE TERMINOS Y CONDICIONES -->
+                    <div class="col-md-12">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="terminos"
+                            formControlName="terminos">
+
+                            <label class="form-check-label" for="terminos">Acepta terminos y condiciones</label>
+                            <span *ngIf="isValidField('terminos')" class="form-text text-danger">
+                                &nbsp;&nbsp; Debe aceptar los terminos y condiciones.
+                            </span>
+                        </div>
+                    </div>
+                    <!-- INICIO DE TERMINOS Y CONDICIONES -->
+                    
+                    <!-- INICIO DEL CAPTCHA -->
+                    <div class="re-captcha" style="margin-left: 50px;" *ngIf="form.valid">
+                        <!-- <re-captcha (resolved)="resolved($event!)" 
+                        siteKey="6LcNGQIqAAAAAMPgoAeH7PKi6PLnAkWegpmhAcKq" 
+                        style="min-height: 78px; width: 100%; display: block;"></re-captcha> -->
+
+
+
+                    </div>
+                    <!-- FIN DEL CAPTCHA -->
+                    
+                    <!-- INICIO DEL BOTON PARA REGISTRARSE -->
                     <button class="btn-registrarse" type="submit">Registrarse</button>
                     <!-- FIN DEL BOTON PARA REGISTRARSE -->
                 </div>
