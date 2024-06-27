@@ -247,6 +247,7 @@ public diaNombreSelect!: string;
       title: 'Turno Generado',
       text: 'Se ha generado su turno, no olvide dejar una reseña.',
       icon: 'success',
+      background: 'antiquewhite' //-->Color de fondo
     })
     .then(() => this.onReset());//-->Reseteo
   }

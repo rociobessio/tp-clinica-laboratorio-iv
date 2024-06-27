@@ -23,9 +23,10 @@ export class FormPacienteComponent implements OnInit {
   private archivo1: any;
   private archivo2: any;
   public isLoading: boolean = false;//-->Para mostrar el spinner
-  
+
+
+  public siteKey : string  = "6LcNGQIqAAAAAMPgoAeH7PKi6PLnAkWegpmhAcKq";
   public captcha: string ='';//-->Para el captcha de google
-  // recaptchaService = inject(ReCaptchaV3Service);
 
   constructor(
     private fb: FormBuilder,
@@ -50,8 +51,8 @@ export class FormPacienteComponent implements OnInit {
     password: ['', [Validators.required, Validators.minLength(6)]],
     imagen1: ['', [Validators.required]],
     imagen2: ['', [Validators.required]],
-    terminos: [false, [Validators.requiredTrue]],
-  });
+    recaptcha: ['', Validators.required]
+});
 
   isValidField(field: string): boolean | null {
     return this.form.controls[field].errors && this.form.controls[field].touched;
@@ -73,8 +74,8 @@ export class FormPacienteComponent implements OnInit {
           return `Como minimo debe ser ${errors!['min'].min}.`;
         case 'max':
           return `Como maximo debe ser ${errors!['max'].max}.`;
-        case 'requiredTrue':
-        return "Debe aceptar los terminos y condiciones"
+        // case 'requiredTrue':
+        // return "Debe aceptar los terminos y condiciones"
       }
     }
     return null;
@@ -97,6 +98,15 @@ export class FormPacienteComponent implements OnInit {
       this.form.markAllAsTouched();
       console.log("invalid form");
       this.captcha = '';
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Por favor, complete todos los campos',
+        confirmButtonText: 'Ok',
+        confirmButtonColor: 'darkslategray', //-->Color del boton de confirmar
+        background: 'antiquewhite'//-->Color de fondo
+      });
       return;
     }
 
@@ -129,7 +139,8 @@ export class FormPacienteComponent implements OnInit {
             icon: 'error',
             title: 'Oops...',
             text: 'Error al crear cuenta',
-            footer: "El email ya fue registrado"
+            footer: "El email ya fue registrado",
+            background: 'antiquewhite'//-->Color de fondo
           });
         } else this.registerPaciente();
       });
@@ -154,6 +165,7 @@ export class FormPacienteComponent implements OnInit {
         title: 'Usuario registrado',
         text: 'Revise la casilla de mail para confirmar el registro!',
         showConfirmButton: false,
+        background: 'antiquewhite',//-->Color de fondo
         timer: 1000
       }).then(() => {
         this.authService.logOut();
@@ -168,10 +180,10 @@ export class FormPacienteComponent implements OnInit {
   }
 
 ///////////////////////////////// CAPTCHA /////////////////////////////////
-  resolved(captchaResponse: string) {
-    console.log(`Resolved captcha with response: ${captchaResponse}`);
+  handleSuccess(captchaResponse: string): void {
+    this.captcha = captchaResponse;
+    this.form.controls['recaptcha'].setValue(captchaResponse);
   }
-
 
   public onError(errorDetails: RecaptchaErrorParameters): void {
     console.log(`reCAPTCHA error encountered; details:`, errorDetails);
