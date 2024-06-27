@@ -22,6 +22,10 @@ export class FormEspecialistaComponent {
   public isLoading: boolean = false;//-->Para mostrar el spinner
   @Output() registrationSuccess = new EventEmitter<boolean>();
 
+  //-->Para el captcha de google
+  public siteKey : string  = "6LcNGQIqAAAAAMPgoAeH7PKi6PLnAkWegpmhAcKq";
+  public captcha: string ='';
+
   
   //-->Para validar el ingreso de datos
   public form: FormGroup = this.fb.group({
@@ -33,6 +37,7 @@ export class FormEspecialistaComponent {
     email: ['', [Validators.email, Validators.required]],
     password: ['', [Validators.required, Validators.minLength(6)]],
     img: ['', [Validators.required]],
+    recaptcha: ['', Validators.required],//-->eL CAPTCHA
   });
 
   constructor(private fb: FormBuilder,
@@ -50,6 +55,17 @@ export class FormEspecialistaComponent {
   onSubmit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      console.log("invalid form");
+      this.captcha = '';
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Por favor, complete todos los campos',
+        confirmButtonText: 'Ok',
+        confirmButtonColor: 'darkslategray', //-->Color del boton de confirmar
+        background: 'antiquewhite'//-->Color de fondo
+      });
       return;
     }
 
@@ -92,7 +108,8 @@ export class FormEspecialistaComponent {
                     text: 'Revise su casilla de email para confirmar el registro!',
                     icon: 'success',
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1500,
+                    background: 'antiquewhite'//-->Color de fondo
                   })
                   .then(() => {
                     // this.router.navigate(['/login']
@@ -203,5 +220,11 @@ export class FormEspecialistaComponent {
       }
     }
     return false;
+  }
+
+///////////////////////////////// CAPTCHA /////////////////////////////////
+  handleSuccess(captchaResponse: string): void {
+    this.captcha = captchaResponse;
+    this.form.controls['recaptcha'].setValue(captchaResponse);
   }
 }

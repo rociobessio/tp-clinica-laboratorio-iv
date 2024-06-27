@@ -69,11 +69,25 @@
                             {{getFieldError('img')}}
                         </span>
                     </div>
-
-                    <!-- HACER BOTON Y CAPTCHA (2do sprint captcha) -->
                     <hr class="my-4">
+
+                    <!-- INICIO DEL CAPTCHA -->
+                    <div class="col-md-12">
+                        <ngx-recaptcha2 #captchaElem
+                            [siteKey]="siteKey"
+                            (success)="handleSuccess($event)"
+                            [useGlobalDomain]="false"
+                            formControlName="recaptcha">
+                        </ngx-recaptcha2>
+                        <span *ngIf="isValidField('recaptcha')" class="form-text text-danger">
+                            Debe de cargar el captcha.
+                        </span>
+                    </div>
+                    <!-- FIN DEL CAPTCHA -->
+                    
+                    <!-- INICIO DEL BOTON DEL REGISTRO -->
                     <button class="btn-registrarse">Registrarse</button>
-                    <!-- HACER BOTON Y CAPTCHA (2do sprint captcha) -->
+                    <!-- FIN DEL BOTON DEL REGISTRO -->
                 </div>
             </form>
             <!-- FIN DEL FORMULARIO DE ALTA -->
