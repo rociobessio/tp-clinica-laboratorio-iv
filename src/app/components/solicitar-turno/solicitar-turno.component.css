@@ -35,6 +35,25 @@ h3,h4,h5,h6{
 /* FIN DE MODIFICAION DEL SPINNER */
 
 /* INICIO DE LA MODIFICACION DE LAS ESPECIALIDADES */
+.img-especialidad{
+  width: 100px;
+  height: 100px;
+}
+
+.circular-div-especialidades{
+  width: 150px;
+  height: 150px;
+  border-radius: 15px; /* Bordes redondeados */
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer; /* Añadir cursor de mano para indicar que es un botón */
+  background-color: darkslategrey;
+}
+
 .circular-div {
   width: 150px;
   height: 150px;

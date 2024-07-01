@@ -34,7 +34,7 @@
         <!-- FIN DE SELECCIONAR UN PACIENTE (SI INGRESA COMO ADMINISTRADOR) -->
     
         <!-- INICIO DE QUE SELECCIONE UNA ESPECIALIDAD (ADMIN ADEMAS ELIJE PACIENTE PARA CONTINUAR) -->
-        <div *ngIf="isAdministrador ? (pacienteSelect && especialidadSelect === '') 
+        <!-- <div *ngIf="isAdministrador ? (pacienteSelect && especialidadSelect === '') 
             : (especialidadSelect === '')">
             <h1>Especialidades</h1>
             <hr>
@@ -45,33 +45,52 @@
                 </div><br>
             </div>
             <hr>
-        </div>
+        </div> -->
         <!-- FIN DE QUE SELECCIONE UNA ESPECIALIDAD (ADMIN ADEMAS ELIJE PACIENTE PARA CONTINUAR) -->
-    
+        
         <!-- INICIO DE SELECCIONAR UN ESPECIALISTA -->
-        <div *ngIf="especialidadSelect !== '' && especialistaSelect === null">
-            <h1>Especialistas de {{especialidadSelect}}</h1>
+        <div *ngIf="isAdministrador ? (pacienteSelect && especialistaSelect === null)
+        : (especialistaSelect === null)">
+            <h1>Especialistas</h1>
             <hr>
             <div class="row">
-                <div class="col-12 col-xl-3 text-dark text-center mt-5 mb5"
+                <div class="col-12 col-xl-3 text-dark text-center mt-5 mb-5"
                     (click)="setEspecialista(esp)"
-                    *ngFor="let esp of especialistasDisponibles">
+                    *ngFor="let esp of especialistas">
+                    <h4 class="pt-4">Dr. {{esp.nombre}} {{esp.apellido}}</h4>
                     <div class="row justify-content-evenly mt-2">
                         <div class="col-12 circular-div border border-3">
                             <img src="{{esp.img}}" class="imgRedonda" alt="imgDoc">
                         </div>
-                    </div>
-                    <h4 class="pt-4">Dr. {{esp.nombre}} {{esp.apellido}}</h4>
-                </div>
-            </div>
-    
-            <div *ngIf="especialistasDisponibles.length == 0">
-                <div class="bg-primary text-dark rounded-3 py-4 text-center">
-                    <h3>No hay especialistas disponibles.</h3>
+                    </div>                    
                 </div>
             </div>
         </div>
         <!-- FIN DE SELECCIONAR UN ESPECIALISTA -->
+
+<!-- *ngFor="let especialidad of especialistaSelect.especialidad" -->
+        <div *ngIf="especialistaSelect !== null && especialidadSelect ===''">
+            <h1>Especialidades de {{especialistaSelect.nombre}} {{especialistaSelect.apellido}}</h1>
+            <hr>
+            <div class="row">
+                <div class="col-2 text-light text-center circular-div-especialidades mx-2 mb-5 align-items-center"
+                (click)="setEspecialidad(especialidad.nombre)"
+                *ngFor="let especialidad of especialidadesDisponibles"
+                title="{{especialidad.nombre}}"
+                data-placement="bottom">
+                <img src="{{especialidad.img? especialidad.img : 'assets/def-icon.png'}}" class="img-especialidad" alt="logo{{especialidad.nombre}}">
+                    
+                </div><br>
+            </div>
+            <hr>
+
+            <div *ngIf="especialidadesDisponibles.length == 0">
+                <div class="bg-primary text-dark rounded-3 py-4 text-center">
+                    <h3>No tiene especialidades disponibles.</h3>
+                </div>
+            </div>
+        </div>
+
     
         <!-- INICIO PARA MOSTRAR LOS TURNOS -->
         <div class="row justify-content-evenly" *ngIf="turnosDisponibles !== null">
@@ -104,7 +123,8 @@
                         <div class="col-3 col-xl-3 py-1" *ngIf="getElementFromArray(turnosDisponibles, i).length > 0">
                             <div class="div-horarios rounded-3 text-center py-5"
                             (click)="getFechaTurno(elemento, i,elemento.dia)">
-                                <h4>{{elemento.dia}} - {{ getFecha(turnosDisponibles, i) }}</h4>
+                                <!-- <h4>{{elemento.dia}} - {{ getFecha(turnosDisponibles, i) }}</h4> -->
+                                <h4>{{ getFecha(turnosDisponibles, i) }}</h4>
                             </div>
                         </div>
                     </ng-container>

@@ -12,6 +12,7 @@ import { TurnoService } from '../../services/turno.service';
 import { Paciente } from '../../interfaces/paciente.interface';
 import { PacienteService } from '../../services/paciente.service';
 import Swal from 'sweetalert2';
+import { set } from 'firebase/database';
 
 @Component({
   selector: 'app-solicitar-turno',
@@ -36,7 +37,9 @@ public pacientes: Paciente[] = [];
 public pacienteSelect: Paciente | null = null;
 public especialistas: Especialista[] = [];
 public especialidades: Especialidad[] = [];
+
 public especialistasDisponibles: Especialista[] = [];
+public especialidadesDisponibles : Especialidad[] = [];
 
 public filtroSelect!: string;
 public especialistaSelect: Especialista | null = null;
@@ -95,11 +98,12 @@ public diaNombreSelect!: string;
   setEspecialidad(
     especialidad : string
   ) : void{
+    
     this.isLoading = true;
     setTimeout(() =>{
       this.especialidadSelect = especialidad;
       console.log('Especialidad seleccionada: ', this.especialidadSelect);
-      this.filterEspecialistas(especialidad);
+      this.loadTurnos();
       this.isLoading = false;
     },1000);
   }
@@ -109,14 +113,14 @@ public diaNombreSelect!: string;
    * especialistas por especialidad.
    * @param especialidad 
    */
-  filterEspecialistas(
-    especialidad : string
-  ) : void{
-    this.especialistasDisponibles = [];
-    for(const especialista of this.especialistas){
-      if(especialista.especialidad.includes(especialidad)) this.especialistasDisponibles.push(especialista);
-    }
-  }
+  // filterEspecialistas(
+  //   especialidad : string
+  // ) : void{
+  //   this.especialistasDisponibles = [];
+  //   for(const especialista of this.especialistas){
+  //     if(especialista.especialidad.includes(especialidad)) this.especialistasDisponibles.push(especialista);
+  //   }
+  // }
 
   /**
    * Si el administrador desea
@@ -137,6 +141,17 @@ public diaNombreSelect!: string;
     }, 1000);
   }
 
+  private filterEspecialidades(
+    especialista : Especialista
+  ){
+    this.especialidadesDisponibles = [];
+    for(const especialidad of this.especialidades)
+      if(especialista.especialidad.includes(especialidad.nombre)) this.especialidadesDisponibles.push(especialidad);
+
+    console.log('El dr: ',this.especialistaSelect?.nombre,' tiene las siguientes especialidades: ',
+       this.especialidadesDisponibles);
+  }
+
   /**
    * Me permitira obtener
    * al especialista seleccionado.
@@ -144,14 +159,17 @@ public diaNombreSelect!: string;
    * seleccionado
    */
   setEspecialista(
-    esp : Especialista
-  ) : void{
-    setTimeout(() =>{
-      this.especialistaSelect = esp;
+    especialista: Especialista
+  ): void {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.especialistaSelect = especialista;
       console.log('Especialista seleccionado: ', this.especialistaSelect);
-      this.loadTurnos();
-    },1000);
-  }
+      this.filterEspecialidades(especialista);//-->Filtro las especialidades del especialista
+      this.isLoading = false;
+    }, 1000);
+    
+}
 
   private loadTurnos() : void{
     this.horarios = [];
@@ -202,18 +220,23 @@ public diaNombreSelect!: string;
   * Como para reiniciar.
   */
   onReset(){
-    if (this.diaSelect) {
-      this.diaSelect = null;
-    }
-    else if (this.especialistaSelect != null) {
-      this.turnosDisponibles = null;
-      this.especialistaSelect = null;
-    }
-    else if (this.especialidadSelect != '') {
-      this.especialidadSelect = "";
-    } else {
-      this.pacienteSelect = null;
-    }
+    this.diaSelect = null;
+    this.especialidadSelect = "";
+    this.turnosDisponibles = null;
+    this.especialistaSelect = null;
+    this.pacienteSelect = null;
+    // if (this.diaSelect) {
+    //   this.diaSelect = null;
+    // }
+    // else if (this.especialidadSelect != '') {
+    //   this.especialidadSelect = "";
+    // }
+    // else if (this.especialistaSelect != null) {
+    //   this.turnosDisponibles = null;
+    //   this.especialistaSelect = null;
+    // } else {
+    //   this.pacienteSelect = null;
+    // }
   }
 
   /**
@@ -289,12 +312,20 @@ public diaNombreSelect!: string;
   }
 
   getFecha(array: any[] | null, index: number): string {
-    if(!array) return "";
+    if (!array) return "";
 
     const dato = this.getKeyByIndex(array, index);
-    const fecha = dato.split('/')
-    return fecha[0] + '/' + fecha[1];
-  }
+    const fecha = dato.split('/');
+
+    if (fecha.length < 3) return ""; // Verificación adicional para evitar errores
+
+    const day = fecha[0].padStart(2, '0');
+    const month = fecha[1].padStart(2, '0');
+    const year = fecha[2];
+
+    return `${year}-${month}-${day}`;
+}
+
 
 ///////////////////// ARRAYS/INDEX /////////////////////
 
