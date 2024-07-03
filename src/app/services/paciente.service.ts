@@ -55,4 +55,19 @@ export class PacienteService {
     });
     return array;
   }
+
+  traerPacientePorId(
+    idPac: string
+  ): Observable<Paciente> {
+    return new Observable<Paciente>((observer) => {
+      onSnapshot(this.dataRef, (snap) => {
+        snap.docChanges().forEach(x => {
+          const data = x.doc.data() as Paciente;
+          if (data.idDoc === idPac) {
+            observer.next(data);
+          }
+        });
+      });
+    });
+  }
 }

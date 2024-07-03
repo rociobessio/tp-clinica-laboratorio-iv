@@ -260,7 +260,9 @@ public diaNombreSelect!: string;
 
       resenia: '',
       calificacion: '',
-      encuesta: []
+      encuesta: [],
+
+      historialClinico: false
     };
 
     //-->Guardo el turno.

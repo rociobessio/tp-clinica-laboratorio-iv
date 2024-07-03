@@ -1,0 +1,44 @@
+<div class="container">
+    <!-- INICIO DEL BOTON DE DESCARGA -->
+    <div class="row align-items-left mt-2">
+        <div class="col-6">
+            <button class="btn btn-outline-success"
+            (click)="onGenerarPdfHistorial()">
+                Descargar Historial Clinico
+            </button>
+        </div>
+    </div>
+    <!-- INICIO DEL BOTON DE DESCARGA -->
+
+    <!-- INICIO DE LA TABLA -->
+    <div class="py-3" *ngIf="historialClinico.length > 0">
+        <table>
+            <thead>
+                <tr>
+                    <th>Especialista</th>
+                    <th class="text-align-center">Peso</th>
+                    <th class="text-align-center">Altura</th>
+                    <th class="text-align-center">Presión</th>
+                    <th class="text-align-center">Temperatura</th>
+                    <th class="text-align-center">Otro</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let historiaClinica of historialClinico">
+                    <td class="text-align-center">{{getEspecialista(historiaClinica.emailEspecialista)}}</td>
+                    <td class="text-align-center">{{historiaClinica.peso}}</td>
+                    <td class="text-align-center">{{historiaClinica.altura}}</td>
+                    <td class="text-align-center">{{historiaClinica.presion}}</td>
+                    <td class="text-align-center">{{historiaClinica.temperatura}}</td>
+                    <!-- MOSTRAR EL DATO DINAMICO -->
+                    <td class="text-align-center">
+                        <div *ngFor="let dato of historiaClinica.datos">
+                            <h5 class="text-capitalize">{{ sacarKey(dato) }}: {{ dato[sacarKey(dato)] }}</h5>
+                        </div>
+                    </td>        
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- FIN DE LA TABLA -->
+</div>

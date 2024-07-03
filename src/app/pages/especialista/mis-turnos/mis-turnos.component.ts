@@ -5,6 +5,7 @@ import { AuthService } from '../../../services/auth.service';
 import { TurnoService } from '../../../services/turno.service';
 import { PacienteService } from '../../../services/paciente.service';
 import Swal from 'sweetalert2';
+import { CurrentUserService } from '../../../services/current-user.service';
 
 @Component({
   selector: 'app-mis-turnos',
@@ -17,10 +18,11 @@ export class MisTurnosComponent implements OnInit{
   public turnos: Turno[] = [];
   public turnosMostrar: Turno[] = [];
   public pacientes: Paciente[] = [];
+  public mostrarHistorial: boolean = false;
 
 ////////////////////////// CONSTRUCTOR & ONINIT //////////////////////////
   constructor(private authService:AuthService,private turnoService : TurnoService,
-    private pacienteService : PacienteService
+    private pacienteService : PacienteService, private cUser : CurrentUserService
   ) {}
 
   ngOnInit(): void {
@@ -303,6 +305,45 @@ export class MisTurnosComponent implements OnInit{
         }
       });
   }
+
+////////////////////////// HISTORIAL //////////////////////////
+
+  async onCargarHistoriaClinica(
+    turno : Turno
+  ){
+    this.mostrarHistorial = true;
+    this.cUser.idPacienteHistorial = this.getIdPaciente(turno.emailPaciente);
+    this.cUser.turno = turno;
+  }
+
+  /**
+   * Me permitira buscar a un usuario
+   * mediante su email para asi conseguir
+   * su ID.
+   * @param emailPaciente el email
+   * del paciente del cual deberé
+   * obtetener su ID
+   * @returns retorna el string
+   * que es la ID.
+   */
+  private getIdPaciente(
+    emailPaciente : string
+  ):string{
+    for (const pac of this.pacientes) {
+      if (pac.email === emailPaciente) {
+        return pac.idDoc;
+      }
+    }
+    return '';
+  }
+
+  onGetHistorial(
+    historial : boolean
+  ){
+    this.mostrarHistorial = historial;
+    this.getTurnos();
+  }
+
 
 ////////////////////////// FILTRADO //////////////////////////
     

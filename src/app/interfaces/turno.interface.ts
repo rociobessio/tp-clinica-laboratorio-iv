@@ -15,7 +15,8 @@ export interface Turno{
     encuesta: string[];
     resenia : string;
 
-    //-->Historial?
+    //-->Historial
+    historialClinico: boolean;//--->Para saber si tiene un historioal
 }
 
 export interface DiaAtencion {

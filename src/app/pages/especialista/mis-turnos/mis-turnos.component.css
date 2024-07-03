@@ -21,11 +21,32 @@ h3, h4, h5, h6 {
 }
 /* FIN DE MODIFICACION DEL INPUT DE BUSQUEDA */
 
-/* INICIO DE MODIFICACION DE LA CARD */
-.card-paciente {
-  background-color: burlywood;
-  color: white;
-  border-color: darkslategray;
+/* INICIO DE MODIFICACION DE LA TABLA */
+table {
+  border-collapse: collapse;
+  /* background: #290824; */
 }
-/* FIN DE MODIFICACION DE LA CARD */
+
+th, td {
+  padding: 7px;
+  text-align: left;
+  border: 1px solid #ddd;
+  color: white;
+  text-align: center;
+}
+
+th {
+  background: rgb(14, 28, 28);
+}
+
+td{
+  background: darkslategrey;
+}
+
+tr:hover {
+  background-color: #0d2639;
+}
+  
+
+/* FIN DE MODIFICACION DE LA TABLA */
 

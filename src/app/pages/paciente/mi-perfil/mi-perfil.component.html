@@ -7,10 +7,10 @@
         <!-- FIN DEL HEADER -->
     
         <!-- INICIO DEL CONTENEDOR -->
-        <div class="row align-items-md-stretch justify-content-evenly"
+        <div class="row align-items-md-stretch"
         *ngIf="paciente">
             <!-- INICIO DEL CONTENEDOR DE LA INFORMACION DEL USUARIO -->
-            <div class="col-md-6 col-xl-6">
+            <div class="col-12 col-xl-6">
                 <div class="h-100 p-5 text-white card">
                     <!-- INICIO DE MOSTRAR NOMBRE E IMAGEN -->
                     <div class="row justify-content-evenly text-center align-items-center">
@@ -33,6 +33,18 @@
                 </div>
             </div>
             <!-- FIN DEL CONTENEDOR DE LA INFORMACION DEL USUARIO -->
+
+            <!-- INICIO DEL COMPONENTE PARA VER MI HISOTRIOAL CLINICO -->
+            <div class="col-12 col-xl 6">
+                <div class="h-100 p-5 rounded-3">
+                    <h2>Historial Clinico</h2>
+                    <hr>
+                    <div class="container text-center">
+                        <app-mi-historial-clinico [paciente]="paciente"></app-mi-historial-clinico>    
+                    </div>
+                </div>
+            </div>
+            <!-- INICIO DEL COMPONENTE PARA VER MI HISOTRIOAL CLINICO -->
         </div>
         <!-- INICIO DEL CONTENEDOR -->
     </div>
