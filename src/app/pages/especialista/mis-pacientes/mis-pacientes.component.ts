@@ -16,6 +16,7 @@ export class MisPacientesComponent implements OnInit{
   public especialistaEmail!: string;
   public pacientes : Paciente[] =[];
   public todosHistorialesClinicos: HistoriaClinica[] =[];
+  public paciente!: Paciente;
 ////////////////////////////////// CTOR & ONINIT //////////////////////////////////
   constructor(private pacienteService : PacienteService, private historiaClinicaService : HistoriaClinicaService,
     private authService : AuthService,private cdr: ChangeDetectorRef) {}
@@ -54,14 +55,16 @@ export class MisPacientesComponent implements OnInit{
    * del paciente
    * @returns 
    */
-  getPaciente(email: string): string {
+  getPaciente(email: string){
     for (const pac of this.pacientes) {
       if (pac.email === email) {
         return `${pac.nombre} ${pac.apellido}`
+        // this.paciente = pac;
       }
     }
     return '';
   }
+  
 
   /**
    * Para sacar la key

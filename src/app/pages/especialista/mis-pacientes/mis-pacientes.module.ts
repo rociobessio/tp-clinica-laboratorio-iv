@@ -11,7 +11,7 @@ import { MisPacientesComponent } from './mis-pacientes.component';
   ],
   imports: [
     CommonModule,
-    MisPacientesRoutingModule
+    MisPacientesRoutingModule,
   ]
 })
 export class MisPacientesModule { }
