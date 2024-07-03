@@ -20,7 +20,7 @@
                     <th class="text-align-center">Altura</th>
                     <th class="text-align-center">Presión</th>
                     <th class="text-align-center">Temperatura</th>
-                    <th class="text-align-center">Otro</th>
+                    <th class="text-align-center">Observación</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,14 +31,18 @@
                     <td class="text-align-center">{{historiaClinica.presion}}</td>
                     <td class="text-align-center">{{historiaClinica.temperatura}}</td>
                     <!-- MOSTRAR EL DATO DINAMICO -->
-                    <td class="text-align-center">
-                        <div *ngFor="let dato of historiaClinica.datos">
-                            <h5 class="text-capitalize">{{ sacarKey(dato) }}: {{ dato[sacarKey(dato)] }}</h5>
-                        </div>
-                    </td>        
+                    <div *ngFor="let dato of historiaClinica.datos">
+                        <td class="text-align-center">{{ sacarKey(dato) }}: {{ dato[sacarKey(dato)] }}</td>
+                    </div>   
                 </tr>
             </tbody>
         </table>
     </div>
     <!-- FIN DE LA TABLA -->
 </div>
+
+<!-- INICIO DEL SPINNER -->
+<div *ngIf="isLoading" class="spinner-overlay">
+    <mat-progress-spinner mode="indeterminate" diameter="80" color="primary"></mat-progress-spinner>
+</div>
+<!-- FIN DEL SPINNER -->

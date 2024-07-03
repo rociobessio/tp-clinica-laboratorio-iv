@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { DatoDinamico, HistoriaClinica } from '../../../interfaces/historiaClinica.interface';
 import { HistoriaClinicaService } from '../../../services/historia-clinica.service';
 import { Paciente } from '../../../interfaces/paciente.interface';
@@ -23,11 +23,12 @@ export class MiHistorialClinicoComponent implements OnInit {
   @Input() paciente! : Paciente;//-->El paciente.
   public historialClinico: HistoriaClinica[] = [];
   public especialistas : Especialista[] = [];
+  public isLoading : boolean = false;
 
 ////////////////////////////////////////////// CTOR & ONINIT //////////////////////////////////////////////
   constructor(private historiaClinicaService : HistoriaClinicaService,
     private authService : AuthService, private pacienteService : PacienteService,
-    private especialistaService : EspecialistaService) { }
+    private especialistaService : EspecialistaService,  private cdRef: ChangeDetectorRef) { }
 
   /**
    * En el Oninit verifico
@@ -38,24 +39,34 @@ export class MiHistorialClinicoComponent implements OnInit {
    */
   ngOnInit(): void {
     this.authService.getUserLogged()
-      .subscribe((usuario) => {
-        this.authService.esPaciente(usuario?.email!)
-          .subscribe((paciente) => {
-            if (paciente) {
-              this.paciente = paciente;
-              console.log('Paciente encontrado: ', this.paciente); // Log para verificar el paciente
-              this.historiaClinicaService.traerHistorialClinicoPorID(this.paciente.idDoc)
-                .subscribe((historiales) => {
-                  this.historialClinico = historiales;
-                  console.log('Historial: ', historiales); // Log para verificar los historiales
-                }, (error) => {
-                  console.error('Error al traer historiales: ', error); // Log para errores
+        .subscribe((usuario) => {
+            this.isLoading = true;
+            this.authService.esPaciente(usuario?.email!)
+                .subscribe((paciente) => {
+                    if (paciente) {
+                        this.paciente = paciente as Paciente;
+                        console.log('Paciente encontrado: ', this.paciente); // Log para verificar el paciente
+                        this.historiaClinicaService.traerHistorialClinicoPorID(this.paciente.idDoc)
+                          .subscribe(historiales => {
+                              this.historialClinico = historiales;
+                              console.log('Historial: ', historiales); // Log para verificar los historiales
+                              if (this.historialClinico.length > 0) {
+                                  console.log('Historial clínico cargado.');
+                              } else {
+                                  console.log('No hay historiales clínicos.');
+                              }
+                              this.isLoading = false;//--> Asegúrate de que se actualiza aquí
+                              this.cdRef.detectChanges();//-->Fuerza la detección de cambios
+                          }, (error) => {
+                              console.error('Error al traer historiales: ', error); // Log para errores
+                              this.isLoading = false;//--> Asegúrate de que se actualiza aquí también
+                          });
+                    }
                 });
-            }
-          });
-      });
+        });
     this.especialistaService.traer().subscribe(data => this.especialistas = data);
   }
+
 
 ////////////////////////////////////////////// METODOS //////////////////////////////////////////////
   getEspecialista(email: string): string {
@@ -81,9 +92,8 @@ export class MiHistorialClinicoComponent implements OnInit {
   }
 ////////////////////////////////////////////// GENERAR PDF //////////////////////////////////////////////
   onGenerarPdfHistorial(){
-    
     //-->Que el historial clinico tenga algo cargado.
-    if(this.historialClinico){
+    if(this.historialClinico.length > 0){
       let date = new Date(Date.now());
       //-->Para los margenes del PDF
       const margins = {
@@ -128,11 +138,11 @@ export class MiHistorialClinicoComponent implements OnInit {
 
       // //-->Voy a formatear los Historiales Clinicos
       const historiales = this.formatearHistoriales();
-      let y = newSubtitulo + 30; // Posición inicial para el contenid
+      let y = newSubtitulo + 30;//-->Posición inicial para el contenid
 
       for (const h of historiales) {
         y = this.addHistorialToPDF(doc, h, margins.left, y);
-        y += 10; // Añadir un margen entre los historiales
+        y += 10;//-->Añadir un margen entre los historiales
       }
 
       //-->Guardar el jsPDF
@@ -143,7 +153,7 @@ export class MiHistorialClinicoComponent implements OnInit {
         title: 'No es posible descargar.',
         text: 'Aún no tiene un historial clinico generado.',
         icon: 'error',
-        background: 'antiquewhite' //-->Color de fondo
+        background: 'antiquewhite'//-->Color de fondo
       });
     }
   }
@@ -175,7 +185,6 @@ export class MiHistorialClinicoComponent implements OnInit {
     return pdf;
   }
   
-
   private addHistorialToPDF(
     doc: jsPDF, 
     historial: string[], 
@@ -188,7 +197,7 @@ export class MiHistorialClinicoComponent implements OnInit {
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(16);
       } else {
-        // Configurar fuente para las demás líneas
+        //-->Configurar fuente para las demás líneas
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(14);
       }
