@@ -9,5 +9,6 @@ export interface HistoriaClinica {
     presion: string,
     datos: DatoDinamico[],//-->Datos dinamicos
     emailEspecialista : string,
-    emailPaciente: string
+    emailPaciente: string,
+    especialidad:string
 }

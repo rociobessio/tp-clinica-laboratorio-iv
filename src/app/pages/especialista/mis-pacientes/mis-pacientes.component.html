@@ -1,0 +1,57 @@
+<main>
+    <div class="container p-4">
+      <h2>Mis Pacientes</h2>
+      <hr>
+      <!-- INICIO DE SELECCIONAR UN PACIENTE -->
+      <div class="row row-cols-1 row-cols-sm-2 rows-cols-md-3 g-3" *ngIf="historiaClinica.length == 0">
+        <div class="col-2 text-light text-center circular-div-pacientes mx-2 mb-5 align-items-center"
+            *ngFor="let paciente of pacientes"
+            title="{{paciente.nombre}} {{paciente.apellido}}"
+            data-placement="bottom"
+            (click)="onGetHistorial(paciente)">
+          <img src="{{paciente.img1}}" class="img-paciente" alt="logo{{paciente.nombre}} {{paciente.apellido}}">
+        </div>
+      </div>
+      <!-- FIN DE SELECCIONAR UN PACIENTE -->
+      
+
+      <!-- INICIO DE MOSTRAR LOS HISTORIALES -->
+      <div class="py-3 justify-content-center" *ngIf="historiaClinica.length > 0">
+        <!-- INICIO DE RESETEAR EL HISTORIAL -->
+        <button type="button" class="btn btn-sm btn-outline-danger m-2" (click)="onReset()">Cerrar</button><br>
+        <!-- FIN DE RESETEAR EL HISTORIAL -->
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Especialista</th>
+                <th>Especialidad</th>
+                <th>Peso</th>
+                <th>Altura</th>
+                <th>Presión</th>
+                <th>Temperatura</th>
+                <th>Observación</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let historiaClinica of historiaClinica">
+                <td>{{getPaciente(historiaClinica.emailPaciente)}}</td>
+                <td>{{historiaClinica.especialidad}}</td>
+                <td>{{historiaClinica.peso}}</td>
+                <td>{{historiaClinica.altura}}</td>
+                <td>{{historiaClinica.presion}}</td>
+                <td>{{historiaClinica.temperatura}}</td>
+                <td>
+                  <div class="text-light" *ngFor="let dato of historiaClinica.datos">
+                    {{ sacarKey(dato) }}: {{ dato[sacarKey(dato)] }}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- FIN DE MOSTRAR LOS HISTORIALES -->
+    </div>
+</main>
+  

@@ -16,6 +16,7 @@
             <thead>
                 <tr>
                     <th>Especialista</th>
+                    <th class="text-align-center">Especialidad</th>
                     <th class="text-align-center">Peso</th>
                     <th class="text-align-center">Altura</th>
                     <th class="text-align-center">Presión</th>
@@ -26,6 +27,7 @@
             <tbody>
                 <tr *ngFor="let historiaClinica of historialClinico">
                     <td class="text-align-center">{{getEspecialista(historiaClinica.emailEspecialista)}}</td>
+                    <td class="text-align-center">{{historiaClinica.especialidad}}</td>
                     <td class="text-align-center">{{historiaClinica.peso}}</td>
                     <td class="text-align-center">{{historiaClinica.altura}}</td>
                     <td class="text-align-center">{{historiaClinica.presion}}</td>

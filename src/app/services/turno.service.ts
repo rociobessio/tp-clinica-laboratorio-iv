@@ -53,7 +53,7 @@ export class TurnoService {
       horario: turno.horario,
       id: turno.id,
       fecha: turno.fecha,
-      historial: turno.historialClinico
+      historial: turno.historialClinico ? !turno.historialClinico : false
     });
   }
 

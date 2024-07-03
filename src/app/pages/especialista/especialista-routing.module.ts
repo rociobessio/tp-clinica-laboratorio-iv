@@ -30,6 +30,12 @@ const routes: Routes = [
         loadChildren: () =>
           import('./mis-turnos/mis-turnos.module')
         .then(mt => mt.MisTurnosModule)
+      },
+      {
+        path: 'mis-pacientes',
+        loadChildren: () =>
+          import('./mis-pacientes/mis-pacientes.module')
+        .then(pac => pac.MisPacientesModule)
       }
     ]
   }

@@ -91,6 +91,8 @@ export class CargarHistorialComponent implements OnInit{
       return;
     }
 
+
+
     //-->Cargo el historial:
     this.historial = {
       altura: this.form.value['altura'],
@@ -99,7 +101,8 @@ export class CargarHistorialComponent implements OnInit{
       presion: this.form.value['presion'],
       datos: this.form.value['datos'],
       emailEspecialista: this.emailEspecialista,
-      emailPaciente: this.paciente.email
+      emailPaciente: this.paciente.email,
+      especialidad : this.cUserService.turno.especialidad
     };
 
     //-->Agrego el historial:

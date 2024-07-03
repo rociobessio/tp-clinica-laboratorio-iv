@@ -171,6 +171,7 @@ export class MiHistorialClinicoComponent implements OnInit {
   ): string[] {
     const pdf = [
       `Especialista: ${this.getEspecialista(historial.emailEspecialista)}`,
+      `Especialidad: ${historial.especialidad}`,
       `Altura: ${historial.altura}`,
       `Peso: ${historial.peso}`,
       `Temperatura: ${historial.temperatura}`,
