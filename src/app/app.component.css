@@ -6,8 +6,7 @@
         "content"
         "footer";
     grid-template-rows: auto 1fr auto;
-    /* grid-template-columns: var(--sidebar-width) 1fr; */
-    /* transition: grid-template-columns 0.5s; */
+    overflow-x: hidden; /* Agregado para eliminar el scroll horizontal */
 }
 
 .content {
@@ -17,4 +16,7 @@
     background-repeat: no-repeat;
     grid-area: content;
     overflow-y: auto;
+    position: relative;
+    width: 100vw; /* Asegúrate de que el contenido ocupe el ancho completo de la ventana */
+    box-sizing: border-box; /* Incluye padding y border en el ancho total */
 }

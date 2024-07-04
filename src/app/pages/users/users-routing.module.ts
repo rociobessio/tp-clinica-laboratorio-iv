@@ -6,7 +6,8 @@ import { checkAdminGuard } from '../../guards/check-admin.guard';
 const routes: Routes = [
   {
     path: '',
-    component: UsersComponent
+    component: UsersComponent,
+    data: { animation: '* <=> *' }
   }
 ];
 

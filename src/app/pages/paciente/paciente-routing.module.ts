@@ -6,6 +6,7 @@ const routes: Routes = [
   {
     path: '',
     component: PacienteComponent,
+    data: { animation: 'p <=> p' },
     children: [
       {
         path: '',

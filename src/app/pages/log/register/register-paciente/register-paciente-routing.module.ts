@@ -5,7 +5,8 @@ import { RegisterPacienteComponent } from './register-paciente.component';
 const routes: Routes = [
   {
     path: '',
-    component: RegisterPacienteComponent
+    component: RegisterPacienteComponent,
+    data: { animation: 'isLeft' }
   }
 ];
 
