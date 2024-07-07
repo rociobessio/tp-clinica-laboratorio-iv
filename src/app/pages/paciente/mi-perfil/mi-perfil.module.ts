@@ -6,6 +6,7 @@ import { MiPerfilComponent } from './mi-perfil.component';
 import { MiHistorialClinicoComponent } from '../../../components/tables/mi-historial-clinico/mi-historial-clinico.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { DoctorModule } from '../../../modules/pipes/doctor/doctor.module';
+import { FormatoDniModule } from '../../../modules/pipes/formato-dni/formato-dni.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { DoctorModule } from '../../../modules/pipes/doctor/doctor.module';
     CommonModule,
     MiPerfilRoutingModule,
     MatProgressSpinner,
-    DoctorModule
+    DoctorModule,
+    FormatoDniModule
   ]
 })
 export class MiPerfilModule { }
