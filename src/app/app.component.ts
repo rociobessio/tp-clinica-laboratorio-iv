@@ -12,7 +12,7 @@ export class AppComponent {
   title = 'tp-clinica-labo';
 
   prepareRouteAnimation(outlet:RouterOutlet){
-    console.log('outlet animation: ', outlet);
+    // console.log('outlet animation: ', outlet);
     
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }

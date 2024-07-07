@@ -12,11 +12,12 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
+import { NotImageDirective } from './directives/not-image.directive';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NotImageDirective
   ],
   imports: [
     BrowserModule,

@@ -32,21 +32,6 @@
            </div>
         </div>
         <!-- FIN DE SELECCIONAR UN PACIENTE (SI INGRESA COMO ADMINISTRADOR) -->
-    
-        <!-- INICIO DE QUE SELECCIONE UNA ESPECIALIDAD (ADMIN ADEMAS ELIJE PACIENTE PARA CONTINUAR) -->
-        <!-- <div *ngIf="isAdministrador ? (pacienteSelect && especialidadSelect === '') 
-            : (especialidadSelect === '')">
-            <h1>Especialidades</h1>
-            <hr>
-            <div class="row">
-                <div class="col-2 text-light text-center circular-div mx-2 mb5 align items-center"
-                *ngFor="let especialidad of especialidades" (click)="setEspecialidad(especialidad.nombre)">
-                    <h4 class="pt-3">{{especialidad.nombre}}</h4>
-                </div><br>
-            </div>
-            <hr>
-        </div> -->
-        <!-- FIN DE QUE SELECCIONE UNA ESPECIALIDAD (ADMIN ADEMAS ELIJE PACIENTE PARA CONTINUAR) -->
         
         <!-- INICIO DE SELECCIONAR UN ESPECIALISTA -->
         <div *ngIf="isAdministrador ? (pacienteSelect && especialistaSelect === null)
@@ -57,7 +42,9 @@
                 <div class="col-12 col-xl-3 text-dark text-center mt-5 mb-5"
                     (click)="setEspecialista(esp)"
                     *ngFor="let esp of especialistas">
-                    <h4 class="pt-4">Dr. {{esp.nombre}} {{esp.apellido}}</h4>
+                    <!-- UTILIZO UNA PIPE PARA AGREGAR DR. AL ESPECIALISTA -->
+                    <h4 class="pt-4">{{ esp.nombre | doctor }} {{ esp.apellido }}</h4>
+                    <!-- UTILIZO UNA PIPE PARA AGREGAR DR. AL ESPECIALISTA -->
                     <div class="row justify-content-evenly mt-2">
                         <div class="col-12 circular-div border border-3">
                             <img src="{{esp.img}}" class="imgRedonda" alt="imgDoc">
@@ -78,9 +65,15 @@
                 *ngFor="let especialidad of especialidadesDisponibles"
                 title="{{especialidad.nombre}}"
                 data-placement="bottom">
-                <img src="{{especialidad.img? especialidad.img : 'assets/def-icon.png'}}" class="img-especialidad" alt="logo{{especialidad.nombre}}">
-                    
-                </div><br>
+                <img src="{{especialidad.img? especialidad.img : 'assets/def-icon.png'}}" class="img-especialidad" alt="logo{{especialidad.nombre}}"
+                appNotImage>
+                <!-- <img src="especialidad.img? especialidad.img : null"
+                alt="logo{{especialidad.nombre}}" appNotImage class="img-especialidad"> -->
+
+
+
+                </div>
+                <br>
             </div>
             <hr>
 
@@ -145,11 +138,12 @@
                 </div>
                 <div class="row justify-content-evenly mt-2 mb-2"
                 *ngFor="let horario of getElementFromArray(turnosDisponibles, indexSelect)">
-                <button (click)="onGenerarTurno(getKeyByIndex(turnosDisponibles, indexSelect),horario)"
-                    class="btn col-8 mb-1 fw-bold" ngClass="{{horario.disponible? 'btn-outline-primary'
-                                :'btn-outline-secondary disabled'}}">
-                    {{horario.horario.hora}}
+                <button (click)="onGenerarTurno(getKeyByIndex(turnosDisponibles, indexSelect), horario)"
+                    class="btn col-8 mb-1 fw-bold" 
+                    [ngClass]="horario.disponible ? 'btn-outline-primary' : 'btn-outline-secondary disabled'">
+                    {{ horario.horario.hora | horaFormato }}
                 </button>
+
             </div>
             </div>
             <!-- FIN SI HA SELECCIONADO UN DIA GENERO EL TURNO -->

@@ -72,23 +72,30 @@ export class MisTurnosComponent implements OnInit{
    * que ingrese el paciente.
    * @param event 
    */
-  onFiltrarTurnos(
-    event : any
-  ): void{
+  onFiltrarTurnos(event: any): void {
     const valor = event.target.value;
 
-    if(valor === '') this.turnosMostrar = this.turnos;
-    else{
+    if (valor === '') {
+      this.turnosMostrar = this.turnos;
+    } else {
       this.turnosMostrar = [];
-
-      //-->Recorro y muestro.
-      for(const turno of this.turnos){
-        if(this.contieneSubcadenaIgnoreCase(turno.estado, valor) ||
-        this.contieneSubcadenaIgnoreCase(turno.fecha, valor) ||
-        this.contieneSubcadenaIgnoreCase(turno.horario.hora, valor) ||
-        this.contieneSubcadenaIgnoreCase(turno.especialidad, valor) ||
-        this.contieneSubcadenaIgnoreCase(this.getEspecialista(turno.emailEspecialista), valor))
-        this.turnosMostrar.push(turno);
+      for (const turno of this.turnos) {
+        if (
+          this.contieneSubcadenaIgnoreCase(turno.estado, valor) ||
+          this.contieneSubcadenaIgnoreCase(turno.fecha, valor) ||
+          this.contieneSubcadenaIgnoreCase(turno.horario.hora, valor) ||
+          this.contieneSubcadenaIgnoreCase(turno.especialidad, valor)
+        ) {
+          this.turnosMostrar.push(turno);
+        } else if (turno.emailEspecialista) {
+          const especialista = this.getEspecialista(turno.emailEspecialista);
+          if (especialista !== null) {
+            const nombreCompleto = `${especialista.nombre} ${especialista.apellido}`;
+            if (this.contieneSubcadenaIgnoreCase(nombreCompleto, valor)) {
+              this.turnosMostrar.push(turno);
+            }
+          }
+        }
       }
     }
   }
@@ -101,18 +108,15 @@ export class MisTurnosComponent implements OnInit{
    * profesional
    * @returns el nombre completo
    */
-  getEspecialista(
-    email : string
-  ) : string{
-    let name = '';
-    for(const esp of this.especialistas){
-      if(esp.email === email){
-        name = `${esp.nombre} ${esp.apellido}`;
-        break;
+  getEspecialista(email: string): { nombre: string, apellido: string } | null {
+    for (const esp of this.especialistas) {
+      if (esp.email === email) {
+        return { nombre: esp.nombre, apellido: esp.apellido };
       }
     }
-    return name;
+    return null;
   }
+  
 
   /**
    * Me permitira cancelar 

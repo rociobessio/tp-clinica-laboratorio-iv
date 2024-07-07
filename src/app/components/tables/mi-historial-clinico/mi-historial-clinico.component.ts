@@ -24,6 +24,7 @@ export class MiHistorialClinicoComponent implements OnInit {
   public historialClinico: HistoriaClinica[] = [];
   public especialistas : Especialista[] = [];
   public isLoading : boolean = false;
+  public especialista! : Especialista;
 
 ////////////////////////////////////////////// CTOR & ONINIT //////////////////////////////////////////////
   constructor(private historiaClinicaService : HistoriaClinicaService,
@@ -69,14 +70,14 @@ export class MiHistorialClinicoComponent implements OnInit {
 
 
 ////////////////////////////////////////////// METODOS //////////////////////////////////////////////
-  getEspecialista(email: string): string {
-
+  getEspecialista(email: string): { nombre: string, apellido: string } | null {
     for (const esp of this.especialistas) {
       if (esp.email === email) {
-        return `${esp.nombre} ${esp.apellido}`;
+        this.especialista = esp;
+        return { nombre: esp.nombre, apellido: esp.apellido };
       }
     }
-    return '';
+    return null;
   }
 
   /**

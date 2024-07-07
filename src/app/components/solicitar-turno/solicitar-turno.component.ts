@@ -70,12 +70,6 @@ public diaNombreSelect!: string;
       this.turnoService.traerTurnos().subscribe(data => {this.turnosActuales = data});
     });
 
-    // console.log('pacientes:', this.pacientes);
-    // console.log('especialistas: ', this.especialistas);
-    // console.log('especialidades: ', this.especialidades);
-    // console.log('jornadas: ', this.jornadas);
-    // console.log('turnos: ', this.turnosActuales);
-
     //-->Si no es administrador asigo el email: del paciente
     if(!this.isAdministrador){
       this.authService.getUserLogged()
@@ -107,20 +101,6 @@ public diaNombreSelect!: string;
       this.isLoading = false;
     },1000);
   }
-
-  /**
-   * Me permitira filtrar
-   * especialistas por especialidad.
-   * @param especialidad 
-   */
-  // filterEspecialistas(
-  //   especialidad : string
-  // ) : void{
-  //   this.especialistasDisponibles = [];
-  //   for(const especialista of this.especialistas){
-  //     if(especialista.especialidad.includes(especialidad)) this.especialistasDisponibles.push(especialista);
-  //   }
-  // }
 
   /**
    * Si el administrador desea

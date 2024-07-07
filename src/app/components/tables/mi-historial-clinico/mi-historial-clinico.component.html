@@ -26,7 +26,9 @@
             </thead>
             <tbody>
                 <tr *ngFor="let historiaClinica of historialClinico">
-                    <td class="text-align-center">{{getEspecialista(historiaClinica.emailEspecialista)}}</td>
+                    <td *ngIf="getEspecialista((historiaClinica.emailEspecialista))" class="text-align-center">
+                        {{ especialista.nombre | doctor }} {{ especialista.apellido }}
+                    </td>
                     <td class="text-align-center">{{historiaClinica.especialidad}}</td>
                     <td class="text-align-center">{{historiaClinica.peso}}</td>
                     <td class="text-align-center">{{historiaClinica.altura}}</td>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { MisTurnosRoutingModule } from './mis-turnos-routing.module';
 import { MisTurnosComponent } from './mis-turnos.component';
+import { DoctorModule } from '../../../modules/pipes/doctor/doctor.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { MisTurnosComponent } from './mis-turnos.component';
   ],
   imports: [
     CommonModule,
-    MisTurnosRoutingModule
+    MisTurnosRoutingModule,
+    DoctorModule
   ]
 })
 export class MisTurnosModule { }
