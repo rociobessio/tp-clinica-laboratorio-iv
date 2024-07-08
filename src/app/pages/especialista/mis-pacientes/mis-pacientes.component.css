@@ -19,7 +19,7 @@ h2{
 .circular-div-pacientes{
   width: 150px;
   height: 150px;
-  border-radius: 15px; /* Bordes redondeados */
+  border-radius: 50%; /* Bordes redondeados */
   overflow: hidden;
   position: relative;
   display: flex;

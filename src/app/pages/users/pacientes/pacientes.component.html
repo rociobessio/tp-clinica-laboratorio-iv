@@ -4,10 +4,9 @@
     <div class="row">
       <div class="col-12 col-xl-3 text-dark text-center mt-5 mb-5"
            (click)="setPaciente(paciente)"
-           *ngFor="let paciente  of pacientes">
-        
-        <h4 class="pt-4 nombre-paciente">{{ paciente.nombre }} {{ paciente.apellido }}</h4>
-        
+           *ngFor="let paciente  of pacientes"
+           title="{{paciente.nombre}} {{paciente.apellido}}"
+            data-placement="bottom">
         <div class="circular-div row justify-content-center mt-2">
           <img src="{{paciente.img1}}" class="imgRedonda" alt="imgDoc">
         </div>                    
@@ -60,6 +59,8 @@
           <!-- INICIO PARA VER EL HISTORIAL CLINICO DEL PACIENTE SELECCIONADO -->
           <div class="col-12 col-xl-7" *ngIf="mostrarHistorial && historialClinico.length > 0">
               <div class="table-responsive p-5">
+                <h6 class="text-align-left">Historiales Clínicos</h6>
+                <hr>
                   <table class="table">
                       <thead>
                           <tr>
@@ -98,12 +99,14 @@
           <div class="col-12 col-xl-7" *ngIf="!mostrarHistorial && turnosPacientes.length > 0">
             <!-- SI MUESTRO LA TABLA DE TURNOS DESCARGO EL EXCEL -->
              <div class="align-items-right">
-              <button type="button" class="btn btn-sm btn-outline-secondary" 
+              <button type="button" class="btn btn-sm btn-outline-success" 
               (click)="onDescargarTurnosExcel()">Descargar Turnos</button>
              </div>
             <!-- SI MUESTRO LA TABLA DE TURNOS DESCARGO EL EXCEL -->
 
             <div class="table-responsive p-5">
+                <h6 class="text-align-left">Turnos del Paciente</h6>
+                <hr>
                 <table class="table" id="tabla-turnos">
                     <thead>
                       <tr>
