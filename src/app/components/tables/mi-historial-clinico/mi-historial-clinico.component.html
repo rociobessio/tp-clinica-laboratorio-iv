@@ -1,14 +1,24 @@
 <div class="container">
     <!-- INICIO DEL BOTON DE DESCARGA -->
     <div class="row align-items-left mt-2">
-        <div class="col-6">
-            <button class="btn btn-outline-success"
-            (click)="onGenerarPdfHistorial()">
-                Descargar Historial Clinico
-            </button>
+        <div class="col-auto">
+          <select class="form-select" name="especialistas" [(ngModel)]="especialistaSeleccionado">
+            <option value="todos">TODOS</option>
+            <option *ngFor="let esp of especialistasFiltrados" [value]="esp.email">
+              {{esp.nombre}} {{esp.apellido}}
+            </option>
+          </select>
+        </div>
+      
+        <div class="col-auto">
+          <button class="btn btn-outline-success" (click)="onGenerarPdfHistorial()">
+            Descargar Historial Clinico
+          </button>
         </div>
     </div>
-    <!-- INICIO DEL BOTON DE DESCARGA -->
+    <!-- FIN DEL BOTON DE DESCARGA -->  
+      
+    
 
     <!-- INICIO DE LA TABLA -->
     <div class="py-3" *ngIf="historialClinico.length > 0">

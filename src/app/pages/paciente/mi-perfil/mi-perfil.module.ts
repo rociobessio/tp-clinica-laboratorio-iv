@@ -7,6 +7,7 @@ import { MiHistorialClinicoComponent } from '../../../components/tables/mi-histo
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { DoctorModule } from '../../../modules/pipes/doctor/doctor.module';
 import { FormatoDniModule } from '../../../modules/pipes/formato-dni/formato-dni.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { FormatoDniModule } from '../../../modules/pipes/formato-dni/formato-dni
     MiPerfilRoutingModule,
     MatProgressSpinner,
     DoctorModule,
-    FormatoDniModule
+    FormatoDniModule,
+    FormsModule
   ]
 })
 export class MiPerfilModule { }

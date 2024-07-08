@@ -26,6 +26,9 @@ export class MiHistorialClinicoComponent implements OnInit {
   public isLoading : boolean = false;
   public especialista! : Especialista;
 
+  public especialistasFiltrados: Especialista[] = [];
+  public especialistaSeleccionado: string = 'todos';
+
 ////////////////////////////////////////////// CTOR & ONINIT //////////////////////////////////////////////
   constructor(private historiaClinicaService : HistoriaClinicaService,
     private authService : AuthService, private pacienteService : PacienteService,
@@ -52,7 +55,11 @@ export class MiHistorialClinicoComponent implements OnInit {
                               this.historialClinico = historiales;
                               console.log('Historial: ', historiales); // Log para verificar los historiales
                               if (this.historialClinico.length > 0) {
-                                  console.log('Historial clínico cargado.');
+
+                                //-->para cargar el select
+                                this.onFiltrarEspecialistasHistoriaClinica();
+                                
+                                console.log('Historial clínico cargado.');
                               } else {
                                   console.log('No hay historiales clínicos.');
                               }
@@ -80,6 +87,13 @@ export class MiHistorialClinicoComponent implements OnInit {
     return null;
   }
 
+  onFiltrarEspecialistasHistoriaClinica() {
+    const emailsEspecialistas = this.historialClinico.map((historia) => historia.emailEspecialista);
+    this.especialistasFiltrados = this.especialistas.filter((esp) =>
+      emailsEspecialistas.includes(esp.email)
+    );
+  }
+
   /**
    * Me permitira obtener la key
    * del dato dinamico.
@@ -92,11 +106,9 @@ export class MiHistorialClinicoComponent implements OnInit {
     return Object.keys(dato)[0];
   }
 ////////////////////////////////////////////// GENERAR PDF //////////////////////////////////////////////
-  onGenerarPdfHistorial(){
-    //-->Que el historial clinico tenga algo cargado.
-    if(this.historialClinico.length > 0){
+  onGenerarPdfHistorial() {
+    if (this.historialClinico.length > 0) {
       let date = new Date(Date.now());
-      //-->Para los margenes del PDF
       const margins = {
         top: 10,
         bottom: 10,
@@ -107,27 +119,24 @@ export class MiHistorialClinicoComponent implements OnInit {
       const doc = new jsPDF();
       const imgWidth = 30;
       const imgHeight = 30;
-      //---> Posición X del texto al lado de la imagen
       const textX = margins.left + imgWidth + 10;
 
-      //--> Para el Header:
       doc.addImage(
-        'assets/icons/logo-pagina.png', 
-        'PNG', 
-        margins.left, 
-        margins.top, 
-        imgWidth, 
+        'assets/icons/logo-pagina.png',
+        'PNG',
+        margins.left,
+        margins.top,
+        imgWidth,
         imgHeight
       );
       doc.setFontSize(22);
       doc.setFont('Times');
       doc.text(
-        'Clinica Online', 
-        textX, 
+        'Clinica Online',
+        textX,
         margins.top + imgHeight / 2 + 6
-      );//--> Centrar verticalmente el texto con la imagen
+      );
 
-      //-->El subtitulo:
       const newSubtitulo = margins.top + imgHeight + 20;
       doc.setFontSize(18);
       doc.text(
@@ -137,75 +146,79 @@ export class MiHistorialClinicoComponent implements OnInit {
         newSubtitulo
       );
 
-      // //-->Voy a formatear los Historiales Clinicos
       const historiales = this.formatearHistoriales();
-      let y = newSubtitulo + 30;//-->Posición inicial para el contenid
+      let y = newSubtitulo + 30;
 
       for (const h of historiales) {
-        y = this.addHistorialToPDF(doc, h, margins.left, y);
-        y += 10;//-->Añadir un margen entre los historiales
+        y = this.addHistorialToPDF(doc, h, margins.left, y, doc.internal.pageSize.height - margins.bottom);
       }
 
-      //-->Guardar el jsPDF
-      doc.save(`historia-clinica-${this.paciente.nombre}-${this.paciente.apellido}.pdf`);      
-    }
-    else{
+      doc.save(`historia-clinica-${this.paciente.nombre}-${this.paciente.apellido}.pdf`);
+    } else {
       Swal.fire({
         title: 'No es posible descargar.',
         text: 'Aún no tiene un historial clinico generado.',
         icon: 'error',
-        background: 'antiquewhite'//-->Color de fondo
+        background: 'antiquewhite'
       });
     }
   }
 
-  private formatearHistoriales(){
+  getEspecialistaNombre(email: string): string {
+    const esp = this.especialistas.find((e) => e.email === email);
+    return esp ? `${esp.nombre} ${esp.apellido}` : '';
+  }
+
+  private formatearHistoriales() {
     const historialesFomateados = [];
     for (const his of this.historialClinico) {
-      historialesFomateados.push(this.historiaToPDF(his));
+      if (this.especialistaSeleccionado === 'todos' || his.emailEspecialista === this.especialistaSeleccionado) {
+        historialesFomateados.push(this.historiaToPDF(his));
+      }
     }
     return historialesFomateados;
   }
 
-  private historiaToPDF(
-    historial: HistoriaClinica
-  ): string[] {
+  private historiaToPDF(historial: HistoriaClinica): string[] {
+    const esp = this.getEspecialista(historial.emailEspecialista);
     const pdf = [
-      `Especialista: ${this.getEspecialista(historial.emailEspecialista)}`,
+      `Especialista: ${'Dr. ' + esp?.nombre + ' ' + esp?.apellido}`,
       `Especialidad: ${historial.especialidad}`,
       `Altura: ${historial.altura}`,
       `Peso: ${historial.peso}`,
       `Temperatura: ${historial.temperatura}`,
       `Presion: ${historial.presion}`
     ];
-  
+
     for (const dato of historial.datos) {
       const key = this.sacarKey(dato);
       pdf.push(`${key}: ${dato[key]}`);
     }
-  
+
     return pdf;
   }
-  
-  private addHistorialToPDF(
-    doc: jsPDF, 
-    historial: string[], 
-    x: number, 
-    y: number
-  ): number {
+
+
+  private addHistorialToPDF(doc: jsPDF, historial: string[], x: number, y: number, pageHeight: number): number {
+    const lineHeight = 10;
+
     historial.forEach((line, index) => {
+      if (y + lineHeight > pageHeight) {
+        doc.addPage();
+        y = 10;
+      }
+
       if (index === 0) {
-        //-->Configurar fuente para la primera línea (especialista)
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(16);
       } else {
-        //-->Configurar fuente para las demás líneas
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(14);
       }
       doc.text(line, x, y);
-      y += 10;//->Distancia entre líneas
+      y += lineHeight;
     });
+
     return y;
   }
 }
