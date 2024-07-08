@@ -6,14 +6,12 @@ import { slideInAnimation, slider } from './animations/animation';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  animations: [slider,slideInAnimation]
+  animations: [slideInAnimation]
 })
 export class AppComponent {
   title = 'tp-clinica-labo';
 
-  prepareRouteAnimation(outlet:RouterOutlet){
-    // console.log('outlet animation: ', outlet);
-    
+  prepareRoute(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 }

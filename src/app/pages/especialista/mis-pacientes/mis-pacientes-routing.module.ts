@@ -5,7 +5,8 @@ import { MisPacientesComponent } from './mis-pacientes.component';
 const routes: Routes = [
   {
     path: '',
-    component: MisPacientesComponent
+    component: MisPacientesComponent,
+    data: { animation: 'isRight' }
   }
 ];
 

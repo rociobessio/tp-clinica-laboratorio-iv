@@ -34,25 +34,24 @@
         <!-- FIN DE SELECCIONAR UN PACIENTE (SI INGRESA COMO ADMINISTRADOR) -->
         
         <!-- INICIO DE SELECCIONAR UN ESPECIALISTA -->
-        <div *ngIf="isAdministrador ? (pacienteSelect && especialistaSelect === null)
-        : (especialistaSelect === null)">
+        <div *ngIf="isAdministrador ? (pacienteSelect && especialistaSelect === null) : (especialistaSelect === null)">
             <h1>Especialistas</h1>
             <hr>
             <div class="row">
-                <div class="col-12 col-xl-3 text-dark text-center mt-5 mb-5"
-                    (click)="setEspecialista(esp)"
-                    *ngFor="let esp of especialistas">
-                    <!-- UTILIZO UNA PIPE PARA AGREGAR DR. AL ESPECIALISTA -->
-                    <h4 class="pt-4">{{ esp.nombre | doctor }} {{ esp.apellido }}</h4>
-                    <!-- UTILIZO UNA PIPE PARA AGREGAR DR. AL ESPECIALISTA -->
-                    <div class="row justify-content-evenly mt-2">
-                        <div class="col-12 circular-div border border-3">
-                            <img src="{{esp.img}}" class="imgRedonda" alt="imgDoc">
-                        </div>
-                    </div>                    
-                </div>
+              <div class="col-12 col-xl-3 text-dark text-center mt-5 mb-5"
+                   (click)="setEspecialista(esp)"
+                   *ngFor="let esp of especialistas">
+                <!-- UTILIZO UNA PIPE PARA AGREGAR DR. AL ESPECIALISTA -->
+                <h4 class="pt-4">{{ esp.nombre | doctor }} {{ esp.apellido }}</h4>
+                <!-- UTILIZO UNA PIPE PARA AGREGAR DR. AL ESPECIALISTA -->
+                <div class="row justify-content-evenly mt-2">
+                  <div class="col-12" appBtnCircularEsp>
+                    <img src="{{esp.img}}" class="imgRedonda" alt="imgDoc">
+                  </div>
+                </div>                    
+              </div>
             </div>
-        </div>
+        </div>                 
         <!-- FIN DE SELECCIONAR UN ESPECIALISTA -->
 
 <!-- *ngFor="let especialidad of especialistaSelect.especialidad" -->

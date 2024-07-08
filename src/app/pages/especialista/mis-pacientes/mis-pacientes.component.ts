@@ -4,6 +4,9 @@ import { Paciente } from '../../../interfaces/paciente.interface';
 import { PacienteService } from '../../../services/paciente.service';
 import { HistoriaClinicaService } from '../../../services/historia-clinica.service';
 import { AuthService } from '../../../services/auth.service';
+import { Turno } from '../../../interfaces/turno.interface';
+import { TurnoService } from '../../../services/turno.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-mis-pacientes',
@@ -17,9 +20,10 @@ export class MisPacientesComponent implements OnInit{
   public pacientes : Paciente[] =[];
   public todosHistorialesClinicos: HistoriaClinica[] =[];
   public paciente!: Paciente;
+  public turnos: Turno[] = [];
 ////////////////////////////////// CTOR & ONINIT //////////////////////////////////
   constructor(private pacienteService : PacienteService, private historiaClinicaService : HistoriaClinicaService,
-    private authService : AuthService,private cdr: ChangeDetectorRef) {}
+    private authService : AuthService,private cdr: ChangeDetectorRef, private turnosService : TurnoService) {}
 
     ngOnInit(): void {
       this.authService.getUserLogged()
@@ -33,16 +37,23 @@ export class MisPacientesComponent implements OnInit{
                     for (const historial of historiales) {
                       if (historial.emailEspecialista === this.especialistaEmail) {
                         this.todosHistorialesClinicos.push(historial);
-                        console.log('todos historiales: ', this.todosHistorialesClinicos);
   
-                        // Verifico si el paciente ya está en la lista
                         if (!this.pacientes.some(p => p.email === paciente.email)) {
                           this.pacientes.push(paciente);
-                          this.cdr.detectChanges(); // Fuerzo la detección de cambios
+                          this.cdr.detectChanges();
                         }
-                        console.log(this.pacientes);
                       }
                     }
+                  });
+  
+                this.turnosService.getTurnosByEmailPaciente(paciente.email)
+                  .subscribe((turnos) => {
+                    for (const turno of turnos) {
+                      if (turno.emailEspecialista === this.especialistaEmail) {
+                        this.turnos.push(turno);
+                      }
+                    }
+                    this.cdr.detectChanges();
                   });
               }
             });
@@ -81,14 +92,18 @@ export class MisPacientesComponent implements OnInit{
    * del paciente.
    * @param paciente el paciente
    */
-  onGetHistorial(paciente: Paciente) {
-    for (const his of this.todosHistorialesClinicos) {
-      if (his.emailPaciente === paciente.email) {
-        this.historiaClinica.push(his);
-      }
-    }
+  onGetHistorial(paciente: Paciente): void {
+    this.historiaClinica = this.todosHistorialesClinicos.filter(his => his.emailPaciente === paciente.email);
     this.cdr.detectChanges();
-    console.log('Historial paciente: ', this.historiaClinica);    
+  }
+
+  getReseniaByEmailAndEspecialidad(email: string, especialidad: string): string {
+    const turno = this.turnos.find(t => t.emailPaciente === email && t.especialidad === especialidad && t.resenia !== '');
+    return turno ? turno.resenia : '';
+  }
+
+  getTurno(emailPaciente: string, especialidad: string): Turno | undefined {
+    return this.turnos.find(t => t.emailPaciente === emailPaciente && t.especialidad === especialidad && t.resenia !== '');
   }
 
   /**
@@ -100,4 +115,24 @@ export class MisPacientesComponent implements OnInit{
     this.historiaClinica = [];
     this.cdr.detectChanges();
   }
-}
+  onVerResenia(turno?: Turno): void {
+    if (turno && turno.resenia) {
+      Swal.fire({
+        title: 'Información de la reseña.',
+        text: turno.resenia,
+        icon: 'info',
+        confirmButtonText: 'Cerrar',
+        confirmButtonColor: 'darkslategray',
+        background: 'antiquewhite'
+      });
+    } else {
+      Swal.fire({
+        title: "No se ha escrito una reseña todavía.",
+        icon: "info",
+        confirmButtonText: 'Cerrar',
+        confirmButtonColor: 'darkslategray',
+        background: 'antiquewhite'
+      });
+    }
+  }
+}  

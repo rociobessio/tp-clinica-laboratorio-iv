@@ -185,6 +185,8 @@ export class MisTurnosComponent implements OnInit{
             .then(() =>{
               turno.resenia = text;
               turno.estado = 'finalizado';
+              console.log('Turno finalizado: ',turno);
+              
               this.turnoService.updateTurno(turno);
               this.getTurnos();//-->Vuelvo a traer los turnos.
             });

@@ -31,6 +31,7 @@
                 <th>Presión</th>
                 <th>Temperatura</th>
                 <th>Observación</th>
+                <th>Reseña</th>
               </tr>
             </thead>
             <tbody>
@@ -46,9 +47,15 @@
                     {{ sacarKey(dato) }}: {{ dato[sacarKey(dato)] }}
                   </div>
                 </td>
+                <td>
+                  <button *ngIf="getReseniaByEmailAndEspecialidad(historiaClinica.emailPaciente, historiaClinica.especialidad) !== ''" class="btn btn-outline-info" (click)="onVerResenia(getTurno(historiaClinica.emailPaciente, historiaClinica.especialidad))">
+                    Ver Reseña
+                  </button>
+                  <span *ngIf="getReseniaByEmailAndEspecialidad(historiaClinica.emailPaciente, historiaClinica.especialidad) === ''">Sin Reseña</span>
+                </td>
               </tr>
             </tbody>
-          </table>
+          </table>          
         </div>
       </div>
       <!-- FIN DE MOSTRAR LOS HISTORIALES -->

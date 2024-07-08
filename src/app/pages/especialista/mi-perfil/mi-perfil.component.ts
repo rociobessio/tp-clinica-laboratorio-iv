@@ -4,11 +4,13 @@ import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { EspecialistaService } from '../../../services/especialista.service';
 import { CurrentUserService } from '../../../services/current-user.service';
+import { slideInAnimation } from '../../../animations/animation';
 
 @Component({
   selector: 'app-mi-perfil',
   templateUrl: './mi-perfil.component.html',
-  styleUrl: './mi-perfil.component.css'
+  styleUrl: './mi-perfil.component.css',
+  animations: [slideInAnimation]
 })
 export class MiPerfilComponent implements OnInit{
   public especialista!: Especialista;

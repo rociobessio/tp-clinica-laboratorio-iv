@@ -13,11 +13,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { NotImageDirective } from './directives/not-image.directive';
+import { BtnCircularEspDirective } from './directives/btn-circular-esp.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NotImageDirective
+    NotImageDirective,
+    BtnCircularEspDirective
   ],
   imports: [
     BrowserModule,

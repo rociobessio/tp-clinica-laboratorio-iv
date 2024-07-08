@@ -120,7 +120,10 @@ export class CargarHistorialComponent implements OnInit{
       .then(() =>{
         //-->Actualizo los turnos con su historial:
         this.cUserService.turno.historialClinico = true;
-        this.turnoService.updateTurno(this.cUserService.turno);
+        const turno = this.cUserService.turno;
+        turno.historialClinico = true;
+        
+        this.turnoService.updateTurno(turno);
         this.turnoHistorial.emit(false);
       });
   }
@@ -143,7 +146,7 @@ export class CargarHistorialComponent implements OnInit{
   }
 
   getFieldError(field: string): string | null {
-    if (!this.form.controls[field] && !this.form.controls[field].errors) return null;
+    if (!this.form.controls[field] && !this.form.controls[field]) return null;
 
     const errors = this.form.controls[field].errors;
     for (const key of Object.keys(errors!)) {

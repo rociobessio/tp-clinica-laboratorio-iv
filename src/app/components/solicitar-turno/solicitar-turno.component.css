@@ -54,7 +54,28 @@ h3,h4,h5,h6{
   background-color: darkslategrey;
 }
 
-.circular-div {
+/* .circular-div {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  background-color: darkslategrey;
+} */
+
+
+.centered-text {
+  position: absolute;
+  text-align: center;
+  color: white;
+  text-shadow: 2px 2px 2px black;
+}
+
+/* .circular-div {
   width: 150px;
   height: 150px;
   border-radius: 50%;
@@ -67,19 +88,37 @@ h3,h4,h5,h6{
   background-color: darkslategrey;
 }
 
+.circular-div:hover {
+  transform: scale(1.1);
+  border: 10px solid #0b1d60;
+} */
 
-.centered-text {
-  position: absolute;
-  text-align: center;
-  color: white;
-  text-shadow: 2px 2px 2px black;
+div[appBtnCircularEsp] {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  background-color: darkslategrey;
+  /* Add !important to ensure it overrides */
 }
 
-.circular-div:hover,
+div[appBtnCircularEsp]:hover {
+  transform: scale(1.1);
+  border: 10px solid #0b1d60;
+  /* Add !important to ensure it overrides */
+}
+
+
+/* .circular-div:hover,
 .paciente-div:hover{
   transform: scale(1.1); 
   border:10px solid #0b1d60;
-}
+} */
 
 .paciente-div:hover{
   background-color: darkslategrey !important;

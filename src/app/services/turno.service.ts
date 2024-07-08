@@ -44,8 +44,8 @@ export class TurnoService {
     const docs = doc(this.turnosRef, turno.id);
     setDoc(docs, { 
       estado: turno.estado, 
-      resenia: turno.resenia ? turno.resenia == '' : '', 
-      calificacion: turno.calificacion ? turno.calificacion == '' : '', 
+      resenia: turno.resenia ? turno.resenia : '', 
+      calificacion: turno.calificacion ? turno.calificacion : '', 
       encuesta: turno.encuesta,
       emailEspecialista: turno.emailEspecialista,
       emailPaciente: turno.emailPaciente,
@@ -53,8 +53,9 @@ export class TurnoService {
       horario: turno.horario,
       id: turno.id,
       fecha: turno.fecha,
-      historial: turno.historialClinico ? !turno.historialClinico : false
+      historial: turno.historialClinico ? turno.historialClinico : false
     });
+    
   }
 
   /**
