@@ -1,79 +1,145 @@
 <main>
-    <!-- INICIO DEL CONTENEDOR DE PACIENTES -->
-    <div class="container" *ngIf="showPacientes && pacientes">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <div class="col-6" *ngFor="let paciente of pacientes">
-          <div class="card">
-            <img src="{{paciente.img1}}" alt="img-pac">
-            <div class="card-body">
-              <h3>{{paciente.apellido}}, {{paciente.nombre}}</h3>
-              <h4>DNI: {{paciente.dni}}</h4>
-              <h4>Email: {{paciente.email}}</h4>
-              <h4>Edad: {{paciente.edad}}</h4>
-              <h4>Obra Social: {{paciente.obraSocial}}</h4>
+  <!-- INICIO DEL CONTENEDOR DE PACIENTES -->
+  <div class="" *ngIf="showPacientes && pacientes">
+    <div class="row">
+      <div class="col-12 col-xl-3 text-dark text-center mt-5 mb-5"
+           (click)="setPaciente(paciente)"
+           *ngFor="let paciente  of pacientes">
+        
+        <h4 class="pt-4 nombre-paciente">{{ paciente.nombre }} {{ paciente.apellido }}</h4>
+        
+        <div class="circular-div row justify-content-center mt-2">
+          <img src="{{paciente.img1}}" class="imgRedonda" alt="imgDoc">
+        </div>                    
+      </div>
+    </div>
+  </div>
   
-              <!-- INICIO PARA HABILITAR EL HISTORIAL -->
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary"
-                          (click)="onGetHistorial(paciente)">Ver Historial</button>
-                </div>
+  <!-- FIN DEL CONTENEDOR DE PACIENTES -->
+
+  <!-- INICIO DE SI HA SELECCIONADO UN PACIENTE -->
+  <div *ngIf="pacienteSelect !== null">
+      <button type="button" class="btn-propios btn-sm btn-outline-danger m-2" (click)="onReset()">Volver</button><br>
+      <hr>
+      
+      <!-- INICIO PARA HABILITAR EL HISTORIAL O DESCARGAR LOS TURNOS -->
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <div class="btn-group">
+          <button type="button" class="btn btn-propios btn-sm btn-outline-secondary"
+                  (click)="onGetHistorial(pacienteSelect!)">Ver Historial</button>
+        
+          <button type="button" class="btn btn-propios btn-sm btn-outline-secondary"
+                  (click)="onVerTurnos(pacienteSelect!)">Ver Turnos</button>
+        </div>
+      </div><br><br>
+      <!-- FIN PARA HABILITAR EL HISTORIAL O DESCARGAR LOS TURNOS -->
+       
+      <div class="row">
+          <div class="col-12 col-xl-5">
+              <!-- INICIO DE MOSTRAR INFORMACION DEL PACIENTE -->
+              <div class="card-pac border border-3 border-secondary especial-div">
+                  <div class="row justify-content-evenly mt-2">
+                      <div class="col-6">
+                          <h4 class="pt-3">{{pacienteSelect.apellido}}, {{pacienteSelect.nombre}}</h4>
+                      </div>
+                      <div class="col-2 mx-2">
+                          <img class="rounded-5 mt-3" style="width: 60px; height: 60px;" src="{{pacienteSelect.img1}}" alt="img-doctor">
+                      </div>
+                  </div>
+                  <hr>
+                  <div class="mx-5">
+                      <h6 class="mx-2">DNI: {{pacienteSelect.dni.toString()| formatoDni  }}</h6>
+                      <h6 class="mx-2">Edad: {{pacienteSelect.edad}}</h6>
+                      <h6 class="mx-2">Email: {{pacienteSelect.email}}</h6>
+                      <h6 class="mx-2">Obra Social: {{pacienteSelect.obraSocial}}</h6>
+                  </div>
               </div>
-              <!-- FIN PARA HABILITAR EL HISTORIAL -->
+              <!-- FIN DE MOSTRAR INFORMACION DEL PACIENTE -->
+          </div>
+          
+          <!-- INICIO PARA VER EL HISTORIAL CLINICO DEL PACIENTE SELECCIONADO -->
+          <div class="col-12 col-xl-7" *ngIf="mostrarHistorial && historialClinico.length > 0">
+              <div class="table-responsive p-5">
+                  <table class="table">
+                      <thead>
+                          <tr>
+                              <th>Paciente</th>
+                              <th>Especialista</th>
+                              <th>Especialidad</th>
+                              <th>Peso</th>
+                              <th>Altura</th>
+                              <th>Presión</th>
+                              <th>Temperatura</th>
+                              <th>Observación</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let historiaClinica of historialClinico">
+                              <td>{{getPaciente(historiaClinica.emailPaciente)}}</td>
+                              <td>{{getEspecialista(historiaClinica.emailEspecialista)}}</td>
+                              <td>{{historiaClinica.especialidad}}</td>
+                              <td>{{historiaClinica.peso}}</td>
+                              <td>{{historiaClinica.altura}}</td>
+                              <td>{{historiaClinica.presion}}</td>
+                              <td>{{historiaClinica.temperatura}}</td>
+                              <td>
+                                  <div class="text-light" *ngFor="let dato of historiaClinica.datos">
+                                      {{ sacarKey(dato) }}: {{ dato[sacarKey(dato)] }}
+                                  </div>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+          <!-- FIN PARA VER EL HISTORIAL CLINICO DEL PACIENTE SELECCIONADO -->
+
+          <!-- INICIO DE VER LOS TURNOS DEL PACIENTE -->
+          <div class="col-12 col-xl-7" *ngIf="!mostrarHistorial && turnosPacientes.length > 0">
+            <!-- SI MUESTRO LA TABLA DE TURNOS DESCARGO EL EXCEL -->
+             <div class="align-items-right">
+              <button type="button" class="btn btn-sm btn-outline-secondary" 
+              (click)="onDescargarTurnosExcel()">Descargar Turnos</button>
+             </div>
+            <!-- SI MUESTRO LA TABLA DE TURNOS DESCARGO EL EXCEL -->
+
+            <div class="table-responsive p-5">
+                <table class="table" id="tabla-turnos">
+                    <thead>
+                      <tr>
+                        <th>Especialista</th>
+                        <th class="text-align-center">Especialidad</th>
+                        <th class="text-align-center">Fecha</th>
+                        <th class="text-align-center">Hora</th>
+                        <th class="text-align-center">Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let turno of turnosPacientes">
+                        <td class="text-align-center">
+                            {{turno.emailEspecialista}}
+                        </td>
+                        <td class="text-align-center">{{turno.especialidad}}</td>
+                        <td class="text-align-center">{{turno.fecha}}</td>
+                        <td class="text-align-center">{{turno.horario.hora.toString() | horaFormato}}</td>
+                        <td class="text-align-center">{{turno.estado}}</td>
+                    </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-        </div>
+          <!-- FIN DE VER LOS TURNOS DEL PACIENTE -->
       </div>
-    </div>
-    <!-- FIN DEL CONTENEDOR DE PACIENTES -->
-  
-    <!-- INICIO PARA VER EL HISTORIAL CLINICO DEL PACIENTE SELECCIONADO -->
-    <div class="py-3 justify-content-center" *ngIf="historialClinico.length > 0">
-      <button type="button" class="btn btn-sm btn-outline-danger m-2" (click)="onReset()">Cerrar</button><br>
-      <!-- FIN DE RESETEAR EL HISTORIAL -->
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Paciente</th>
-              <th>Especialista</th>
-              <th>Especialidad</th>
-              <th>Peso</th>
-              <th>Altura</th>
-              <th>Presión</th>
-              <th>Temperatura</th>
-              <th>Observación</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let historiaClinica of historialClinico">
-              <td>{{getPaciente(historiaClinica.emailPaciente)}}</td>
-              <td>{{getEspecialista(historiaClinica.emailEspecialista)}}</td>
-              <td>{{historiaClinica.especialidad}}</td>
-              <td>{{historiaClinica.peso}}</td>
-              <td>{{historiaClinica.altura}}</td>
-              <td>{{historiaClinica.presion}}</td>
-              <td>{{historiaClinica.temperatura}}</td>
-              <td>
-                <div class="text-light" *ngFor="let dato of historiaClinica.datos">
-                  {{ sacarKey(dato) }}: {{ dato[sacarKey(dato)] }}
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <!-- FIN PARA VER EL HISTORIAL CLINICO DEL PACIENTE SELECCIONADO -->
-  
-    <hr>
-    <!-- INICIO DEL BOTON PARA DAR EL ALTA DEL PACIENTE -->
-    <div class="div-btn" *ngIf="showPacientes">
-      <app-form-paciente *ngIf="showFormComponent" (registrationSuccess)="onRegistrationSuccess($event)"></app-form-paciente>
-      <button class="btn" (click)="onAddPacienteAdmin()">
-        {{ showFormComponent ? 'Cerrar' : 'Dar de Alta Paciente' }}
-      </button>
-    </div><br>
-    <!-- FIN DEL BOTON PARA DAR EL ALTA DEL PACIENTE -->
+  </div>
+  <!-- FIN DE SI HA SELECCIONADO UN PACIENTE -->
+
+  <hr>
+  <!-- INICIO DEL BOTON PARA DAR EL ALTA DEL PACIENTE -->
+  <div class="div-btn" *ngIf="showPacientes">
+    <app-form-paciente *ngIf="showFormComponent" (registrationSuccess)="onRegistrationSuccess($event)"></app-form-paciente>
+    <button class="btn" (click)="onAddPacienteAdmin()">
+      {{ showFormComponent ? 'Cerrar' : 'Dar de Alta Paciente' }}
+    </button>
+  </div><br>
+  <!-- FIN DEL BOTON PARA DAR EL ALTA DEL PACIENTE -->
 </main>
-  

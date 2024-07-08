@@ -87,19 +87,28 @@ export class TurnoService {
    * paciente.
    */
   getTurnosByEmailPaciente(
-    email : string
-  ) : Observable<Turno[]>{
+    email: string
+  ): Observable<Turno[]> {
     return new Observable<Turno[]>((observer) => {
-      onSnapshot(this.turnosRef, (snap) =>{
+      console.log('Fetching turnos for email:', email);
+      onSnapshot(this.turnosRef, (snap) => {
         const turnos: Turno[] = [];
-        snap.docChanges().forEach(x => {
-          const data = x.doc.data() as Turno;
-          if(data.emailPaciente === email) turnos.push(data);
+        snap.docChanges().forEach(change => {
+          if (change.type === "added" || change.type === "modified") {
+            const data = change.doc.data() as Turno;
+            console.log('Turno data:', data);
+            if (data.emailPaciente === email) {
+              turnos.push(data);
+            }
+          }
         });
+        console.log('Turnos found:', turnos);
         observer.next(turnos);
+        observer.complete();
       });
     });
   }
+  
 
   /**
    * Me permitira obtener los
