@@ -17,6 +17,7 @@ import { FormatoDniModule } from "../../modules/pipes/formato-dni/formato-dni.mo
 import { TruncateModule } from '../../modules/pipes/truncate/truncate.module';
 import { DoctorModule } from "../../modules/pipes/doctor/doctor.module";
 import { HoraFormatoModule } from "../../modules/pipes/hora-formato/hora-formato.module";
+import { EstadisticasComponent } from './estadisticas/estadisticas.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { HoraFormatoModule } from "../../modules/pipes/hora-formato/hora-formato
         AdministradoresComponent,
         SolicitarTurnoAdminComponent,
         TurnosComponent,
+        EstadisticasComponent,
     ],
     imports: [
         CommonModule,
