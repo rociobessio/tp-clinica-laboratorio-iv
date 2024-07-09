@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Auth, User, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
-import { Firestore, Timestamp, addDoc, collection } from '@angular/fire/firestore';
+import { Firestore, Timestamp, addDoc, collection, getDocs } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import Swal from "sweetalert2";
@@ -27,6 +27,16 @@ export class AuthService {
     password: string
   ) {
     try {
+      //-->Obtengo cuando se logueo en la app
+      const loginTime = new Date();
+      // const fecha = Date.now();
+      //-->Guardo el log del  inicio de sesion a Firebase
+      await addDoc(collection(this.firestore, 'logs'), {
+          email: email,
+          loginTime: loginTime.toString(),
+          // fecha: fecha
+      });
+
       return await signInWithEmailAndPassword(this.authAngFire,email, password);
     } catch (error) {
         console.error("Error al iniciar sesión:", error);
@@ -184,4 +194,22 @@ export class AuthService {
     });
   }
 
+
+  async getLogs(){
+    let array: any[] = [];
+    try {
+      const querySnapshot = await getDocs(collection(this.firestore, 'logs'));
+      querySnapshot.forEach((doc) => {
+        let data = {
+          id: doc.id,
+          data: doc.data()
+        };
+        array.push(data);
+      });
+    } catch (error) {
+      console.error("Error getting logs: ", error);
+    }
+    return array;
+  }
+  
 }
