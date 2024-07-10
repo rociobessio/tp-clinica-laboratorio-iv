@@ -2,15 +2,9 @@
   <!-- INICIO DEL CONTENEDOR DE PACIENTES -->
   <div class="" *ngIf="showPacientes && pacientes">
     <div class="row">
-      <div class="col-12 col-xl-3 text-dark text-center mt-5 mb-5"
-           (click)="setPaciente(paciente)"
-           *ngFor="let paciente  of pacientes"
-           title="{{paciente.nombre}} {{paciente.apellido}}"
-            data-placement="bottom">
-        <div class="circular-div row justify-content-center mt-2">
-          <img src="{{paciente.img1}}" class="imgRedonda" alt="imgDoc">
-        </div>                    
-      </div>
+      <!-- INICIO DEL FAB-BUTTON -->
+      <app-fav-button [pacientes]="pacientes" (pacienteSeleccionado)="setPaciente($event)"></app-fav-button>
+      <!-- FIN DEL FAB-BUTTON -->
     </div>
   </div>
   
@@ -140,7 +134,7 @@
   <!-- INICIO DEL BOTON PARA DAR EL ALTA DEL PACIENTE -->
   <div class="div-btn" *ngIf="showPacientes">
     <app-form-paciente *ngIf="showFormComponent" (registrationSuccess)="onRegistrationSuccess($event)"></app-form-paciente>
-    <button class="btn" (click)="onAddPacienteAdmin()">
+    <button class="btn-propios" (click)="onAddPacienteAdmin()">
       {{ showFormComponent ? 'Cerrar' : 'Dar de Alta Paciente' }}
     </button>
   </div><br>

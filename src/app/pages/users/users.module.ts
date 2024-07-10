@@ -18,6 +18,7 @@ import { TruncateModule } from '../../modules/pipes/truncate/truncate.module';
 import { DoctorModule } from "../../modules/pipes/doctor/doctor.module";
 import { HoraFormatoModule } from "../../modules/pipes/hora-formato/hora-formato.module";
 import { EstadisticasComponent } from './estadisticas/estadisticas.component';
+import { FabButtonModule } from '../../modules/fab-button/fab-button.module';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { EstadisticasComponent } from './estadisticas/estadisticas.component';
         FormatoDniModule,
         TruncateModule,
         DoctorModule,
-        HoraFormatoModule
+        HoraFormatoModule,
+        FabButtonModule
     ]
 })
 export class UsersModule { }

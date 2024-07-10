@@ -30,8 +30,9 @@ export class PacientesComponent implements OnInit {
   public historialClinico: HistoriaClinica[] = [];
   public especialistas: Especialista[] = [];
   
-  showPacientes = true; //-->Nueva bandera para controlar la visibilidad de los pacientes
+  showPacientes = true;
   mostrarHistorial: boolean = false;//-->Para mostrar una tabla o la otra
+  public rolUsuario: string = 'administrador';//-->Para el fab-button
 
   public turnosPacientes: Turno[] = [];
   public pacienteSelect: Paciente | null = null;
@@ -154,6 +155,7 @@ export class PacientesComponent implements OnInit {
   onReset() {
     this.historialClinico = [];
     this.turnosPacientes = [];
+    this.pacienteSelect = null;
     this.showPacientes = true; // Mostrar los pacientes cuando se cierra el historial
     this.cdr.detectChanges(); // Forzar la detección de cambios
   }
