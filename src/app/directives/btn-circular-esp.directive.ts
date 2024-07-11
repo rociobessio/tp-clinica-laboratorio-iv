@@ -8,7 +8,6 @@ export class BtnCircularEspDirective implements AfterViewInit{
 
   ngAfterViewInit(): void {
     const el = this.e.nativeElement;
-    console.log('en directiva!!!!!!!!1');
     el.classList.add('circular-div');
     el.style.width = '150px';
     el.style.height = '150px';

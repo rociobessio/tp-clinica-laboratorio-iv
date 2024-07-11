@@ -54,23 +54,20 @@
         </div>                 
         <!-- FIN DE SELECCIONAR UN ESPECIALISTA -->
 
-<!-- *ngFor="let especialidad of especialistaSelect.especialidad" -->
         <div *ngIf="especialistaSelect !== null && especialidadSelect ===''">
             <h1>Especialidades de {{especialistaSelect.nombre}} {{especialistaSelect.apellido}}</h1>
             <hr>
             <div class="row">
-                <div class="col-2 text-light text-center circular-div-especialidades mx-2 mb-5 align-items-center"
+                <div class="col-2 text-light text-center mx-2 mb-5 align-items-center"
                 (click)="setEspecialidad(especialidad.nombre)"
                 *ngFor="let especialidad of especialidadesDisponibles"
                 title="{{especialidad.nombre}}"
-                data-placement="bottom">
+                data-placement="bottom"
+                appBtnCuadradoEspecialidad>
                 <img src="{{especialidad.img? especialidad.img : 'assets/def-icon.png'}}" class="img-especialidad" alt="logo{{especialidad.nombre}}"
-                appNotImage>
+                appNotImage >
                 <!-- <img src="especialidad.img? especialidad.img : null"
                 alt="logo{{especialidad.nombre}}" appNotImage class="img-especialidad"> -->
-
-
-
                 </div>
                 <br>
             </div>
@@ -94,7 +91,7 @@
                         <div class="col-6">
                             <h4 class="pt-3 mt-5">Dr. {{especialistaSelect?.apellido}}, {{especialistaSelect?.nombre}} </h4>
                         </div>
-                        <div class="col-6 circular-div border border-3 border-secondary">
+                        <div class="col-6 border border-3 border-secondary" appBtnCircularEsp>
                             <img class="imgRedonda" src="{{especialistaSelect?.img}}" alt="img-especialista">
                         </div>
                         <hr>

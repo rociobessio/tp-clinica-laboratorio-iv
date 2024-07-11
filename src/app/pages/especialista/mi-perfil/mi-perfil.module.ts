@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { MiPerfilRoutingModule } from './mi-perfil-routing.module';
 import { MiPerfilComponent } from './mi-perfil.component';
 import { HorariosModule } from '../../../modules/horarios/horarios.module';
+import { FormatoDniModule } from '../../../modules/pipes/formato-dni/formato-dni.module';
+import { DoctorModule } from '../../../modules/pipes/doctor/doctor.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,9 @@ import { HorariosModule } from '../../../modules/horarios/horarios.module';
   imports: [
     CommonModule,
     MiPerfilRoutingModule,
-    HorariosModule
+    HorariosModule,
+    FormatoDniModule,
+    DoctorModule
   ]
 })
 export class MiPerfilModule { }

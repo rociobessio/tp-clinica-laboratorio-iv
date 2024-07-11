@@ -17,8 +17,8 @@
                         </div>
                         <hr>
 
-                        <h4>Dr. {{especialista.apellido}}, {{especialista.nombre}}</h4>
-                        <h5>DNI: {{especialista.dni}}</h5>
+                        <h4>{{ especialista.nombre | doctor }} {{ especialista.apellido }}</h4>
+                        <h5>DNI: {{especialista.dni.toString()| formatoDni}}</h5>
                         <h5>Email: {{especialista.email}}</h5>
                         <h5>Edad: {{especialista.edad}}</h5>
                         <h5>Especialidades:</h5>

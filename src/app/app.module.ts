@@ -14,12 +14,14 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { NotImageDirective } from './directives/not-image.directive';
 import { BtnCircularEspDirective } from './directives/btn-circular-esp.directive';
+import { BtnCuadradoEspecialidadDirective } from './directives/btn-cuadrado-especialidad.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotImageDirective,
-    BtnCircularEspDirective
+    BtnCircularEspDirective,
+    BtnCuadradoEspecialidadDirective
   ],
   imports: [
     BrowserModule,
