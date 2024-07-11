@@ -113,6 +113,10 @@ div[appBtnCuadradoEspecialidad]{
   background-color: darkslategrey;
 }
 
+div[appBtnCuadradoEspecialidad]:hover{
+  background-color: #0b1d60;
+}
+
 .div-horarios {
   background-color: #0b1d60;
   color: white;
