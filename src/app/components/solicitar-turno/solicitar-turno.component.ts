@@ -12,7 +12,7 @@ import { TurnoService } from '../../services/turno.service';
 import { Paciente } from '../../interfaces/paciente.interface';
 import { PacienteService } from '../../services/paciente.service';
 import Swal from 'sweetalert2';
-import { set } from 'firebase/database';
+import { NotImageDirective } from '../../directives/not-image.directive';
 
 @Component({
   selector: 'app-solicitar-turno',

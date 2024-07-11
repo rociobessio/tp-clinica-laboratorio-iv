@@ -66,8 +66,8 @@
                 appBtnCuadradoEspecialidad>
                 <img src="{{especialidad.img? especialidad.img : 'assets/def-icon.png'}}" class="img-especialidad" alt="logo{{especialidad.nombre}}"
                 appNotImage >
-                <!-- <img src="especialidad.img? especialidad.img : null"
-                alt="logo{{especialidad.nombre}}" appNotImage class="img-especialidad"> -->
+                <!-- <img appNotImage src="{{especialidad.img}}"
+                alt="logo{{especialidad.nombre}}" class="img-especialidad"> -->
                 </div>
                 <br>
             </div>
@@ -110,8 +110,9 @@
                 <div class="row justify-content-between">
                     <ng-container *ngFor="let elemento of turnosDisponibles; let i = index">
                         <div class="col-3 col-xl-3 py-1" *ngIf="getElementFromArray(turnosDisponibles, i).length > 0">
-                            <div class="div-horarios rounded-3 text-center py-5"
-                            (click)="getFechaTurno(elemento, i,elemento.dia)">
+                            <div  class="div-horarios rounded-3 text-center py-5"
+                            (click)="getFechaTurno(elemento, i,elemento.dia)"
+                            appBorderFocusHorario>
                                 <!-- <h4>{{elemento.dia}} - {{ getFecha(turnosDisponibles, i) }}</h4> -->
                                 <h4>{{ getFecha(turnosDisponibles, i) }}</h4>
                             </div>

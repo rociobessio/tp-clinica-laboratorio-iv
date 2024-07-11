@@ -7,11 +7,13 @@ import { AuthService } from '../../../services/auth.service';
 import { Turno } from '../../../interfaces/turno.interface';
 import { TurnoService } from '../../../services/turno.service';
 import Swal from 'sweetalert2';
+import { slideInAnimation } from '../../../animations/animation';
 
 @Component({
   selector: 'app-mis-pacientes',
   templateUrl: './mis-pacientes.component.html',
-  styleUrl: './mis-pacientes.component.css'
+  styleUrl: './mis-pacientes.component.css',
+  animations: [slideInAnimation]
 })
 export class MisPacientesComponent implements OnInit {
   public historiaClinica: HistoriaClinica[] = [];

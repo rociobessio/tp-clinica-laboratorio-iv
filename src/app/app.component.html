@@ -1,4 +1,4 @@
-<div [@routeAnimations]="o?.activatedRouteData?.['animation']" class="content">
+<div [@routeAnimations]="prepareRoute(o)" class="content">
   <div class="col-12">
     <router-outlet #o="outlet"></router-outlet>
   </div>

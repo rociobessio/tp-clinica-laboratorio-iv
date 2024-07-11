@@ -15,13 +15,15 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { NotImageDirective } from './directives/not-image.directive';
 import { BtnCircularEspDirective } from './directives/btn-circular-esp.directive';
 import { BtnCuadradoEspecialidadDirective } from './directives/btn-cuadrado-especialidad.directive';
+import { BorderFocusHorarioDirective } from './directives/border-focus-horario.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotImageDirective,
     BtnCircularEspDirective,
-    BtnCuadradoEspecialidadDirective
+    BtnCuadradoEspecialidadDirective,
+    BorderFocusHorarioDirective
   ],
   imports: [
     BrowserModule,

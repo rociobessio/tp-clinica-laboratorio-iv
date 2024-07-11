@@ -6,6 +6,7 @@ import { SolicitarTurnoComponent } from '../../components/solicitar-turno/solici
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HoraFormatoModule } from '../pipes/hora-formato/hora-formato.module';
 import { DoctorModule } from '../pipes/doctor/doctor.module';
+import { NotImageDirective } from '../../directives/not-image.directive';
 
 
 @NgModule({

@@ -112,6 +112,18 @@ div[appBtnCuadradoEspecialidad]{
   cursor: pointer;
   background-color: darkslategrey;
 }
+
+.div-horarios {
+  background-color: #0b1d60;
+  color: white;
+  border: 2px solid transparent; /* Asegúrate de tener un borde inicial */
+  transition: all 0.3s ease-in-out;
+}
+
+div[appBorderFocusHorario]:hover {
+  transform: scale(1.1);
+  border: 10px solid darkslategrey;
+}
 /* .circular-div:hover,
 .paciente-div:hover{
   transform: scale(1.1); 
@@ -125,10 +137,6 @@ div[appBtnCuadradoEspecialidad]{
 /* FIN DE LA MODIFICACION DE LAS ESPECIALIDADES */
 
 /* INICIO DE MODIFICACION DIV HORARIOS */
-.div-horarios{
-  background-color: #0b1d60;
-  color: white;
-}
 
 /* FIN DE MODIFICACION DIV HORARIOS */
 
