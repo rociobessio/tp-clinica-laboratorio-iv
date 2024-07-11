@@ -29,6 +29,7 @@ export class MiHistorialClinicoComponent implements OnInit {
   public especialistasFiltrados: Especialista[] = [];
   public especialistaSeleccionado: string = 'todos';
 
+  public historialMostrar: HistoriaClinica[] = [];
 ////////////////////////////////////////////// CTOR & ONINIT //////////////////////////////////////////////
   constructor(private historiaClinicaService : HistoriaClinicaService,
     private authService : AuthService, private pacienteService : PacienteService,
@@ -58,6 +59,7 @@ export class MiHistorialClinicoComponent implements OnInit {
 
                                 //-->para cargar el select
                                 this.onFiltrarEspecialistasHistoriaClinica();
+                                this.historialMostrar = [...this.historialClinico]; // Hacer una copia para evitar mutaciones inesperadas
                                 
                                 console.log('Historial clínico cargado.');
                               } else {
@@ -220,5 +222,44 @@ export class MiHistorialClinicoComponent implements OnInit {
     });
 
     return y;
+  }
+
+
+//////////////////////////////////////////// FILTRADO ////////////////////////////////////////////
+
+  contieneSubcadenaIgnoreCase(cadenaPrincipal: any, subcadena: string): boolean {
+    if (typeof cadenaPrincipal !== 'string') {
+        cadenaPrincipal = String(cadenaPrincipal);
+    }
+    return cadenaPrincipal.toLowerCase().includes(subcadena.toLowerCase());
+  }
+
+  contieneSubcadenaIgnoreCaseDatos(datos: DatoDinamico[], subcadena: string): boolean {
+    return datos.some(dato =>
+        Object.keys(dato).some(key =>
+            this.contieneSubcadenaIgnoreCase(key, subcadena) ||
+            this.contieneSubcadenaIgnoreCase(dato[key], subcadena)
+        )
+    );
+  }
+
+  onFiltrarHistorial(event: any): void {
+    const valor = event.target.value;
+
+    if (valor === '') {
+        this.historialMostrar = [...this.historialClinico];
+    } else {
+        this.historialMostrar = this.historialClinico.filter(hist =>
+            this.contieneSubcadenaIgnoreCase(hist.altura, valor) ||
+            this.contieneSubcadenaIgnoreCase(hist.emailEspecialista, valor) ||
+            this.contieneSubcadenaIgnoreCase(hist.peso, valor) ||
+            this.contieneSubcadenaIgnoreCase(hist.especialidad, valor) ||
+            this.contieneSubcadenaIgnoreCase(hist.presion, valor) ||
+            this.contieneSubcadenaIgnoreCase(hist.temperatura, valor) ||
+            this.contieneSubcadenaIgnoreCaseDatos(hist.datos, valor)
+        );
+        console.log(valor);
+    }
+    this.cdRef.detectChanges();
   }
 }

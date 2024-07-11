@@ -15,8 +15,19 @@
             Descargar Historial Clinico
           </button>
         </div>
-    </div>
-    <!-- FIN DEL BOTON DE DESCARGA -->  
+    </div><br>
+    <!-- FIN DEL BOTON DE DESCARGA --> 
+     
+    <!-- INICIO PARA FILTRAR LA TABLA DEL HISTORIAL CLINICO -->
+    <div class="row justify-content-start">
+        <div  class="col-6 mt-2">
+          <label for="filtroNombre">Buscar:</label>
+        </div>
+        <div class="col-6">
+            <input type="text" class="input form-control" (input)="onFiltrarHistorial($event)">
+        </div>
+    </div><br>
+    <!-- FIN PARA FILTRAR LA TABLA DEL HISTORIAL CLINICO -->
       
     
 
@@ -35,7 +46,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let historiaClinica of historialClinico">
+                <tr *ngFor="let historiaClinica of historialMostrar">
                     <td *ngIf="getEspecialista((historiaClinica.emailEspecialista))" class="text-align-center">
                         {{ especialista.nombre | doctor }} {{ especialista.apellido }}
                     </td>
