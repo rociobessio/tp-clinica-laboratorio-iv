@@ -55,36 +55,46 @@
               <div class="table-responsive p-5">
                 <h6 class="text-align-left">Historiales Clínicos</h6>
                 <hr>
-                  <table class="table">
-                      <thead>
-                          <tr>
-                              <th>Paciente</th>
-                              <th>Especialista</th>
-                              <th>Especialidad</th>
-                              <th>Peso</th>
-                              <th>Altura</th>
-                              <th>Presión</th>
-                              <th>Temperatura</th>
-                              <th>Observación</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr *ngFor="let historiaClinica of historialClinico">
-                              <td>{{getPaciente(historiaClinica.emailPaciente)}}</td>
-                              <td>{{getEspecialista(historiaClinica.emailEspecialista)}}</td>
-                              <td>{{historiaClinica.especialidad}}</td>
-                              <td>{{historiaClinica.peso}}</td>
-                              <td>{{historiaClinica.altura}}</td>
-                              <td>{{historiaClinica.presion}}</td>
-                              <td>{{historiaClinica.temperatura}}</td>
-                              <td>
-                                  <div class="text-light" *ngFor="let dato of historiaClinica.datos">
-                                      {{ sacarKey(dato) }}: {{ dato[sacarKey(dato)] }}
-                                  </div>
-                              </td>
-                          </tr>
-                      </tbody>
-                  </table>
+                <!-- INICIO DEL FILTRO HISTORIA CLINICA -->
+                <div class="row justify-content-start">
+                    <div  class="col-6 mt-2">
+                      <label for="filtroNombre">Buscar:</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" class="input form-control" (input)="onFiltrarHistorial($event)">
+                    </div>
+                </div><br>
+                <!-- FIN DEL FILTRO HISTORIA CLINICA -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Paciente</th>
+                            <th>Especialista</th>
+                            <th>Especialidad</th>
+                            <th>Peso</th>
+                            <th>Altura</th>
+                            <th>Presión</th>
+                            <th>Temperatura</th>
+                            <th>Observación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let historiaClinica of historialMostrar">
+                            <td>{{getPaciente(historiaClinica.emailPaciente)}}</td>
+                            <td>{{getEspecialista(historiaClinica.emailEspecialista)}}</td>
+                            <td>{{historiaClinica.especialidad}}</td>
+                            <td>{{historiaClinica.peso}}</td>
+                            <td>{{historiaClinica.altura}}</td>
+                            <td>{{historiaClinica.presion}}</td>
+                            <td>{{historiaClinica.temperatura}}</td>
+                            <td>
+                                <div class="text-light" *ngFor="let dato of historiaClinica.datos">
+                                    {{ sacarKey(dato) }}: {{ dato[sacarKey(dato)] }}
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
               </div>
           </div>
           <!-- FIN PARA VER EL HISTORIAL CLINICO DEL PACIENTE SELECCIONADO -->

@@ -32,12 +32,13 @@ export class PacientesComponent implements OnInit {
   
   showPacientes = true;
   mostrarHistorial: boolean = false;//-->Para mostrar una tabla o la otra
-  public rolUsuario: string = 'administrador';//-->Para el fab-button
 
   public turnosPacientes: Turno[] = [];
   public pacienteSelect: Paciente | null = null;
   public emailPaciente!: string; 
   public especialista!: Especialista;
+  
+  public historialMostrar: HistoriaClinica[] = [];
   ////////////////////////////////////// CTOR & ONINIT //////////////////////////////////////
   constructor(
     private pacientesService: PacienteService,
@@ -103,6 +104,7 @@ export class PacientesComponent implements OnInit {
           });
         } else {
           this.historialClinico = historial;
+          this.historialMostrar = [...this.historialClinico]; // Hacer una copia para evitar mutaciones inesperadas
           this.showPacientes = false;//-->Ocultar los pacientes cuando se muestra el historial
         }
         this.cdr.detectChanges();//-->Forzar la detección de cambios
@@ -155,6 +157,7 @@ export class PacientesComponent implements OnInit {
   onReset() {
     this.historialClinico = [];
     this.turnosPacientes = [];
+    this.historialMostrar = [];
     this.pacienteSelect = null;
     this.showPacientes = true;
     this.cdr.detectChanges();
@@ -167,5 +170,45 @@ export class PacientesComponent implements OnInit {
       }
     }
     return '';
+  }
+
+
+//////////////////////////////////////////// FILTRADO ////////////////////////////////////////////
+
+  contieneSubcadenaIgnoreCase(cadenaPrincipal: any, subcadena: string): boolean {
+    if (typeof cadenaPrincipal !== 'string') {
+        cadenaPrincipal = String(cadenaPrincipal);
+    }
+    return cadenaPrincipal.toLowerCase().includes(subcadena.toLowerCase());
+  }
+
+  contieneSubcadenaIgnoreCaseDatos(datos: DatoDinamico[], subcadena: string): boolean {
+    return datos.some(dato =>
+        Object.keys(dato).some(key =>
+            this.contieneSubcadenaIgnoreCase(key, subcadena) ||
+            this.contieneSubcadenaIgnoreCase(dato[key], subcadena)
+        )
+    );
+  }
+
+  onFiltrarHistorial(event: any): void {
+    const valor = event.target.value;
+
+    if (valor === '') {
+        this.historialMostrar = [...this.historialClinico];
+    } else {
+        this.historialMostrar = this.historialClinico.filter(hist =>
+            this.contieneSubcadenaIgnoreCase(hist.altura, valor) ||
+            this.contieneSubcadenaIgnoreCase(hist.emailEspecialista, valor) ||
+            this.contieneSubcadenaIgnoreCase(hist.peso, valor) ||
+            this.contieneSubcadenaIgnoreCase(hist.especialidad, valor) ||
+            this.contieneSubcadenaIgnoreCase(this.getPaciente(hist.emailPaciente), valor) ||
+            this.contieneSubcadenaIgnoreCase(hist.presion, valor) ||
+            this.contieneSubcadenaIgnoreCase(hist.temperatura, valor) ||
+            this.contieneSubcadenaIgnoreCaseDatos(hist.datos, valor)
+        );
+        console.log(valor);
+    }
+    this.cdr.detectChanges();
   }
 }
