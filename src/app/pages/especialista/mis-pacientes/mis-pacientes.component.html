@@ -1,4 +1,3 @@
-<!-- mis-pacientes.component.html -->
 <main>
   <div class="container p-4">
     <h2>Mis Pacientes</h2>
@@ -6,6 +5,18 @@
 
     <!-- INICIO DE MOSTRAR LOS HISTORIALES -->
     <div class="py-3 justify-content-center" *ngIf="historiaClinica.length > 0">
+
+      <!-- INICIO DE BUSCAR PARA FILTRAR HISTORIAL -->
+      <div class="row justify-content-start">
+        <div  class="col-6 mt-2">
+          <label for="filtroNombre">Buscar:</label>
+        </div>
+        <div class="col-6">
+            <input type="text" class="input form-control" (input)="onFiltrarHistorial($event)">
+        </div>
+      </div>
+      <!-- HISTORIAL DE BUSCAR PARA FILTRAR HISTORIAL -->
+      
       <button type="button" class="btn btn-sm btn-outline-danger m-2" (click)="onReset()">Cerrar</button><br>
       <!-- FIN DE RESETEAR EL HISTORIAL -->
       <div class="table-responsive">
@@ -23,7 +34,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let historiaClinica of historiaClinica">
+            <tr *ngFor="let historiaClinica of historialMostrar">
               <td>{{getPaciente(historiaClinica.emailPaciente)}}</td>
               <td>{{historiaClinica.especialidad}}</td>
               <td>{{historiaClinica.peso}}</td>
@@ -42,7 +53,7 @@
                 <span *ngIf="getReseniaByEmailAndEspecialidad(historiaClinica.emailPaciente, historiaClinica.especialidad) === ''">Sin Reseña</span>
               </td>
             </tr>
-          </tbody>
+          </tbody>          
         </table>          
       </div>
     </div>

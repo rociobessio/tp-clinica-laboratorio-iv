@@ -13,87 +13,66 @@ import Swal from 'sweetalert2';
   templateUrl: './mis-pacientes.component.html',
   styleUrl: './mis-pacientes.component.css'
 })
-export class MisPacientesComponent implements OnInit{
-////////////////////////////////// ATRIBUTOS //////////////////////////////////
-  public historiaClinica : HistoriaClinica[] = [];
+export class MisPacientesComponent implements OnInit {
+  public historiaClinica: HistoriaClinica[] = [];
   public especialistaEmail!: string;
-  public pacientes : Paciente[] =[];
-  public todosHistorialesClinicos: HistoriaClinica[] =[];
+  public pacientes: Paciente[] = [];
+  public todosHistorialesClinicos: HistoriaClinica[] = [];
   public paciente!: Paciente;
   public turnos: Turno[] = [];
-////////////////////////////////// CTOR & ONINIT //////////////////////////////////
-  constructor(private pacienteService : PacienteService, private historiaClinicaService : HistoriaClinicaService,
-    private authService : AuthService,private cdr: ChangeDetectorRef, private turnosService : TurnoService) {}
+  public historialMostrar: HistoriaClinica[] = [];
 
-    ngOnInit(): void {
-      this.authService.getUserLogged()
-        .subscribe(user => {
-          this.especialistaEmail = user?.email!;
-          this.pacienteService.traer()
-            .subscribe(pacientes => {
-              for (const paciente of pacientes) {
-                this.historiaClinicaService.traerHistorialClinicoPorID(paciente.idDoc)
-                  .subscribe(historiales => {
-                    for (const historial of historiales) {
-                      if (historial.emailEspecialista === this.especialistaEmail) {
-                        this.todosHistorialesClinicos.push(historial);
-  
-                        if (!this.pacientes.some(p => p.email === paciente.email)) {
-                          this.pacientes.push(paciente);
-                          this.cdr.detectChanges();
-                        }
-                      }
-                    }
-                  });
-  
-                this.turnosService.getTurnosByEmailPaciente(paciente.email)
-                  .subscribe((turnos) => {
-                    for (const turno of turnos) {
-                      if (turno.emailEspecialista === this.especialistaEmail) {
-                        this.turnos.push(turno);
-                      }
-                    }
-                    this.cdr.detectChanges();
-                  });
+  constructor(
+    private pacienteService: PacienteService,
+    private historiaClinicaService: HistoriaClinicaService,
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef,
+    private turnosService: TurnoService
+  ) {}
+
+  ngOnInit(): void {
+    this.authService.getUserLogged().subscribe(user => {
+      this.especialistaEmail = user?.email!;
+      this.pacienteService.traer().subscribe(pacientes => {
+        for (const paciente of pacientes) {
+          this.historiaClinicaService.traerHistorialClinicoPorID(paciente.idDoc).subscribe(historiales => {
+            for (const historial of historiales) {
+              if (historial.emailEspecialista === this.especialistaEmail) {
+                this.todosHistorialesClinicos.push(historial);
+
+                if (!this.pacientes.some(p => p.email === paciente.email)) {
+                  this.pacientes.push(paciente);
+                  this.cdr.detectChanges();
+                }
               }
-            });
-        });
-    }
-////////////////////////////////// METODOS //////////////////////////////////
-  /**
-   * Para obtener al paciente.
-   * @param email el email 
-   * del paciente
-   * @returns 
-   */
-  getPaciente(email: string){
-    for (const pac of this.pacientes) {
-      if (pac.email === email) {
-        return `${pac.nombre} ${pac.apellido}`
-        // this.paciente = pac;
-      }
-    }
-    return '';
-  }
-  
+            }
+          });
 
-  /**
-   * Para sacar la key
-   * del dato dinamico.
-   * @param datos 
-   * @returns 
-   */
-  sacarKey(datos: DatoDinamico) {
-    return Object.keys(datos)[0]
+          this.turnosService.getTurnosByEmailPaciente(paciente.email).subscribe(turnos => {
+            for (const turno of turnos) {
+              if (turno.emailEspecialista === this.especialistaEmail) {
+                this.turnos.push(turno);
+              }
+            }
+            this.cdr.detectChanges();
+          });
+        }
+      });
+    });
   }
 
-  /**
-   * Obtengo el historial
-   * del paciente.
-   * @param paciente el paciente
-   */
+  getPaciente(email: string): string {
+    const paciente = this.pacientes.find(p => p.email === email);
+    return paciente ? `${paciente.nombre} ${paciente.apellido}` : '';
+  }
+
+  sacarKey(datos: DatoDinamico): string {
+    return Object.keys(datos)[0];
+  }
+
   onGetHistorial(paciente: Paciente): void {
     this.historiaClinica = this.todosHistorialesClinicos.filter(his => his.emailPaciente === paciente.email);
+    this.historialMostrar = [...this.historiaClinica]; // Hacer una copia para evitar mutaciones inesperadas
     this.cdr.detectChanges();
   }
 
@@ -106,15 +85,12 @@ export class MisPacientesComponent implements OnInit{
     return this.turnos.find(t => t.emailPaciente === emailPaciente && t.especialidad === especialidad && t.resenia !== '');
   }
 
-  /**
-   * Elimino el contenido
-   * del array de historias
-   * clinicas.
-   */
   onReset() {
     this.historiaClinica = [];
+    this.historialMostrar = [];
     this.cdr.detectChanges();
   }
+
   onVerResenia(turno?: Turno): void {
     if (turno && turno.resenia) {
       Swal.fire({
@@ -135,4 +111,43 @@ export class MisPacientesComponent implements OnInit{
       });
     }
   }
-}  
+
+//////////////////////////////////////////// FILTRADO ////////////////////////////////////////////
+
+  contieneSubcadenaIgnoreCase(cadenaPrincipal: any, subcadena: string): boolean {
+    if (typeof cadenaPrincipal !== 'string') {
+        cadenaPrincipal = String(cadenaPrincipal);
+    }
+    return cadenaPrincipal.toLowerCase().includes(subcadena.toLowerCase());
+}
+
+  contieneSubcadenaIgnoreCaseDatos(datos: DatoDinamico[], subcadena: string): boolean {
+    return datos.some(dato =>
+        Object.keys(dato).some(key =>
+            this.contieneSubcadenaIgnoreCase(key, subcadena) ||
+            this.contieneSubcadenaIgnoreCase(dato[key], subcadena)
+        )
+    );
+}
+
+  onFiltrarHistorial(event: any): void {
+    const valor = event.target.value;
+
+    if (valor === '') {
+        this.historialMostrar = [...this.historiaClinica];
+    } else {
+        this.historialMostrar = this.historiaClinica.filter(hist =>
+            this.contieneSubcadenaIgnoreCase(hist.altura, valor) ||
+            this.contieneSubcadenaIgnoreCase(hist.emailEspecialista, valor) ||
+            this.contieneSubcadenaIgnoreCase(hist.peso, valor) ||
+            this.contieneSubcadenaIgnoreCase(hist.especialidad, valor) ||
+            this.contieneSubcadenaIgnoreCase(this.getPaciente(hist.emailPaciente), valor) ||
+            this.contieneSubcadenaIgnoreCase(hist.presion, valor) ||
+            this.contieneSubcadenaIgnoreCase(hist.temperatura, valor) ||
+            this.contieneSubcadenaIgnoreCaseDatos(hist.datos, valor)
+        );
+        console.log(valor);
+    }
+    this.cdr.detectChanges();
+  }
+}

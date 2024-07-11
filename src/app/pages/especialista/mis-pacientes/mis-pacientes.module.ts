@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MisPacientesRoutingModule } from './mis-pacientes-routing.module';
 import { MisPacientesComponent } from './mis-pacientes.component';
 import { FabButtonModule } from '../../../modules/fab-button/fab-button.module';
+import { HistorialClinicoFilterModule } from '../../../modules/historial-clinico-filter/historial-clinico-filter.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { FabButtonModule } from '../../../modules/fab-button/fab-button.module';
   imports: [
     CommonModule,
     MisPacientesRoutingModule,
-    FabButtonModule
+    FabButtonModule,
+    HistorialClinicoFilterModule
   ]
 })
 export class MisPacientesModule { }

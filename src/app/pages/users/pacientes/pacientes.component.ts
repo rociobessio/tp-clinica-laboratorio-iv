@@ -156,8 +156,8 @@ export class PacientesComponent implements OnInit {
     this.historialClinico = [];
     this.turnosPacientes = [];
     this.pacienteSelect = null;
-    this.showPacientes = true; // Mostrar los pacientes cuando se cierra el historial
-    this.cdr.detectChanges(); // Forzar la detección de cambios
+    this.showPacientes = true;
+    this.cdr.detectChanges();
   }
 
   getPaciente(email: string) {
